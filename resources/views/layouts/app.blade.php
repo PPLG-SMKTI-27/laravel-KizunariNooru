@@ -11,13 +11,12 @@
 </head>
 <body class="bg-slate-900 text-gray-200 font-inter">
 
-    @include('components.navbar')
+    <x-navbar/>
 
     <main>
         @yield('content')
     </main>
 
-    @include('components.footer')
-
+    <x-footer/>
 </body>
 </html>

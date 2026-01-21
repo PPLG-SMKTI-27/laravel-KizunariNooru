@@ -1,29 +1,37 @@
 @vite('resources/css/app.css')
 
-<section id="about" class="relative container mx-auto px-6 py-32 bg-blue-200">
+<section id="about"
+    class="relative container mx-auto px-6 py-36
+           bg-gradient-to-b from-sky-200 via-blue-200 to-indigo-200
+           overflow-hidden">
 
-    <!-- Decorative Glow -->
-    <div class="absolute -top-20 -left-20 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl"></div>
-    <div class="absolute top-40 -right-20 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl"></div>
+    <!-- Decorative Water Glow -->
+    <div class="absolute -top-32 -left-32 w-[28rem] h-[28rem]
+                bg-sky-400/30 rounded-full blur-3xl"></div>
 
-    <div class="relative grid md:grid-cols-2 gap-16 items-center">
+    <div class="absolute top-40 -right-32 w-[28rem] h-[28rem]
+                bg-blue-500/30 rounded-full blur-3xl"></div>
+
+    <div class="relative grid md:grid-cols-2 gap-20 items-center">
 
         <!-- TEXT -->
         <div>
-            <h2 class="text-5xl font-serif text-yellow-300 mb-6">
+            <h2 class="text-5xl md:text-6xl font-serif
+                       text-white mb-8
+                       drop-shadow-[0_0_30px_rgba(56,189,248,0.7)]">
                 About Me
             </h2>
 
-            <p class="text-gray-300 leading-relaxed mb-6">
+            <p class="text-slate-700 text-lg leading-relaxed mb-6">
                 Saya adalah web developer yang fokus pada desain
-                <span class="text-blue-300">elegan</span>,
-                <span class="text-blue-300">modern</span>,
+                <span class="text-sky-600 font-medium"> elegan</span>,
+                <span class="text-sky-600 font-medium"> modern</span>,
                 dan performa tinggi.
                 Terinspirasi oleh keindahan dan drama ala
-                <span class="text-yellow-300">Furina</span>.
+                <span class="text-indigo-700 font-semibold"> Furina</span>.
             </p>
 
-            <p class="text-gray-400 text-sm max-w-xl">
+            <p class="text-slate-600 text-sm max-w-xl">
                 Saya mengembangkan website menggunakan Laravel
                 dengan pendekatan clean code, UI profesional,
                 dan pengalaman pengguna yang premium.
@@ -31,23 +39,39 @@
         </div>
 
         <!-- INFO CARD -->
-        <div class="bg-slate-800/70 backdrop-blur rounded-xl p-8 border border-slate-700">
-            <ul class="space-y-4 text-sm">
+        <div
+            class="relative bg-white/20 backdrop-blur-xl
+                   rounded-2xl p-10
+                   border border-white/40
+                   shadow-[0_0_50px_rgba(56,189,248,0.25)]">
+
+            <!-- Card Glow -->
+            <div class="absolute inset-0 rounded-2xl
+                        bg-gradient-to-br from-white/20 to-transparent
+                        pointer-events-none"></div>
+
+            <ul class="relative space-y-5 text-sm">
                 <li class="flex justify-between">
-                    <span class="text-gray-400">Role</span>
-                    <span class="text-gray-200">Web Developer</span>
+                    <span class="text-slate-600">Role</span>
+                    <span class="text-slate-800 font-medium">Web Developer</span>
                 </li>
                 <li class="flex justify-between">
-                    <span class="text-gray-400">Stack</span>
-                    <span class="text-gray-200">Laravel & Tailwind</span>
+                    <span class="text-slate-600">Stack</span>
+                    <span class="text-slate-800 font-medium">
+                        Laravel & Tailwind
+                    </span>
                 </li>
                 <li class="flex justify-between">
-                    <span class="text-gray-400">Focus</span>
-                    <span class="text-gray-200">Elegant UI / UX</span>
+                    <span class="text-slate-600">Focus</span>
+                    <span class="text-slate-800 font-medium">
+                        Elegant UI / UX
+                    </span>
                 </li>
                 <li class="flex justify-between">
-                    <span class="text-gray-400">Theme</span>
-                    <span class="text-yellow-300">Furina Inspired</span>
+                    <span class="text-slate-600">Theme</span>
+                    <span class="text-sky-600 font-semibold">
+                        Furina Inspired
+                    </span>
                 </li>
             </ul>
         </div>
