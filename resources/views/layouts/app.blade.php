@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Furina Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Portfolio')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    @vite('resources/css/app.css')
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-slate-900 text-gray-200 font-inter">
 
-    <x-navbar/>
+<body class="bg-gradient-to-br from-sky-950 via-blue-900 to-indigo-950 text-white overflow-x-hidden">
 
-    <main>
+    <x-background-rain />
+
+    <x-navbar />
+
+    <main class="relative z-10">
         @yield('content')
     </main>
 
-    <x-footer/>
+    <x-footer />
+
 </body>
 </html>

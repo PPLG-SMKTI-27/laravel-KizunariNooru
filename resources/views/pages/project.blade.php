@@ -19,7 +19,7 @@
             <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">
                     {{ $project['title'] }}
-                </h3>
+                </h3
 
                 <p class="text-sm text-gray-400">
                     {{ $project['description'] }}

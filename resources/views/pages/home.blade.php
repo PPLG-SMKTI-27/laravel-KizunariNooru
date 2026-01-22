@@ -1,100 +1,78 @@
 @extends('layouts.app')
-@section('title',)
+@section('title','Portfolio')
 
 @section('content')
-<!-- ================= HERO / HOME ================= -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden
-                bg-gradient-to-b from-sky-200 via-blue-300 to-indigo-300">
 
-    <!-- Background Glow -->
-    <div class="absolute -top-32 -left-32 w-[30rem] h-[30rem]
-                bg-white/40 rounded-full blur-3xl"></div>
+<!-- HOME -->
+<section id="home" class="min-h-screen flex items-center container mx-auto px-6 pt-32">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
 
-    <div class="absolute top-1/3 -right-40 w-[34rem] h-[34rem]
-                bg-sky-400/40 rounded-full blur-3xl"></div>
-
-    <div class="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-
-        <!-- TEXT -->
-        <div class="text-center lg:text-left">
-            <span
-                class="inline-flex items-center gap-2 px-4 py-1 mb-6
-                       rounded-full bg-white/30 backdrop-blur
-                       border border-white/40
-                       text-sm text-sky-800 font-medium">
-                Open for Collaboration
-            </span>
-
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6
-                       text-white
-                       drop-shadow-[0_0_40px_rgba(56,189,248,0.8)]">
-                Hi, I’m
-                <span class="text-indigo-700">
-                    Furina
-                </span>
+        <div>
+            <h1 class="text-5xl md:text-7xl font-serif text-sky-300">
+                Rusherimfa
             </h1>
-
-            <p class="text-lg md:text-xl text-slate-700
-                      font-medium max-w-xl mb-10">
-                Full Stack Developer crafting elegant, modern,
-                and high-performance web experiences with Laravel.
+            <p class="mt-6 text-slate-200 text-lg">
+                Web Developer • Laravel • UI Designer
             </p>
-
-            <!-- CTA -->
-            <div class="flex gap-5 flex-wrap justify-center lg:justify-start">
-                <a href="#projects"
-                   class="px-8 py-3 rounded-xl
-                          bg-indigo-600 text-white font-semibold
-                          shadow-lg shadow-indigo-600/30
-                          hover:scale-105 transition">
-                    View Projects
-                </a>
-
-                <a href="#contact"
-                   class="px-8 py-3 rounded-xl
-                          border border-indigo-600
-                          text-indigo-700 font-semibold
-                          hover:bg-indigo-600 hover:text-white
-                          transition">
-                    Contact Me
-                </a>
-            </div>
-
-            <!-- Social -->
-            <div class="mt-10 flex gap-4 justify-center lg:justify-start">
-                <a href="https://github.com/Fadlan079" target="_blank"
-                   class="social-btn bg-white/40 text-slate-700 hover:text-indigo-700">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/fadlan-firdaus-148344386/" target="_blank"
-                   class="social-btn bg-white/40 text-slate-700 hover:text-indigo-700">
-                    <i class="fa-brands fa-linkedin"></i>
-                </a>
-                <a href="https://instagram.com/fdln007" target="_blank"
-                   class="social-btn bg-white/40 text-slate-700 hover:text-indigo-700">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="mailto:fadlanfirdaus220@gmail.com"
-                   class="social-btn bg-white/40 text-slate-700 hover:text-indigo-700">
-                    <i class="fa-solid fa-envelope"></i>
-                </a>
-                <a href="https://wa.me/6282210732928" target="_blank"
-                   class="social-btn bg-white/40 text-slate-700 hover:text-indigo-700">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-            </div>
+            <x-social-links />
         </div>
 
-        <!-- OPTIONAL RIGHT SIDE (Glow Card / Illustration Placeholder) -->
-        <div class="hidden lg:block relative">
-            <div class="h-96 rounded-3xl
-                        bg-gradient-to-br from-white/40 to-sky-300/40
-                        backdrop-blur-xl
-                        border border-white/50
-                        shadow-[0_0_60px_rgba(56,189,248,0.4)]">
-            </div>
+        <!-- FOTO -->
+        <div class="relative flex justify-center md:justify-end">
+            <div class="absolute -right-10 w-72 h-72 bg-sky-400/20 blur-3xl rounded-full"></div>
+            <img
+                src="{{ asset('img/Furina1.jpg') }}"
+                class="relative w-64 h-64 md:w-96 md:h-96 rounded-full object-cover
+                       border-4 border-sky-300/50 animate-float"
+            >
         </div>
-
     </div>
 </section>
+
+<!-- ABOUT -->
+<section id="about" class="py-32 container mx-auto px-6">
+    <h2 class="section-title">About Me</h2>
+    <p class="max-w-3xl text-slate-200 leading-relaxed">
+        Saya adalah Web Developer yang fokus pada Laravel, UI modern,
+        dan pengalaman pengguna yang bersih.
+    </p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-32 bg-white/5">
+    <div class="container mx-auto px-6">
+        <h2 class="section-title">Skills</h2>
+        <div class="flex flex-wrap gap-4 mt-10">
+            @foreach(['Laravel','PHP','Tailwind','JavaScript','MySQL'] as $skill)
+                <span class="skill-pill">{{ $skill }}</span>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-32 container mx-auto px-6">
+    <h2 class="section-title">Projects</h2>
+
+    <div class="grid md:grid-cols-3 gap-8 mt-10">
+        <div class="project-card">Project One</div>
+        <div class="project-card">Project Two</div>
+        <div class="project-card">Project Three</div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-32 bg-white/5">
+    <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="section-title">Contact</h2>
+
+        <div class="space-y-6 mt-10">
+            <a href="mailto:email@gmail.com" class="contact-item">Email</a>
+            <a href="https://wa.me/628xxxx" class="contact-item">WhatsApp</a>
+            <a href="https://github.com" class="contact-item">GitHub</a>
+        </div>
+    </div>
+</section>
+
 @endsection
+

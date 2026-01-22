@@ -1,12 +1,138 @@
 @import 'tailwindcss';
 
-
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+}
+
+/* ======================
+   GLOBAL
+====================== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ======================
+   NAV
+====================== */
+.nav-link {
+    @apply text-white/70 hover:text-sky-300 transition relative;
+}
+
+.underline-glow::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: #38bdf8;
+    box-shadow: 0 0 15px #38bdf8;
+}
+
+/* ======================
+   SOCIAL BUTTON
+====================== */
+.social {
+    @apply px-4 py-2 rounded-full
+           bg-white/10 border border-white/10
+           hover:bg-sky-400/30 hover:border-sky-300/40
+           transition backdrop-blur;
+}
+
+/* ======================
+   SECTION TITLE
+====================== */
+.section-title {
+    @apply text-4xl md:text-5xl font-serif
+           text-sky-300 mb-10
+           drop-shadow-[0_0_20px_rgba(56,189,248,0.6)];
+}
+
+/* ======================
+   FLOAT IMAGE
+====================== */
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ======================
+   SKILLS
+====================== */
+.skill-pill {
+    @apply px-5 py-2 rounded-full text-sm
+           bg-white/10 text-sky-200
+           border border-sky-300/30
+           backdrop-blur
+           hover:bg-sky-400/20 hover:scale-105
+           transition;
+}
+
+/* ======================
+   PROJECT CARD
+====================== */
+.project-card {
+    @apply relative p-6 h-56 rounded-2xl
+           bg-white/10 border border-white/10
+           backdrop-blur
+           hover:-translate-y-2
+           hover:border-sky-300/40
+           hover:shadow-[0_0_40px_rgba(56,189,248,0.4)]
+           transition cursor-pointer;
+}
+
+/* ======================
+   CONTACT
+====================== */
+.contact-item {
+    @apply block p-6 rounded-2xl
+           bg-white/10 border border-white/10
+           backdrop-blur
+           hover:bg-sky-400/20 hover:border-sky-300/40
+           transition;
+}
+
+/* ======================
+   REVEAL SCROLL
+====================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s ease;
+}
+.reveal.show {
+    opacity: 1;
+    transform: none;
+}
+
+/* ======================
+   CODE RAIN BACKGROUND
+====================== */
+.code-rain {
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            180deg,
+            rgba(56,189,248,0.15) 0,
+            rgba(56,189,248,0.15) 2px,
+            transparent 2px,
+            transparent 12px
+        );
+    animation: rain 15s linear infinite;
+}
+
+@keyframes rain {
+    from { background-position-y: 0; }
+    to { background-position-y: 1000px; }
 }

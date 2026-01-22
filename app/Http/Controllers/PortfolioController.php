@@ -2,54 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class PortfolioController extends Controller
 {
-    // HALAMAN HOME (LANDING PAGE)
-    public function home()
-    {
-        // Bisa kirim dummy projects juga untuk section "Featured" misal
-        $projects = [
-            ['id' => 1, 'title' => 'Hydro Dashboard'],
-            ['id' => 2, 'title' => 'Fontaine Landing Page'],
-            ['id' => 3, 'title' => 'Elegant Portfolio'],
-        ];
-
-        return view('pages.home', compact('projects'));
-    }
+    private array $projects = [
+        [
+            'slug' => 'project-one',
+            'title' => 'Project One',
+            'description' => 'Deskripsi project satu',
+            'image' => '/images/projects/project1.png',
+            'tech' => ['Laravel', 'Tailwind', 'MySQL']
+        ],
+    ];
 
     public function index()
     {
-        $projects = [
-            ['id'=>1,'title'=>'Hydro Dashboard','description'=>'Dashboard admin elegan dengan Laravel dan Tailwind.'],
-            ['id'=>2,'title'=>'Fontaine Landing Page','description'=>'Landing page premium dengan desain sinematik.'],
-            ['id'=>3,'title'=>'Elegant Portfolio','description'=>'Portfolio profesional bertema Furina.'],
-            ['id'=>4,'title'=>'Admin Management','description'=>'Sistem manajemen admin full Laravel.'],
-        ];
-
-        return view('pages.portfolio', compact('projects'));
+        return view('pages.portfolio', [
+            'projects' => $this->projects
+        ]);
     }
 
-    public function show($id)
+    public function show(string $slug)
     {
-        $project = [
-            'id' => $id,
-            'title' => "Project {$id}",
-            'description' => 'Ini adalah halaman detail project dummy.',
-            'tech' => ['Laravel', 'Tailwind CSS', 'UI/UX Design'],
-        ];
+        $project = collect($this->projects)
+            ->firstWhere('slug', $slug);
 
-        return view('pages.portfolio-detail', compact('project'));
+        abort_if(!$project, 404);
+
+        return view('pages.project', compact('project'));
     }
 
-    public function about()
-    {
-        return view('pages.about');
-    }
-
-    public function contact()
-    {
-        return view('pages.contact');
-    }
+        
 }

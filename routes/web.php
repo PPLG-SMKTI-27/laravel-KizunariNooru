@@ -1,8 +1,15 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\{
+    HomeController,
+    PortfolioController,
+    AboutController,
+    ContactController
+};
 
-Route::get('/', [PortfolioController::class, 'home']);          // Landing page + About + Contact
-Route::get('/portfolio', [PortfolioController::class, 'index']); // All projects
-Route::get('/portfolio/{id}', [PortfolioController::class, 'show']); // Detail project
-
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [AboutController::class, 'index']);
+Route::get('/portfolio', [PortfolioController::class, 'index']);
+Route::get('/portfolio/{slug}', [PortfolioController::class, 'show']);
+Route::get('/contact', [ContactController::class, 'index']);
