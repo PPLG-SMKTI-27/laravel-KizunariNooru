@@ -1,6 +1,9 @@
-<div class="flex gap-4 mt-8">
-    <a href="https://instagram.com" class="social">IG</a>
-    <a href="https://github.com" class="social">GitHub</a>
-    <a href="https://linkedin.com" class="social">LinkedIn</a>
-    <a href="https://wa.me/6282353830741" class="social">WA</a>
-</div>
+<a
+  class="px-4 py-2 rounded-full
+         bg-white/10 border border-white/10
+         backdrop-blur
+         hover:bg-sky-400/30 hover:border-sky-300/40
+         transition"
+>
+  GitHub
+</a>

@@ -1,34 +1,8 @@
-@extends('layouts.app')
-@section('title','Contact')
+<section id="contact" class="py-32 bg-white/5">
+    <div class="container mx-auto px-6 max-w-xl">
+        <h2 class="text-3xl font-semibold mb-10">Contact</h2>
 
-@section('content')
-<section class="container mx-auto px-6 pt-32 max-w-3xl">
-
-    <h1 class="text-4xl font-serif text-sky-300 mb-10">
-        Contact Me
-    </h1>
-
-    <div class="space-y-6">
-        <a href="mailto:youremail@gmail.com"
-           class="block bg-white/5 p-6 rounded-2xl hover:bg-sky-400/10 transition">
-            📧 youremail@gmail.com
-        </a>
-
-        <a href="https://wa.me/628xxxx"
-           class="block bg-white/5 p-6 rounded-2xl hover:bg-sky-400/10 transition">
-            💬 WhatsApp
-        </a>
-
-        <a href="https://github.com/username"
-           class="block bg-white/5 p-6 rounded-2xl hover:bg-sky-400/10 transition">
-            💻 GitHub
-        </a>
-
-        <a href="https://linkedin.com/in/username"
-           class="block bg-white/5 p-6 rounded-2xl hover:bg-sky-400/10 transition">
-            🔗 LinkedIn
-        </a>
+        <a href="#" class="block p-5 bg-white/10 rounded-xl mb-4">Email</a>
+        <a href="#" class="block p-5 bg-white/10 rounded-xl">GitHub</a>
     </div>
-
 </section>
-@endsection

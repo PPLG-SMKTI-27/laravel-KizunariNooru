@@ -1,138 +1,196 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
+/* Furina/Hydro Theme */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+    --color-dark-bg: #0f0f1a;
+    --color-card-bg: #1a1a2e;
+    --color-furina-blue: #1e3a8a;
+    --color-hydro-cyan: #22d3ee;
+    --color-hydro-light: #67e8f9;
+    --color-gold: #fbbf24;
+    --color-purple-accent: #a855f7;
+    
+    --animation-float: float 6s ease-in-out infinite;
+    --animation-shimmer: shimmer 3s infinite;
+    --animation-rain: rain 2s linear infinite;
 }
 
-/* ======================
-   GLOBAL
-====================== */
-html {
-    scroll-behavior: smooth;
-}
-
-/* ======================
-   NAV
-====================== */
-.nav-link {
-    @apply text-white/70 hover:text-sky-300 transition relative;
-}
-
-.underline-glow::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 2px;
-    background: #38bdf8;
-    box-shadow: 0 0 15px #38bdf8;
-}
-
-/* ======================
-   SOCIAL BUTTON
-====================== */
-.social {
-    @apply px-4 py-2 rounded-full
-           bg-white/10 border border-white/10
-           hover:bg-sky-400/30 hover:border-sky-300/40
-           transition backdrop-blur;
-}
-
-/* ======================
-   SECTION TITLE
-====================== */
-.section-title {
-    @apply text-4xl md:text-5xl font-serif
-           text-sky-300 mb-10
-           drop-shadow-[0_0_20px_rgba(56,189,248,0.6)];
-}
-
-/* ======================
-   FLOAT IMAGE
-====================== */
 @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
 
-.animate-float {
-    animation: float 6s ease-in-out infinite;
-}
-
-/* ======================
-   SKILLS
-====================== */
-.skill-pill {
-    @apply px-5 py-2 rounded-full text-sm
-           bg-white/10 text-sky-200
-           border border-sky-300/30
-           backdrop-blur
-           hover:bg-sky-400/20 hover:scale-105
-           transition;
-}
-
-/* ======================
-   PROJECT CARD
-====================== */
-.project-card {
-    @apply relative p-6 h-56 rounded-2xl
-           bg-white/10 border border-white/10
-           backdrop-blur
-           hover:-translate-y-2
-           hover:border-sky-300/40
-           hover:shadow-[0_0_40px_rgba(56,189,248,0.4)]
-           transition cursor-pointer;
-}
-
-/* ======================
-   CONTACT
-====================== */
-.contact-item {
-    @apply block p-6 rounded-2xl
-           bg-white/10 border border-white/10
-           backdrop-blur
-           hover:bg-sky-400/20 hover:border-sky-300/40
-           transition;
-}
-
-/* ======================
-   REVEAL SCROLL
-====================== */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 1s ease;
-}
-.reveal.show {
-    opacity: 1;
-    transform: none;
-}
-
-/* ======================
-   CODE RAIN BACKGROUND
-====================== */
-.code-rain {
-    position: absolute;
-    inset: 0;
-    background-image:
-        repeating-linear-gradient(
-            180deg,
-            rgba(56,189,248,0.15) 0,
-            rgba(56,189,248,0.15) 2px,
-            transparent 2px,
-            transparent 12px
-        );
-    animation: rain 15s linear infinite;
+@keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
 }
 
 @keyframes rain {
-    from { background-position-y: 0; }
-    to { background-position-y: 1000px; }
+    0% { transform: translateY(-100px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Custom Styles */
+body {
+    @apply bg-dark-bg text-white font-sans;
+    overflow-x: hidden;
+}
+
+.hydro-gradient {
+    @apply bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600;
+}
+
+.hydro-gradient-text {
+    @apply bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent;
+}
+
+.hydro-border {
+    @apply border border-cyan-800/30;
+}
+
+.hydro-border-glow {
+    @apply border border-cyan-500/50 shadow-[0_0_20px_rgba(34,211,238,0.3)];
+}
+
+.glass-effect {
+    @apply bg-card-bg/80 backdrop-blur-lg border border-cyan-800/20;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-dark-bg;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-cyan-500 to-blue-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gradient-to-b from-blue-500 to-cyan-500;
+}
+
+/* Rain Effect Styles */
+.rain-drop {
+    position: absolute;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.8), rgba(59, 130, 246, 0.6));
+    border-radius: 0 0 2px 2px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.rain-drop-thin {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.5));
+}
+
+.rain-drop-thick {
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.7), rgba(34, 211, 238, 0.9));
+}
+
+.hydro-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.6), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.water-ripple {
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    height: 10px;
+    background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.3), transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+/* Rain Animation */
+@keyframes rain-fall {
+    0% {
+        transform: translateY(-100px) rotate(15deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rain-fall-slow {
+    0% {
+        transform: translateY(-100px) rotate(10deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(10deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rain-fall-fast {
+    0% {
+        transform: translateY(-100px) rotate(20deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+@keyframes float-particle {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(20px, -30px) scale(1.1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-15px, -50px) scale(0.9);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translate(10px, -20px) scale(1.05);
+        opacity: 0.5;
+    }
+}
+
+@keyframes ripple-expand {
+    0% {
+        transform: scale(0.1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
 }
