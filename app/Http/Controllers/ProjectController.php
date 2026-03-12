@@ -14,13 +14,20 @@ class ProjectController extends Controller
         return view('dashboard', compact('projects'));
     }
 
+    public function portfolio()
+    {
+        $projects = Project::latest()->get();
+        return view('pages.portfolio', compact('projects'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'tech' => 'nullable',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'tech' => 'nullable|string',
             'github' => 'nullable|url',
+            'demo' => 'nullable|url',
         ]);
 
         Project::create([
@@ -38,8 +45,11 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'tech' => 'nullable|string',
+            'github' => 'nullable|url',
+            'demo' => 'nullable|url',
         ]);
 
         $project->update([

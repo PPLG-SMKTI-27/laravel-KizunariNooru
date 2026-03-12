@@ -21,6 +21,8 @@
     {{-- tsParticles --}}
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
+
+
     @vite(['resources/css/app.css','resources/js/app.js'])
 
     <style>
@@ -126,34 +128,186 @@
             border-radius: .75rem; padding: .75rem 1rem; color: var(--white); font-size: .9rem; outline: none; transition: all .3s;
         }
         .input-furina:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(34,211,238,.1); }
+
+        /* ═══ MATRIX PRELOADER STYLES ═══ */
+        #matrix-preloader {
+            position: fixed; inset: 0; z-index: 10000;
+            background: #000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            overflow: hidden;
+            font-family: 'Inter', monospace;
+        }
+        #matrix-preloader.fade-out {
+            pointer-events: none !important;
+            z-index: -1 !important;
+        }
+        [x-cloak] { display: none !important; }
+
+        /* The Canvas for Matrix digital rain */
+        #matrix-canvas {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            z-index: 1; pointer-events: none !important;
+            opacity: 0.85; 
+        }
+
+        /* Overlay to darken edge / center for the console */
+        .matrix-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(2,6,23,0.9) 100%);
+            z-index: 2; pointer-events: none;
+        }
+
+        /* Center Terminal Panel */
+        .terminal-panel {
+            position: relative; z-index: 10;
+            max-width: 600px; width: 90%;
+            padding: 3rem;
+            background: rgba(4, 14, 30, 0.65);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 0.5rem;
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15), inset 0 0 20px rgba(6, 182, 212, 0.05);
+        }
+
+        /* Corner accents for the terminal */
+        .terminal-panel::before, .terminal-panel::after {
+            content: ''; position: absolute; width: 20px; height: 20px;
+            border-color: rgba(34, 211, 238, 0.5); pointer-events: none;
+        }
+        .terminal-panel::before {
+            top: -1px; left: -1px;
+            border-top: 2px solid; border-left: 2px solid;
+            border-top-left-radius: 0.5rem;
+        }
+        .terminal-panel::after {
+            bottom: -1px; right: -1px;
+            border-bottom: 2px solid; border-right: 2px solid;
+            border-bottom-right-radius: 0.5rem;
+        }
+
+        .terminal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(34, 211, 238, 0.15);
+            padding-bottom: 1rem; margin-bottom: 1.5rem;
+        }
+
+        .terminal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem; font-weight: 700;
+            color: #22d3ee; letter-spacing: 0.15em;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+
+        .blinker-block {
+            width: 12px; height: 18px; background: #67e8f9;
+            box-shadow: 0 0 10px #67e8f9;
+        }
+
+        .terminal-version {
+            font-size: 0.65rem; color: rgba(34, 211, 238, 0.5);
+            letter-spacing: 0.2em; font-family: monospace;
+        }
+
+        /* Logs Output */
+        .terminal-output {
+            display: flex; flex-direction: column; gap: 0.6rem;
+            min-height: 180px; max-height: 250px; overflow-y: hidden;
+            font-family: 'Inter', monospace; font-size: 0.8rem;
+            color: rgba(165, 243, 252, 0.85); /* a5f3fc */
+            text-shadow: 0 0 4px rgba(34, 211, 238, 0.2);
+            position: relative;
+        }
+
+        .log-line {
+            line-height: 1.4; opacity: 0;
+            transform: translateY(8px);
+        }
+
+        .log-prefix { color: #0891b2; margin-right: 0.5rem; }
+        .log-status { float: right; font-weight: 600; font-size: 0.7rem; letter-spacing: 0.1em; }
+        .log-status.ok { color: #34d399; }
+        .log-status.warn { color: #fbbf24; }
+        .log-status.err { color: #f87171; }
+
+        /* Highlight special Furina quotes in blue */
+        .quote-line { color: #818cf8; font-style: italic; font-family: 'Playfair Display', serif; font-size: 0.95rem; }
+
+        /* Progress Bar */
+        .terminal-progress-container {
+            margin-top: 2rem;
+        }
+        .progress-text-row {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-bottom: 0.5rem; font-size: 0.7rem; color: #67e8f9;
+        }
+        .progress-bar-wrapper {
+            width: 100%; height: 4px; background: rgba(34, 211, 238, 0.1);
+            position: relative; overflow: hidden; border-radius: 2px;
+        }
+        .progress-bar-fill {
+            height: 100%; width: 0%;
+            background: #22d3ee;
+            box-shadow: 0 0 15px #22d3ee, 0 0 5px #fff;
+        }
+        
+        /* ScanLine effect over the whole preloader */
+        .global-scanline {
+            position: absolute; inset: 0; pointer-events: none; z-index: 50;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(34,211,238,0.1) 50%, rgba(34,211,238,0.1));
+            background-size: 100% 4px; opacity: 0.3;
+        }
+        .scanbar {
+            position: absolute; left: 0; right: 0; height: 10px; top: -10px; z-index: 51; pointer-events: none;
+            background: linear-gradient(to bottom, transparent, rgba(6,182,212,0.4), transparent);
+            box-shadow: 0 0 20px rgba(34,211,238,0.3);
+            animation: scankey 4s linear infinite;
+        }
+        @keyframes scankey {
+            0% { top: -10px; }
+            100% { top: 100%; }
+        }
+
+        /* Final Fade Out */
+        .fade-out { opacity: 0 !important; visibility: hidden; transition: all 1s ease; }
+
+        @media (max-width: 480px) {
+            .terminal-panel { padding: 1.5rem; }
+            .terminal-output { min-height: 140px; font-size: 0.7rem; }
+        }
     </style>
 </head>
-<body>
-    {{-- Preloader Matrix/Terminal Style --}}
-    <div id="sys-preloader" class="fixed inset-0 z-[999999] bg-[#020617] flex flex-col items-center justify-center font-mono overflow-hidden">
-        {{-- Faint Grid for Preloader --}}
-        <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(var(--cyan) 1px, transparent 1px); background-size: 40px 40px;"></div>
-        
-        <div class="relative z-10 flex flex-col items-start max-w-md w-full px-6">
-            {{-- Spinning/Glitching Logo or Text --}}
-            <div class="text-cyan-400 font-bold text-2xl mb-8 tracking-[0.2em] relative flex items-center gap-3">
-                <span class="w-3 h-3 bg-cyan-400 animate-pulse"></span>
-                <span class="glitch-text" data-text="INITIALIZING">INITIALIZING</span>
-            </div>
-            
-            {{-- Terminal Output Logs Simulation --}}
-            <div class="mb-4 text-xs text-cyan-500/60 w-full h-24 overflow-hidden relative font-mono leading-relaxed">
-                <div id="sys-logs" class="absolute bottom-0 left-0 w-full flex flex-col gap-1.5">
-                    <div class="opacity-0 flex gap-2"><span class="text-cyan-600">></span> SYSTEM_BOOT SEQUENCE INITIATED...</div>
-                    <div class="opacity-0 flex gap-2"><span class="text-cyan-600">></span> LOADING_CORE_MODULES... <span class="text-green-400">[OK]</span></div>
-                    <div class="opacity-0 flex gap-2"><span class="text-cyan-600">></span> ESTABLISHING_NEURAL_LINK... <span class="text-green-400">[OK]</span></div>
-                    <div class="opacity-0 flex gap-2"><span class="text-cyan-600">></span> RENDERING_ENVIRONMENT...</div>
+<body class="{{ !request()->routeIs('dashboard*') ? 'bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] min-h-screen flex flex-col' : 'bg-[#050f2e] text-white min-h-screen' }}">
+    <div class="{{ !request()->routeIs('dashboard*') ? 'flex-grow flex flex-col' : '' }}">
+    {{-- Matrix / Terminal Preloader --}}
+    <div id="matrix-preloader">
+        <canvas id="matrix-canvas"></canvas>
+        <div class="matrix-overlay"></div>
+        <div class="global-scanline"></div>
+        <div class="scanbar"></div>
+
+        <div class="terminal-panel" id="terminal-panel">
+            <div class="terminal-header">
+                <div class="terminal-title">
+                    <span class="blinker-block" id="term-blinker"></span>
+                    <span>ORATRICE_OS</span>
                 </div>
+                <div class="terminal-version">v4.2.0-FONTAINE</div>
             </div>
 
-            {{-- Progress Bar --}}
-            <div class="w-full h-[2px] border-b border-cyan-900/40 relative overflow-hidden bg-transparent">
-                <div id="sys-progress" class="absolute top-0 left-0 h-full bg-cyan-400 w-0 shadow-[0_0_15px_rgba(6,182,212,1)]"></div>
+            <div class="terminal-output" id="term-output">
+                <!-- Logs will be inserted via JS -->
+            </div>
+
+            <div class="terminal-progress-container">
+                <div class="progress-text-row">
+                    <span>HYDRO_SYNC</span>
+                    <span id="term-pct">0%</span>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="term-bar-fill"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -170,6 +324,51 @@
         {{-- Navbar --}}
         @if(!request()->routeIs('dashboard*'))
             @include('components.navbar')
+        @endif
+
+        {{-- Flash Messages --}}
+        @if(session('success') || session('error'))
+        <div x-data="{ show: true }" 
+             x-show="show" 
+             x-init="setTimeout(() => show = false, 5000)"
+             class="fixed top-24 right-8 z-[100] max-w-sm w-full"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="translate-x-full opacity-0"
+             x-transition:enter-end="translate-x-0 opacity-100"
+             x-transition:leave="transition ease-in duration-300 transform"
+             x-transition:leave-start="translate-x-0 opacity-100"
+             x-transition:leave-end="translate-x-full opacity-0">
+            
+            @if(session('success'))
+            <div class="p-4 rounded-2xl bg-[#0a1a48]/80 border border-cyan-400/30 backdrop-blur-xl shadow-2xl flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs font-bold text-white uppercase tracking-wider">Protocol Success</p>
+                    <p class="text-[11px] text-blue-200/60 mt-0.5">{{ session('success') }}</p>
+                </div>
+                <button @click="show = false" class="text-blue-200/20 hover:text-white transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            @endif
+
+            @if(session('error') || $errors->any())
+            <div class="p-4 rounded-2xl bg-red-950/80 border border-red-500/30 backdrop-blur-xl shadow-2xl flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs font-bold text-white uppercase tracking-wider">System Exception</p>
+                    <p class="text-[11px] text-red-200/60 mt-0.5">{{ session('error') ?? 'Validation failed.' }}</p>
+                </div>
+                <button @click="show = false" class="text-red-200/20 hover:text-white transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            @endif
+        </div>
         @endif
 
         {{-- Main --}}
@@ -206,39 +405,136 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // --- PRELOADER LOGIC ---
-        window.addEventListener('load', () => {
-            const tlPreloader = gsap.timeline();
+        // ═══ MATRIX DIGITAL RAIN SCRIPT ═══
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, cols, drops;
+
+        // Custom characters (Katakana + Numbers + Specific Alphabet)
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const nums = '0123456789';
+        const charArray = (katakana + latin + nums).split('');
+
+        function initMatrix() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            cols = Math.floor(w / 20) + 1;
+            drops = Array(cols).fill(0).map(() => Math.random() * -100);
+        }
+        initMatrix();
+        window.addEventListener('resize', initMatrix);
+
+        function drawMatrix() {
+            // Semi-transparent black to create trailing effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, w, h);
+
+            // Furina Hydro Cyan color: #22d3ee to white
+            ctx.font = '15pt Inter, monospace';
             
-            // Animate progress bar
-            tlPreloader.to('#sys-progress', {
-                width: '100%',
-                duration: 1.5,
-                ease: 'power2.inOut'
-            })
-            // Animate pretend logs
-            .to('#sys-logs div', {
-                opacity: 1,
-                y: -5,
-                stagger: 0.3,
-                duration: 0.2,
-                ease: 'power1.out'
-            }, "-=1.5")
-            // Glitch text change finish
-            .set('.glitch-text', { text: "SYS_ONLINE" }, "-=0.2")
-            // Slide/fade out the whole preloader
-            .to('#sys-preloader', {
-                yPercent: -100,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power4.inOut',
-                delay: 0.5,
-                onComplete: () => {
-                    document.getElementById('sys-preloader').style.display = 'none';
-                    // Trigger custom event so page specific GSAP knows it can start
-                    document.dispatchEvent(new CustomEvent('preloaderDone'));
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                
+                // Colors: lead character is white-ish, trailing is cyan
+                const x = i * 20;
+                const y = drops[i] * 20;
+
+                ctx.fillStyle = '#67e8f9'; // slight cyan tail
+                if (Math.random() > 0.95) {
+                    ctx.fillStyle = '#ffffff'; // white heads sporadically
                 }
-            });
+
+                ctx.fillText(text, x, y);
+
+                // Reset drop to top randomly
+                if (y > h && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i] += 0.8; // Speed of drop
+            }
+        }
+        const matrixInterval = setInterval(drawMatrix, 50);
+
+        // ═══ TERMINAL BOOT SEQUENCE SCRIPT ═══
+        const terminalLogs = [
+            { text: "Initiating Oratrice_Mecanique_d'Analyse_Cardinale...", delay: 50 },
+            { text: "Connecting to Fontaine Neural Network...", delay: 200, status: "[OK]" },
+            { text: "Mounting Hydro vision core protocols...", delay: 150, status: "[OK]" },
+            { text: "Warning: Pneuma and Ousia imbalance detected.", delay: 300, status: "[WARN]", class: "warn" },
+            { text: "Re-calibrating Arkhe system...", delay: 400, status: "[OK]" },
+            { text: "Compiling justice algorithms...", delay: 200, status: "[OK]" },
+            { text: "\"Let the world become my stage!\"", delay: 400, isQuote: true },
+            { text: "Bypassing heavenly principles (Access: DENIED)", delay: 300, status: "[ERR]", class: "err" },
+            { text: "Loading Furina's Macaroni recipes...", delay: 250, status: "[OK]" },
+            { text: "Synchronizing aesthetic assets...", delay: 150, status: "[OK]" },
+            { text: "\"We shall judge you, as we gather the water!\"", delay: 400, isQuote: true },
+            { text: "Environment rendering complete. Awaiting audience...", delay: 500 }
+        ];
+
+        window.addEventListener('load', () => {
+            const out = document.getElementById('term-output');
+            const pct = document.getElementById('term-pct');
+            const bar = document.getElementById('term-bar-fill');
+            const preloader = document.getElementById('matrix-preloader');
+            
+            // Blinker toggle
+            gsap.to('#term-blinker', { opacity: 0.1, duration: 0.35, repeat: -1, yoyo: true, ease: 'steps(1)' });
+
+            let logIndex = 0;
+            let currentPct = 0;
+
+            function runSequence() {
+                if (logIndex >= terminalLogs.length) {
+                    // Sequence done
+                    gsap.to(bar, { width: '100%', duration: 0.5 });
+                    pct.textContent = '100%';
+                    
+                    setTimeout(() => {
+                        // Exit animation
+                        preloader.classList.add('fade-out');
+                        gsap.to('#terminal-panel', { scale: 0.95, opacity: 0, duration: 0.4, ease: 'power3.in' });
+                        gsap.to(preloader, { opacity: 0, duration: 0.8, delay: 0.2, ease: 'power2.inOut', onComplete: () => {
+                            preloader.style.display = 'none';
+                            clearInterval(matrixInterval);
+                            document.body.style.overflow = '';
+                            document.dispatchEvent(new CustomEvent('preloaderDone'));
+                        }});
+                    }, 800);
+                    return;
+                }
+
+                const log = terminalLogs[logIndex];
+                const div = document.createElement('div');
+                div.className = 'log-line';
+                
+                if (log.isQuote) {
+                    div.innerHTML = `<span class="quote-line">${log.text}</span>`;
+                } else {
+                    const statusHtml = log.status ? `<span class="log-status ${log.class || 'ok'}">${log.status}</span>` : '';
+                    div.innerHTML = `<span class="log-prefix">root@fontaine:~#</span> ${log.text} ${statusHtml}`;
+                }
+
+                out.appendChild(div);
+                
+                // Auto scroll to bottom
+                out.scrollTop = out.scrollHeight;
+
+                // Animate entry
+                gsap.to(div, { opacity: 1, y: 0, duration: 0.2, ease: 'power1.out' });
+
+                // Update Progress
+                currentPct += Math.floor(100 / terminalLogs.length);
+                if (currentPct > 99) currentPct = 99; // Cap until end
+                gsap.to(bar, { width: currentPct + '%', duration: 0.3 });
+                pct.textContent = currentPct + '%';
+
+                logIndex++;
+                setTimeout(runSequence, log.delay);
+            }
+
+            // Start sequence
+            setTimeout(runSequence, 300);
         });
 
         // Cursor
@@ -297,35 +593,7 @@
             });
         });
 
-        // Hover tilt effect (mantappp!)
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xc = rect.width / 2;
-                const yc = rect.height / 2;
-                const dx = x - xc;
-                const dy = y - yc;
-                
-                gsap.to(card, {
-                    rotationY: dx / 15,
-                    rotationX: -dy / 15,
-                    ease: 'power2.out',
-                    duration: 0.5,
-                    transformPerspective: 1000
-                });
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, {
-                    rotationY: 0,
-                    rotationX: 0,
-                    ease: 'elastic.out(1, 0.3)',
-                    duration: 1.2
-                });
-            });
-        });
+
 
         // Counters
         document.querySelectorAll('[data-count]').forEach(el => {
@@ -333,13 +601,15 @@
             ScrollTrigger.create({
                 trigger: el, start: 'top 92%',
                 onEnter: () => {
-                    gsap.from({ val: 0 }, {
+                    let obj = { val: 0 };
+                    gsap.to(obj, {
                         val: target, duration: 2, ease: 'power2.out',
-                        onUpdate() { el.textContent = Math.round(this.targets()[0].val) + (el.dataset.suffix || ''); }
+                        onUpdate() { el.textContent = Math.round(obj.val) + (el.dataset.suffix || ''); }
                     });
                 }
             });
         });
     </script>
+    </div>
 </body>
 </html>

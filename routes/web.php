@@ -15,6 +15,7 @@ Route::get('/', function () {
     $skills = \App\Models\Skill::all();
     return view('pages.home', compact('projects', 'projectCount', 'skills'));
 });
+Route::get('/portfolio', [ProjectController::class, 'portfolio'])->name('portfolio');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 

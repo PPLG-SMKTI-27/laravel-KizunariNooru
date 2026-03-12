@@ -102,11 +102,7 @@
             </span>
         </button>
 
-        {{-- Register link --}}
-        <div class="text-center pt-2">
-            <span class="text-blue-300/45 text-sm">Don't have an account? </span>
-            <a href="{{ route('register') }}" class="auth-link font-semibold">Create one ✨</a>
-        </div>
+        {{-- Registration is disabled for admin-only use --}}
     </form>
 
     {{-- Decorative footer --}}
