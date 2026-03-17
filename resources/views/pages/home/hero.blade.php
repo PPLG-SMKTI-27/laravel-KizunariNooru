@@ -9,7 +9,7 @@
             <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.51/build/spline-viewer.js"></script>
             <spline-viewer url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"></spline-viewer>
         </div>
-        
+
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full"
              style="background:radial-gradient(ellipse at center,rgba(34,211,238,0.09) 0%,transparent 70%)"></div>
     </div>
@@ -21,7 +21,7 @@
 
     <div class="relative z-10 max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 py-20 pointer-events-none">
         {{-- Added pointer-events-none to the container but pointer-events-auto to inner contents to allow interaction with 3D bg --}}
-        
+
         {{-- ── LEFT COLUMN ── --}}
         <div class="flex-1 text-center lg:text-left pointer-events-auto">
 
@@ -122,88 +122,12 @@
                         {{-- Water shimmer overlay --}}
                         <div class="absolute inset-0" style="background:linear-gradient(0deg,rgba(34,211,238,0.2) 0%,transparent 55%)"></div>
 
-                        {{-- Furina SVG Character --}}
-                        <svg class="absolute bottom-0 left-1/2 -translate-x-1/2 w-52 h-52 md:w-64 md:h-64" viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Dress -->
-                            <path d="M55 200 Q100 175 145 200 Q162 222 130 232 Q100 242 70 232 Q38 222 55 200Z" fill="#152b7a"/>
-                            <path d="M60 194 Q100 168 140 194 Q155 210 128 222 Q100 232 72 222 Q45 210 60 194Z" fill="#1e3d9a"/>
-                            <!-- White ruffles -->
-                            <path d="M50 204 C70 192,90 188,100 190 C110 188,130 192,150 204" stroke="white" stroke-width="1.5" opacity=".45" fill="none"/>
-                            <path d="M44 214 C65 202,85 198,100 200 C115 198,135 202,156 214" stroke="white" stroke-width="1" opacity=".25" fill="none"/>
-                            <!-- Gold trim -->
-                            <path d="M52 204 Q100 186 148 204" stroke="#f0c040" stroke-width="1" opacity=".55" fill="none"/>
-                            <!-- Body -->
-                            <path d="M82 128 Q100 122 118 128 L122 184 Q100 174 78 184 Z" fill="#152b7a"/>
-                            <!-- Blue jacket -->
-                            <path d="M80 130 Q66 140,63 163 L77 174 Q100 165,123 174 L137 163 Q134 140,120 130 Q100 120,80 130Z" fill="#0e1f6a"/>
-                            <!-- White shirt accent -->
-                            <path d="M93 130 Q100 125,107 130 L110 158 Q100 154,90 158Z" fill="white" opacity=".55"/>
-                            <!-- Gold buttons -->
-                            <circle cx="100" cy="138" r="2" fill="#f0c040" opacity=".8"/>
-                            <circle cx="100" cy="148" r="2" fill="#f0c040" opacity=".65"/>
-                            <circle cx="100" cy="158" r="2" fill="#f0c040" opacity=".5"/>
-                            <!-- Neck -->
-                            <ellipse cx="100" cy="118" rx="8" ry="6" fill="#f4c8a0"/>
-                            <!-- Head -->
-                            <ellipse cx="100" cy="94" rx="27" ry="29" fill="#f4c8a0"/>
-                            <!-- Hair base -->
-                            <path d="M73 82 Q69 55,78 43 Q90 26,100 24 Q110 26,122 43 Q131 55,127 82" fill="#2654c0"/>
-                            <!-- Side hair -->
-                            <path d="M73 82 Q64 95,66 114 Q70 124,75 126" fill="#2654c0"/>
-                            <path d="M127 82 Q136 95,134 114 Q130 124,125 126" fill="#2654c0"/>
-                            <!-- Hair highlight -->
-                            <path d="M88 28 Q95 24,102 26" stroke="#5a8af0" stroke-width="2.5" opacity=".6" fill="none" stroke-linecap="round"/>
-                            <!-- Hat / beret (Furina) -->
-                            <path d="M74 73 Q87 54,100 52 Q113 54,126 73 Q116 68,100 66 Q84 68,74 73Z" fill="#1030a0"/>
-                            <ellipse cx="100" cy="73" rx="27" ry="5.5" fill="#1a3ab0"/>
-                            <!-- Hat gem -->
-                            <path d="M96 55 L100 50 L104 55 L100 58Z" fill="#22d3ee"/>
-                            <circle cx="100" cy="55" r="2.5" fill="white" opacity=".8"/>
-                            <!-- Hat trim gold -->
-                            <path d="M76 73 Q100 68 124 73" stroke="#f0c040" stroke-width="1" opacity=".6" fill="none"/>
+                        {{-- Profile Photo --}}
+                        <img src="{{ asset('photo-profile.jpeg') }}"
+                             alt="Fahri Noor Royyan"
+                             class="relative z-10 w-full h-full object-cover object-[center_20%]"
+                             loading="eager">
 
-                            <!-- Blush -->
-                            <ellipse cx="83"  cy="99" rx="7" ry="4" fill="#f08070" opacity=".3"/>
-                            <ellipse cx="117" cy="99" rx="7" ry="4" fill="#f08070" opacity=".3"/>
-                            <!-- Eyes -->
-                            <ellipse cx="88"  cy="95" rx="5"   ry="6"   fill="#5ab0e8"/>
-                            <ellipse cx="112" cy="95" rx="5"   ry="6"   fill="#5ab0e8"/>
-                            <ellipse cx="88"  cy="95" rx="3"   ry="3.5" fill="#172060"/>
-                            <ellipse cx="112" cy="95" rx="3"   ry="3.5" fill="#172060"/>
-                            <!-- Eye shine -->
-                            <circle cx="89.5" cy="93.5" r="1.5" fill="white" opacity=".95"/>
-                            <circle cx="113.5" cy="93.5" r="1.5" fill="white" opacity=".95"/>
-                            <!-- Eyebrows -->
-                            <path d="M82 87 Q88 84,94 87" stroke="#3a2a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                            <path d="M106 87 Q112 84,118 87" stroke="#3a2a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                            <!-- Mouth -->
-                            <path d="M94 107 Q100 112,106 107" stroke="#d06050" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-
-                            <!-- Arms -->
-                            <path d="M78 135 Q64 148,59 164" stroke="#0e1f6a" stroke-width="14" stroke-linecap="round"/>
-                            <path d="M122 135 Q136 148,141 164" stroke="#0e1f6a" stroke-width="14" stroke-linecap="round"/>
-                            <!-- Hands -->
-                            <ellipse cx="58"  cy="167" rx="7" ry="5.5" fill="#f4c8a0"/>
-                            <ellipse cx="142" cy="167" rx="7" ry="5.5" fill="#f4c8a0"/>
-
-                            <!-- Trident / scepter (Furina weapon) -->
-                            <line x1="148" y1="45" x2="143" y2="178" stroke="#22d3ee" stroke-width="2.5" opacity=".85"/>
-                            <path d="M139 50 L148 38 L157 50 L148 45Z" fill="#22d3ee" opacity=".95"/>
-                            <path d="M143 44 L148 34 L153 44" fill="#67e8f9" opacity=".7"/>
-                            <circle cx="148" cy="46" r="5"   fill="#22d3ee" opacity=".5"/>
-                            <circle cx="148" cy="46" r="2.5" fill="white" opacity=".9"/>
-                            <!-- Trident glow line -->
-                            <line x1="148" y1="55" x2="148" y2="80" stroke="#22d3ee" stroke-width="1" opacity=".4" stroke-dasharray="3 4"/>
-
-                            <!-- Water droplets / particles rising -->
-                            <circle cx="68"  cy="208" r="3"   fill="#22d3ee" opacity=".55"/>
-                            <circle cx="82"  cy="218" r="2"   fill="#67e8f9" opacity=".45"/>
-                            <circle cx="100" cy="223" r="2.5" fill="#22d3ee" opacity=".65"/>
-                            <circle cx="118" cy="218" r="2"   fill="#67e8f9" opacity=".45"/>
-                            <circle cx="132" cy="210" r="3"   fill="#22d3ee" opacity=".55"/>
-                            <circle cx="75"  cy="228" r="1.5" fill="#a5f3fc" opacity=".35"/>
-                            <circle cx="125" cy="226" r="1.5" fill="#a5f3fc" opacity=".35"/>
-                        </svg>
 
                         {{-- Bottom water glow --}}
                         <div class="absolute bottom-0 inset-x-0 h-20 pointer-events-none"
@@ -222,8 +146,8 @@
                     </svg>
                     Full Stack
                 </div>
-                <div class="absolute top-1/2 -left-8 card px-3 py-2 text-xs text-gold-grad flex items-center gap-2 shadow-xl">
-                    <span>✨</span> SMKTI PPLG 27
+                <div class="absolute z-100 top-1/2 -left-8 card px-3 py-2 text-xs text-gold-grad flex items-center gap-2 shadow-xl">
+                    <span>✨</span> SMKTI PPLG 24
                 </div>
             </div>
         </div>
