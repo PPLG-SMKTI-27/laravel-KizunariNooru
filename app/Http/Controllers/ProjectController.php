@@ -14,9 +14,20 @@ class ProjectController extends Controller
         return view('dashboard', compact('projects'));
     }
 
-    public function portfolio()
+    public function portfolio(Request $request)
     {
-        $projects = Project::latest()->get();
+        $query = Project::latest();
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('tech', 'like', "%{$search}%");
+            });
+        }
+
+        $projects = $query->get();
         return view('pages.portfolio', compact('projects'));
     }
 

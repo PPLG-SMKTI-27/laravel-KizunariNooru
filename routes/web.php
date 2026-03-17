@@ -2,19 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-use App\Models\Project;
 use App\Http\Controllers\ProjectController;
-
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    $projects = Project::latest()->take(6)->get();
-    $projectCount = Project::count();
-    $skills = \App\Models\Skill::all();
-    return view('pages.home', compact('projects', 'projectCount', 'skills'));
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/portfolio', [ProjectController::class, 'portfolio'])->name('portfolio');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

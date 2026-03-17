@@ -1,120 +1,191 @@
-{{-- ══════════════════════════════════════════════════════
-     PROJECTS SECTION
-══════════════════════════════════════════════════════ --}}
-<section id="projects" class="py-28 relative">
+<section id="projects" class="py-20 relative min-h-screen overflow-hidden">
 
-    <div class="absolute inset-0 pointer-events-none"
-         style="background:radial-gradient(ellipse 80% 50% at 50% 50%,rgba(34,211,238,0.04),transparent)"></div>
+    <style>
+        @keyframes scan-horizontal {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(400%); opacity: 0; }
+        }
+    </style>
 
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="absolute inset-0 pointer-events-none z-0">
+        <div class="absolute inset-0 bg-linear-to-b from-blue-500/5 via-transparent to-cyan-500/5 opacity-40"></div>
+        <div class="absolute inset-0 opacity-[0.03] mix-blend-overlay" style="background-image: url('https://www.transparenttextures.com/patterns/stardust.png');"></div>
+        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(34,211,238,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    </div>
 
-        <div class="gsap-reveal mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-            <div>
-                <span class="section-label">— Portfolio of works</span>
-                <h2 class="section-title text-slate-100">My <span class="text-cyan-grad">Projects</span></h2>
-                <span class="section-line"></span>
+    <div class="max-w-6xl mx-auto px-6 relative z-10 w-full" x-data="{
+        activeProject: 0,
+        deviceView: 'desktop'
+    }">
+
+        <div class="mb-12 border-b border-cyan-500/20 pb-6 relative">
+            <div class="absolute -left-4 top-0 w-1 h-full bg-cyan-500/50"></div>
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono text-cyan-400/60 tracking-[0.4em] uppercase">// PROJECT_DATABASE</span>
+                <a href="{{ route('portfolio') }}" class="text-[10px] font-mono text-blue-400 hover:text-cyan-300 uppercase underline decoration-blue-500/30 underline-offset-4 tracking-wider">View Full Project >></a>
             </div>
-            <div class="flex flex-wrap items-center gap-4">
-                <a href="#contact"
-                   class="inline-flex items-center gap-2 text-sm text-cyan-300/70 hover:text-cyan-200 transition group border-r border-cyan-400/20 pr-4 h-5">
-                    Hire me for a project
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </a>
-                <a href="{{ route('portfolio') }}"
-                   class="inline-flex items-center gap-2 text-sm text-white/80 hover:text-cyan-400 transition group font-semibold uppercase tracking-widest text-[10px]">
-                    View archives 🗃️
-                </a>
-            </div>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight font-cinzel tracking-wider">
+                <span class="text-6xl mt-1 text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">D</span>AFTAR <span class="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-500">PROYEK.</span>
+            </h2>
+            <p class="text-slate-400 text-sm leading-relaxed font-mono border-l-2 border-emerald-500/30 pl-4 italic">
+                > Beberapa karya unggulan yang telah dikembangkan.
+            </p>
         </div>
 
-        @if(isset($projects) && count($projects) > 0)
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 gsap-stagger">
-            @php
-                $glows = [
-                    'from-cyan-400 to-blue-500',
-                    'from-blue-400 to-indigo-500',
-                    'from-sky-400 to-cyan-500',
-                    'from-purple-400 to-indigo-500',
-                    'from-teal-400 to-cyan-500',
-                    'from-indigo-400 to-purple-500'
-                ];
-                
-                $techMap = [
-                    'laravel' => 'laravel', 'php' => 'php', 'javascript' => 'javascript', 'js' => 'javascript',
-                    'vue' => 'vuedotjs', 'react' => 'react', 'tailwind' => 'tailwindcss', 'css' => 'css3',
-                    'mysql' => 'mysql', 'node' => 'nodedotjs', 'gsap' => 'gsap', 'alpine' => 'alpinedotjs',
-                    'html' => 'html5', 'bootstrap' => 'bootstrap', 'git' => 'git', 'github' => 'github',
-                    'python' => 'python', 'docker' => 'docker', 'redis' => 'redis', 'livewire' => 'livewire',
-                    'sqlite' => 'sqlite', 'postgresql' => 'postgresql', 'inertia' => 'inertia', 'vite' => 'vite',
-                    'blade' => 'laravel', 'sass' => 'sass', 'typescript' => 'typescript', 'ts' => 'typescript',
-                    'figma' => 'figma', 'canva' => 'canva', 'framer' => 'framer', 'next' => 'nextdotjs'
-                ];
-            @endphp
-            @foreach($projects as $index => $project)
-            @php
-                $glow = $glows[$index % count($glows)];
-                $firstTech = explode(',', $project->tech)[0] ?? null;
-                $slug = $firstTech ? ($techMap[strtolower(trim($firstTech))] ?? null) : null;
-            @endphp
-            <div class="card p-6 group relative overflow-hidden flex flex-col h-full" style="--glow-from:0.05">
-                {{-- Top gradient accent --}}
-                <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r {{ $glow }} opacity-50"></div>
-                
-                <div class="flex justify-between items-start mb-5">
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br {{ $glow }} opacity-30 border border-white/20 flex items-center justify-center relative group-hover:scale-110 group-hover:opacity-50 transition duration-500 z-10 overflow-hidden shadow-lg shadow-cyan-900/20">
-                        <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                        @if($slug)
-                            <img src="https://cdn.simpleicons.org/{{ $slug }}/f8fafc" class="w-6 h-6 relative z-10 brightness-150 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" alt="">
-                        @else
-                            <svg class="w-6 h-6 text-white absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                        @endif
-                    </div>
-                    <div class="flex gap-2 relative z-10">
-                        @if($project->github)
-                        <a href="{{ $project->github }}" target="_blank" class="p-2 text-blue-200/30 hover:text-white hover:bg-white/5 rounded-lg transition" title="Source Code">
-                            <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                        </a>
-                        @endif
-                        @if($project->demo)
-                        <a href="{{ $project->demo }}" target="_blank" class="p-2 text-blue-200/30 hover:text-cyan-400 hover:bg-cyan-400/5 rounded-lg transition" title="Live Preview">
-                            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                            </svg>
-                        </a>
-                        @endif
-                    </div>
-                </div>
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-6 items-start">
+            {{-- Left Side: Active Project Card --}}
+            <div class="order-1 lg:order-1 flex flex-col gap-6">
+                <div class="relative min-h-[200px] lg:min-h-[200px] grid grid-cols-1">
+                    @forelse($projects as $index => $project)
+                        <div x-show="activeProject === {{ $index }}"
+                            x-transition:enter="transition ease-out duration-500 delay-200 transform"
+                            x-transition:enter-start="opacity-0 translate-x-8"
+                            x-transition:enter-end="opacity-100 translate-x-0"
+                            x-transition:leave="transition ease-in duration-300 transform"
+                            x-transition:leave-start="opacity-100 translate-x-0"
+                            x-transition:leave-end="opacity-0 -translate-x-8"
+                            class="col-start-1 row-start-1 bg-[#020814]/60 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-4 md:p-5 shadow-[0_0_20px_rgba(34,211,238,0.05)] relative overflow-hidden group h-full flex flex-col">
 
-                <h3 class="font-black text-white text-base mb-2 group-hover:text-cyan-400 transition relative z-10 tracking-tight">{{ $project->title }}</h3>
-                <p class="text-slate-400/80 text-[13px] leading-relaxed mb-5 line-clamp-3 relative z-10 font-medium">{{ $project->description }}</p>
-                
-                @if($project->tech)
-                <div class="flex flex-wrap gap-2 mt-auto relative z-10">
-                    @foreach(explode(',', $project->tech) as $t)
-                        @php 
-                            $tClean = strtolower(trim($t));
-                            $tSlug = $techMap[$tClean] ?? null;
-                        @endphp
-                        <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-white/5 border border-white/5 hover:border-cyan-400/30 transition duration-300">
-                            @if($tSlug)
-                                <img src="https://cdn.simpleicons.org/{{ $tSlug }}/06b6d4" class="w-2.5 h-2.5 opacity-70 group-hover:opacity-100 transition" alt="">
+                            <div class="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+
+                            {{-- Card Header: Icon & Actions --}}
+                            <div class="flex justify-between items-start mb-4 relative z-10">
+                                <div class="w-12 h-12 rounded-xl bg-linear-to-br from-cyan-500/20 to-blue-600/10 border border-cyan-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.1)] group-hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] transition-all duration-500 overflow-hidden relative">
+                                    <div class="absolute inset-0 bg-linear-to-tr from-cyan-400/10 via-transparent to-transparent opacity-50"></div>
+                                    <svg class="w-7 h-7 text-cyan-400 transform group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                                    </svg>
+                                </div>
+
+                                <div class="flex gap-4">
+                                    @if($project->github)
+                                        <a href="{{ $project->github }}" target="_blank" class="p-2.5 rounded-xl bg-slate-900/50 border border-white/5 text-slate-400 hover:text-white hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                        </a>
+                                    @endif
+                                    @if($project->demo)
+                                        <a href="{{ $project->demo }}" target="_blank" class="p-2.5 rounded-xl bg-slate-900/50 border border-white/5 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-cyan-400 transition-colors duration-300">
+                                {{ $project->title }}
+                            </h3>
+
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                                {{ $project->description }}
+                            </p>
+
+                            @if($project->tech)
+                                <div class="flex flex-wrap gap-3 mb-5">
+                                    @foreach(explode(',', $project->tech) as $t)
+                                        <span class="px-4 py-1.5 rounded-full bg-slate-900/80 border border-white/10 hover:border-cyan-500/40 text-[11px] font-bold text-slate-300 uppercase tracking-widest transition-all hover:bg-cyan-950/30 flex items-center gap-2">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_5px_rgba(34,211,238,0.8)]"></span>
+                                            {{ trim($t) }}
+                                        </span>
+                                    @endforeach
+                                </div>
                             @endif
-                            <span class="text-[9px] font-bold text-slate-300 group-hover:text-cyan-300 transition uppercase tracking-tighter">{{ trim($t) }}</span>
+
+                            <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                                <a href="{{ route('portfolio', ['search' => $project->title]) }}"
+                                   class="inline-flex items-center gap-3 text-[11px] font-mono font-bold uppercase tracking-[0.3em] text-cyan-400 hover:text-cyan-300 transition-all group/btn">
+                                    <span class="relative">
+                                        VIEW_ARCHIVE_DATA
+                                        <span class="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 group-hover/btn:w-full transition-all duration-300"></span>
+                                    </span>
+                                    <span class="group-hover/btn:translate-x-3 transition-transform duration-500 text-lg">››</span>
+                                </a>
+                                <span class="text-[9px] font-mono text-slate-600 uppercase tracking-widest">// SECURE_ENTRY</span>
+                            </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="text-center py-10 text-slate-500 font-mono text-sm">NO_MODULES_FOUND</div>
+                    @endforelse
                 </div>
-                @endif
+
+                {{-- Navigation Controls --}}
+                <div class="flex items-center gap-4 bg-[#020814]/60 backdrop-blur-sm border border-white/5 rounded-xl p-3 w-fit">
+                    <button @click="activeProject = activeProject > 0 ? activeProject - 1 : {{ count($projects) - 1 }}"
+                        class="p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all active:scale-95 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+
+                    <div class="font-mono text-xs text-slate-500 px-2 tracking-widest">
+                        <span class="text-cyan-400" x-text="String(activeProject + 1).padStart(2, '0')"></span>
+                        /
+                        <span x-text="String({{ count($projects) }}).padStart(2, '0')"></span>
+                    </div>
+
+                    <button @click="activeProject = activeProject < {{ count($projects) - 1 }} ? activeProject + 1 : 0"
+                        class="p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all active:scale-95 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
             </div>
-            @endforeach
+
+            {{-- Right Side: Mockup & Controls --}}
+            <div class="order-2 lg:order-2 flex flex-col gap-6">
+                <div class="relative w-full rounded-2xl border border-white/10 bg-[#020510]/80 backdrop-blur-xl p-4 lg:p-6 shadow-[0_0_30px_rgba(34,211,238,0.05)]">
+                    <div class="flex flex-wrap items-center justify-between mb-6 gap-4 border-b border-white/5 pb-4">
+                        <div class="flex gap-1.5 ml-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/50"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/50"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]/50"></div>
+                        </div>
+
+                        <div class="flex gap-2 bg-[#020814] p-1 rounded-lg border border-cyan-500/20 shadow-inner">
+                            <button @click="deviceView = 'desktop'" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'desktop', 'text-slate-500 hover:text-slate-300': deviceView !== 'desktop'}" class="p-2 rounded-md transition-all duration-300">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </button>
+                            <button @click="deviceView = 'tablet'" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'tablet', 'text-slate-500 hover:text-slate-300': deviceView !== 'tablet'}" class="p-2 rounded-md transition-all duration-300">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 18h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button @click="deviceView = 'mobile'" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'mobile', 'text-slate-500 hover:text-slate-300': deviceView !== 'mobile'}" class="p-2 rounded-md transition-all duration-300">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative bg-[#050b1a] rounded-lg border border-cyan-500/20 overflow-hidden flex items-center justify-center transition-all duration-500 ease-in-out mx-auto"
+                         :class="{
+                             'w-full aspect-video': deviceView === 'desktop',
+                             'w-full max-w-[340px] aspect-[4/3]': deviceView === 'tablet',
+                             'w-full max-w-[200px] aspect-[9/16]': deviceView === 'mobile'
+                         }">
+
+                        <div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(rgba(34,211,238,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.5) 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                        @foreach($projects as $index => $project)
+                            <div x-show="activeProject === {{ $index }}"
+                                 x-transition.opacity.duration.500ms
+                                 class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#020612]">
+
+                                <div class="absolute inset-0 pointer-events-none z-20">
+                                    <div class="w-full h-1/4 bg-linear-to-b from-transparent via-cyan-400/10 to-transparent border-b border-cyan-400/20 animate-[scan-horizontal_3s_linear_infinite]"></div>
+                                </div>
+
+                            <div class="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden scrollbar-hide z-10" style="scrollbar-width: none; -ms-overflow-style: none;">
+                                @php
+                                    $imgDesktop = $project->image_desktop ? asset('storage/' . $project->image_desktop) : asset('desktop.png');
+                                    $imgTablet = $project->image_tablet ? asset('storage/' . $project->image_tablet) : asset('tab.png');
+                                    $imgMobile = $project->image_mobile ? asset('storage/' . $project->image_mobile) : asset('mobile.png');
+                                @endphp
+
+                                <img x-show="deviceView === 'desktop'" src="{{ $imgDesktop }}" alt="{{ $project->title }} Desktop" class="w-full h-auto object-top transition-opacity duration-300 bg-[#020612]">
+                                <img x-show="deviceView === 'tablet'" src="{{ $imgTablet }}" alt="{{ $project->title }} Tablet" class="w-full h-auto object-top transition-opacity duration-300 bg-[#020612]">
+                                <img x-show="deviceView === 'mobile'" src="{{ $imgMobile }}" alt="{{ $project->title }} Mobile" class="w-full h-auto object-top transition-opacity duration-300 bg-[#020612]">
+                            </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
-        @else
-        <div class="text-center py-10">
-            <p class="text-slate-400/80 text-sm">Belum ada proyek yang ditambahkan.</p>
-        </div>
-        @endif
     </div>
 </section>
