@@ -39,7 +39,15 @@ class ProjectController extends Controller
             'tech' => 'nullable|string',
             'github' => 'nullable|url',
             'demo' => 'nullable|url',
+            'image' => 'nullable|image|max:20480',
+            'image_desktop' => 'nullable|image|max:20480',
+            'image_tablet' => 'nullable|image|max:20480',
+            'image_mobile' => 'nullable|image|max:20480',
         ]);
+
+        $uploadImage = function($file) {
+            return $file ? $file->store('projects', 'public') : null;
+        };
 
         Project::create([
             'title' => $request->title,
@@ -48,6 +56,10 @@ class ProjectController extends Controller
             'tech' => $request->tech,
             'github' => $request->github,
             'demo' => $request->demo,
+            'image' => $uploadImage($request->file('image')),
+            'image_desktop' => $uploadImage($request->file('image_desktop')),
+            'image_tablet' => $uploadImage($request->file('image_tablet')),
+            'image_mobile' => $uploadImage($request->file('image_mobile')),
         ]);
 
         return redirect()->back()->with('success', 'Project created successfully!');
@@ -61,7 +73,21 @@ class ProjectController extends Controller
             'tech' => 'nullable|string',
             'github' => 'nullable|url',
             'demo' => 'nullable|url',
+            'image' => 'nullable|image|max:20480',
+            'image_desktop' => 'nullable|image|max:20480',
+            'image_tablet' => 'nullable|image|max:20480',
+            'image_mobile' => 'nullable|image|max:20480',
         ]);
+
+        $uploadImage = function($file, $oldPath) {
+            if ($file) {
+                if ($oldPath && \Illuminate\Support\Facades\Storage::disk('public')->exists($oldPath)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
+                }
+                return $file->store('projects', 'public');
+            }
+            return $oldPath;
+        };
 
         $project->update([
             'title' => $request->title,
@@ -70,6 +96,10 @@ class ProjectController extends Controller
             'tech' => $request->tech,
             'github' => $request->github,
             'demo' => $request->demo,
+            'image' => $uploadImage($request->file('image'), $project->image),
+            'image_desktop' => $uploadImage($request->file('image_desktop'), $project->image_desktop),
+            'image_tablet' => $uploadImage($request->file('image_tablet'), $project->image_tablet),
+            'image_mobile' => $uploadImage($request->file('image_mobile'), $project->image_mobile),
         ]);
 
         return redirect()->back()->with('success', 'Project updated successfully!');

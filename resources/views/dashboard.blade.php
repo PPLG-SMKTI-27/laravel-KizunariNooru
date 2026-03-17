@@ -8,6 +8,22 @@
             @include('dashboard.header')
 
             <div class="p-4 md:p-8 h-[calc(100vh-73px)] overflow-y-auto">
+                {{-- Alerts --}}
+                @if ($errors->any())
+                    <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                        <ul class="list-disc list-inside text-red-400 text-sm">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                
                 {{-- Dashboard Hero --}}
                 <div class="mb-10 p-6 md:p-10 rounded-[2rem] relative overflow-hidden bg-gradient-to-br from-[#0a1a48] to-[#050f2e] border border-cyan-400/20 shadow-lg group">
                     {{-- Decorative background blobs --}}

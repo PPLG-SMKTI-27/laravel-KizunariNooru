@@ -170,16 +170,42 @@
                                     <div class="w-full h-1/4 bg-linear-to-b from-transparent via-cyan-400/10 to-transparent border-b border-cyan-400/20 animate-[scan-horizontal_3s_linear_infinite]"></div>
                                 </div>
 
-                            <div class="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden scrollbar-hide z-10" style="scrollbar-width: none; -ms-overflow-style: none;">
-                                @php
-                                    $imgDesktop = $project->image_desktop ? asset('storage/' . $project->image_desktop) : asset('desktop.png');
-                                    $imgTablet = $project->image_tablet ? asset('storage/' . $project->image_tablet) : asset('tab.png');
-                                    $imgMobile = $project->image_mobile ? asset('storage/' . $project->image_mobile) : asset('mobile.png');
-                                @endphp
+                            <div class="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden scrollbar-hide z-10 flex flex-col" style="scrollbar-width: none; -ms-overflow-style: none;">
+                                {{-- Desktop View --}}
+                                <div x-show="deviceView === 'desktop'" class="w-full grow flex flex-col bg-[#020612]">
+                                    @if($project->image_desktop)
+                                        <img src="{{ asset('storage/' . $project->image_desktop) }}" alt="{{ $project->title }} Desktop" class="w-full h-auto object-top transition-opacity duration-300">
+                                    @else
+                                        <div class="grow flex flex-col items-center justify-center text-cyan-500/30 gap-3 py-10">
+                                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            <span class="font-mono text-xs tracking-[0.2em] uppercase">NO_IMAGE_DATA</span>
+                                        </div>
+                                    @endif
+                                </div>
 
-                                <img x-show="deviceView === 'desktop'" src="{{ $imgDesktop }}" alt="{{ $project->title }} Desktop" class="w-full h-auto object-top transition-opacity duration-300 bg-[#020612]">
-                                <img x-show="deviceView === 'tablet'" src="{{ $imgTablet }}" alt="{{ $project->title }} Tablet" class="w-full h-auto object-top transition-opacity duration-300 bg-[#020612]">
-                                <img x-show="deviceView === 'mobile'" src="{{ $imgMobile }}" alt="{{ $project->title }} Mobile" class="w-full h-auto object-top transition-opacity duration-300 bg-[#020612]">
+                                {{-- Tablet View --}}
+                                <div x-show="deviceView === 'tablet'" class="w-full grow flex flex-col bg-[#020612]">
+                                    @if($project->image_tablet)
+                                        <img src="{{ asset('storage/' . $project->image_tablet) }}" alt="{{ $project->title }} Tablet" class="w-full h-auto object-top transition-opacity duration-300">
+                                    @else
+                                        <div class="grow flex flex-col items-center justify-center text-cyan-500/30 gap-2 py-10">
+                                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            <span class="font-mono text-[10px] tracking-[0.2em] uppercase">NO_IMAGE_DATA</span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                {{-- Mobile View --}}
+                                <div x-show="deviceView === 'mobile'" class="w-full grow flex flex-col bg-[#020612]">
+                                    @if($project->image_mobile)
+                                        <img src="{{ asset('storage/' . $project->image_mobile) }}" alt="{{ $project->title }} Mobile" class="w-full h-auto object-top transition-opacity duration-300">
+                                    @else
+                                        <div class="grow flex flex-col items-center justify-center text-cyan-500/30 gap-2 py-10">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            <span class="font-mono text-[8px] tracking-[0.2em] text-center uppercase">NO_IMG</span>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                             </div>
                         @endforeach
