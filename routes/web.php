@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -14,15 +15,7 @@ Route::get('/portfolio', [ProjectController::class, 'portfolio'])->name('portfol
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard', [
-            'projects'     => Project::latest()->get(),
-            'projectCount' => Project::count(),
-            'skills'       => \App\Models\Skill::all(),
-            'contacts'     => \App\Models\Contact::latest()->get(),
-            'unreadCount'  => \App\Models\Contact::where('is_read', false)->count(),
-        ]);
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('projects', ProjectController::class)->except(['create', 'show', 'edit']);
     Route::resource('skills', SkillController::class)->except(['create', 'show', 'edit']);
