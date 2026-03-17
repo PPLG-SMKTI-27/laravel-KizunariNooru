@@ -1,5 +1,5 @@
 {{-- HEADER --}}
-<header class="sticky top-0 z-40 flex items-center justify-between px-8 py-4 bg-[#020814]/60 backdrop-blur-xl border-b border-cyan-400/10">
+<header class="sticky top-0 z-40 flex items-center justify-between px-4 md:px-8 py-4 bg-[#020814]/60 backdrop-blur-xl border-b border-cyan-400/10">
     <div class="flex items-center gap-6">
         <button @click="showMobileMenu = !showMobileMenu" class="lg:hidden p-2 text-cyan-400">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"/></svg>

@@ -37,8 +37,8 @@
                     ];
                 @endphp
                 @forelse($projects as $index => $p)
-                    @php 
-                        $iData = $icons[$index % count($icons)]; 
+                    @php
+                        $iData = $icons[$index % count($icons)];
                         $colors = [
                             'cyan' => ['bg' => 'bg-cyan-400/10', 'border' => 'border-cyan-400/20', 'text' => 'text-cyan-400', 'shadow' => 'shadow-cyan-400/20'],
                             'blue' => ['bg' => 'bg-blue-400/10', 'border' => 'border-blue-400/20', 'text' => 'text-blue-400', 'shadow' => 'shadow-blue-400/20'],
@@ -66,7 +66,7 @@
                         <td class="px-6 py-4 hidden md:table-cell">
                             <div class="flex flex-wrap gap-2">
                                 @foreach(explode(',', $p->tech) as $tech)
-                                    @php 
+                                    @php
                                         $tClean = strtolower(trim($tech));
                                         $slug = $techMap[$tClean] ?? null;
                                         $iconText = trim($tech);

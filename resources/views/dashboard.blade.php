@@ -4,28 +4,28 @@
         @include('dashboard.sidebar')
 
         {{-- MAIN --}}
-        <main class="flex-1 relative">
+        <main class="flex-1 relative min-w-0">
             @include('dashboard.header')
 
-            <div class="p-8 h-[calc(100vh-73px)] overflow-y-auto">
+            <div class="p-4 md:p-8 h-[calc(100vh-73px)] overflow-y-auto">
                 {{-- Dashboard Hero --}}
-                <div class="mb-10 p-10 rounded-[2rem] relative overflow-hidden bg-gradient-to-br from-[#0a1a48] to-[#050f2e] border border-cyan-400/20 shadow-lg group">
+                <div class="mb-10 p-6 md:p-10 rounded-[2rem] relative overflow-hidden bg-gradient-to-br from-[#0a1a48] to-[#050f2e] border border-cyan-400/20 shadow-lg group">
                     {{-- Decorative background blobs --}}
                     <div class="absolute -top-24 -right-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl group-hover:scale-110 transition duration-1000"></div>
                     <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl group-hover:scale-110 transition duration-1000"></div>
 
                     <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                        <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 p-1 shadow-lg shadow-cyan-500/20">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 p-1 shadow-lg shadow-cyan-500/20 shrink-0">
                             <div class="w-full h-full rounded-[0.9rem] bg-[#020814] flex items-center justify-center text-cyan-400">
-                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                 </svg>
                             </div>
                         </div>
                         <div class="flex-1 text-center md:text-left">
-                            <h2 class="font-cinzel text-3xl font-bold text-white mb-2 tracking-tight">Welcome, <span class="text-cyan-grad">Architect</span></h2>
-                            <p class="text-blue-200/50 text-sm mb-6 leading-relaxed max-w-md">The archives of Fontaine are under your command. Setiap baris kode dirajut dengan ketelitian kristal.</p>
-                            <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                            <h2 class="font-cinzel text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">Welcome, <span class="text-cyan-grad">Architect</span></h2>
+                            <p class="text-blue-200/50 text-xs md:text-sm mb-6 leading-relaxed max-w-md mx-auto md:mx-0">The archives of Fontaine are under your command. Setiap baris kode dirajut dengan ketelitian kristal.</p>
+                            <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-3">
                                 <a href="/" target="_blank" class="btn-primary hover:btn-glow transition-all" style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">
                                     View Live Portfolio
                                 </a>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="hidden lg:block w-px h-20 bg-cyan-400/10"></div>
-                        <div class="hidden lg:flex flex-col items-center px-8">
+                        <div class="hidden lg:flex flex-col items-center px-8 shrink-0">
                             <span class="text-[10px] font-black text-cyan-400/30 uppercase tracking-[0.3em] mb-1">Status</span>
                             <div class="flex items-center gap-2">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
