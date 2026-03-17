@@ -4,6 +4,8 @@
     <div class="py-12"></div>
     @include('pages.home.about')
     <div class="py-12"></div>
+    @include('pages.home.visi-misi')
+    <div class="py-12"></div>
     @include('pages.home.resume')
     <div class="py-12"></div>
     @include('pages.home.skills')

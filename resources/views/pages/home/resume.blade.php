@@ -14,8 +14,8 @@
 
                 <div class="space-y-8 relative border-l border-cyan-500/20 pl-8 ml-4">
                     @foreach([
-                        ['year'=>'2023 - Present', 'title'=>'Full Stack Web Developer', 'place'=>'Freelance Projects', 'desc'=>'Mengembangkan berbagai website menggunakan Laravel, MySQL, dan Tailwind CSS untuk klien lokal.'],
-                        ['year'=>'2024', 'title'=>'Web Development Intern', 'place'=>'Tech Company', 'desc'=>'Berkontribusi dalam pengembangan modul sistem informasi internal perusahaan berbasis PHP native dan Laravel.']
+                        ['year'=>'2024 - Present', 'title'=>'Personal Projects Developer', 'place'=>'Independent Learning', 'desc'=>'Mengembangkan berbagai project pribadi seperti website portfolio, sistem manajemen sederhana, dan eksperimen fitur berbasis web untuk melatih problem solving, clean code, dan arsitektur sistem.'],
+                        ['year'=>'2024 - Present', 'title'=>'Exploring Robotics & Automation', 'place'=>'Future Exploration', 'desc'=>'Mulai mempelajari konsep dasar robotics dan otomasi, serta bagaimana menghubungkan software dengan perangkat fisik untuk menciptakan sistem yang interaktif.']
                     ] as $exp)
                     <div class="relative group">
                         <div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#020617] shadow-[0_0_10px_rgba(6,182,212,0.4)] border-[3px] border-cyan-500 group-hover:scale-125 transition-transform duration-300"></div>
@@ -37,7 +37,7 @@
 
                 <div class="space-y-8 relative border-l border-blue-500/20 pl-8 ml-4">
                 @foreach([
-                    ['year'=>'2024 - Present', 'title'=>'Pengembangan Perangkat Lunak & GIM', 'place'=>'SMKTI Airlangga Jurusan PPLG Gen-24', 'desc'=>'Fokus pada rekayasa perangkat lunak, algoritma, dan pengembangan aplikasi web modern.']
+                    ['year'=>'2024 - Present', 'title'=>'Pengembangan Perangkat Lunak & GIM', 'place'=>'SMKTI Airlangga (PPLG Gen-24)', 'desc'=>'Fokus pada rekayasa perangkat lunak, algoritma, dan pengembangan aplikasi web modern berbasis Laravel, serta eksplorasi dasar Artificial Intelligence dan robotics.']
                 ] as $edu)
                 <div class="relative group">
                     <div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#020617] shadow-[0_0_10px_rgba(59,130,246,0.4)] border-[3px] border-blue-500 group-hover:scale-125 transition-transform duration-300"></div>
