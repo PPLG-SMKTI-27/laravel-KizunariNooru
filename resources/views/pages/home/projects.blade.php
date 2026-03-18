@@ -17,8 +17,27 @@
 
     <div class="max-w-6xl mx-auto px-6 relative z-10 w-full" x-data="{
         activeProject: 0,
-        deviceView: 'desktop'
-    }">
+        deviceView: 'desktop',
+        projectCount: {{ count($projects) }},
+        scrollInterval: null,
+        startScroll() {
+            this.stopScroll();
+            if (this.projectCount > 1) {
+                this.scrollInterval = setInterval(() => {
+                    this.next();
+                }, 5000);
+            }
+        },
+        stopScroll() {
+            if (this.scrollInterval) clearInterval(this.scrollInterval);
+        },
+        next() {
+            this.activeProject = (this.activeProject + 1) % this.projectCount;
+        },
+        prev() {
+            this.activeProject = (this.activeProject - 1 + this.projectCount) % this.projectCount;
+        }
+    }" x-init="startScroll()" @mouseenter="stopScroll()" @mouseleave="startScroll()">
 
         <div class="mb-12 border-b border-cyan-500/20 pb-6 relative">
             <div class="absolute -left-4 top-0 w-1 h-full bg-cyan-500/50"></div>
@@ -111,7 +130,7 @@
 
                 {{-- Navigation Controls --}}
                 <div class="flex items-center gap-4 bg-[#020814]/60 backdrop-blur-sm border border-white/5 rounded-xl p-3 w-fit">
-                    <button @click="activeProject = activeProject > 0 ? activeProject - 1 : {{ count($projects) - 1 }}"
+                    <button @click="prev(); stopScroll();"
                         class="p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all active:scale-95 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                     </button>
@@ -119,10 +138,10 @@
                     <div class="font-mono text-xs text-slate-500 px-2 tracking-widest">
                         <span class="text-cyan-400" x-text="String(activeProject + 1).padStart(2, '0')"></span>
                         /
-                        <span x-text="String({{ count($projects) }}).padStart(2, '0')"></span>
+                        <span x-text="String(projectCount).padStart(2, '0')"></span>
                     </div>
 
-                    <button @click="activeProject = activeProject < {{ count($projects) - 1 }} ? activeProject + 1 : 0"
+                    <button @click="next(); stopScroll();"
                         class="p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all active:scale-95 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </button>
@@ -140,13 +159,13 @@
                         </div>
 
                         <div class="flex gap-2 bg-[#020814] p-1 rounded-lg border border-cyan-500/20 shadow-inner">
-                            <button @click="deviceView = 'desktop'" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'desktop', 'text-slate-500 hover:text-slate-300': deviceView !== 'desktop'}" class="p-2 rounded-md transition-all duration-300">
+                            <button @click="deviceView = 'desktop'; stopScroll();" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'desktop', 'text-slate-500 hover:text-slate-300': deviceView !== 'desktop'}" class="p-2 rounded-md transition-all duration-300">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </button>
-                            <button @click="deviceView = 'tablet'" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'tablet', 'text-slate-500 hover:text-slate-300': deviceView !== 'tablet'}" class="p-2 rounded-md transition-all duration-300">
+                            <button @click="deviceView = 'tablet'; stopScroll();" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'tablet', 'text-slate-500 hover:text-slate-300': deviceView !== 'tablet'}" class="p-2 rounded-md transition-all duration-300">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 18h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </button>
-                            <button @click="deviceView = 'mobile'" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'mobile', 'text-slate-500 hover:text-slate-300': deviceView !== 'mobile'}" class="p-2 rounded-md transition-all duration-300">
+                            <button @click="deviceView = 'mobile'; stopScroll();" :class="{'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]': deviceView === 'mobile', 'text-slate-500 hover:text-slate-300': deviceView !== 'mobile'}" class="p-2 rounded-md transition-all duration-300">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                             </button>
                         </div>
@@ -155,8 +174,8 @@
                     <div class="relative bg-[#050b1a] rounded-lg border border-cyan-500/20 overflow-hidden flex items-center justify-center transition-all duration-500 ease-in-out mx-auto"
                          :class="{
                              'w-full aspect-video': deviceView === 'desktop',
-                             'w-full max-w-[340px] aspect-[4/3]': deviceView === 'tablet',
-                             'w-full max-w-[200px] aspect-[9/16]': deviceView === 'mobile'
+                             'w-full max-w-[340px] aspect-4/3': deviceView === 'tablet',
+                             'w-full max-w-[200px] aspect-9/16': deviceView === 'mobile'
                          }">
 
                         <div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(rgba(34,211,238,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.5) 1px, transparent 1px); background-size: 20px 20px;"></div>
