@@ -1,108 +1,118 @@
-{{-- ═══════════════════════════════════════
-   FURINA NAVBAR — sticky + GSAP animated
-═══════════════════════════════════════ --}}
-<nav id="main-navbar" x-data="{ open: false, scrolled: false }"
-     @scroll.window="scrolled = window.scrollY > 60"
-     class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+{{-- ══════════════════════════════════════════════════════
+     DYNAMIC ISLAND NAV — LIQUID GLASS REDESIGN
+══════════════════════════════════════════════════════ --}}
+<nav id="dynamic-island-nav"
+     x-data="{
+         open: false,
+         scrolled: false,
+         activeSection: 'hero',
+         updateActiveSection() {
+             this.scrolled = window.scrollY > 20;
+             const sections = ['hero', 'about', 'resume', 'skills', 'projects', 'services', 'contact'];
+             for (const section of sections) {
+                 const el = document.getElementById(section);
+                 if (el && window.scrollY >= (el.offsetTop - 180)) {
+                     this.activeSection = section;
+                 }
+             }
+         }
+     }"
+     @scroll.window="updateActiveSection()"
+     x-init="updateActiveSection()"
+     @click.away="open = false"
+     class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex justify-center w-full px-4 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]">
 
-    <div :class="scrolled
-            ? 'bg-[#020814]/90 backdrop-blur-2xl shadow-[0_4px_30px_rgba(34,211,238,0.08)] border-b border-cyan-400/20'
-            : 'bg-transparent'"
-         class="transition-all duration-500">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    {{-- Main Vessel --}}
+    <div :class="[
+            open ? 'rounded-[2.5rem] p-6 w-full max-w-[350px]' : 'rounded-full px-2 py-2 w-auto min-w-[200px] sm:min-w-[400px]',
+            scrolled
+                ? 'bg-surface/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/10'
+                : 'bg-surface/60 backdrop-blur-xl shadow-lg border border-white/20'
+         ]"
+         class="transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col relative overflow-hidden group">
 
-            {{-- Logo --}}
-            <a href="/" class="flex items-center gap-3 group" id="nav-logo">
-                {{-- Animated crystal icon --}}
-                <div class="relative w-10 h-10 flex-shrink-0">
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 opacity-70 group-hover:opacity-100 blur-sm transition"></div>
-                    <div class="relative w-full h-full rounded-full bg-gradient-to-br from-cyan-300 to-blue-600 flex items-center justify-center shadow-inner border border-cyan-300/30">
-                        <img src="{{ asset('photo-profile.jpeg') }}" alt="Profile" class="w-full h-full rounded-full object-cover">
-                    </div>
+        {{-- Interior Refraction Light (Moving with Mouse potentially) --}}
+        <div class="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 blur-[40px] rounded-full pointer-events-none group-hover:translate-x-20 transition-transform duration-1000"></div>
+
+        <div class="flex items-center justify-between relative z-10 gap-2">
+
+            {{-- Logo/Branding --}}
+            <a href="/" class="flex items-center gap-2 group/logo pl-3 shrink-0">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-primary-2 flex items-center justify-center shadow-lg group-hover/logo:scale-110 transition-transform duration-500">
+                    <span class="text-[10px] font-black text-surface tracking-tighter uppercase font-cinzel">F</span>
                 </div>
-                <div>
-                    <span class="font-cinzel text-lg font-bold tracking-wide text-white group-hover:text-cyan-200 transition">
-                        Fahri<span class="text-cyan-400">.</span>dev
-                    </span>
-                    <div class="text-[9px] text-cyan-400/50 tracking-[0.2em] uppercase -mt-0.5">Fontaine Portfolio</div>
-                </div>
+                <span class="hidden sm:block font-cinzel text-sm font-bold text-text tracking-widest uppercase">
+                    FNR<span class="text-primary group-hover:animate-pulse">.</span>
+                </span>
             </a>
 
-            {{-- Desktop nav --}}
-            <div class="hidden md:flex items-center gap-1">
+            {{-- Desktop Links --}}
+            <div class="hidden md:flex items-center gap-1 bg-bg/20 rounded-full p-1 border border-white/5 backdrop-blur-sm">
                 @php
-                $links = [
-                    ['href'=>'/#hero','label'=>'Home'],
-                    ['href'=>'/#about','label'=>'About'],
-                    ['href'=>'/#resume','label'=>'Resume'],
-                    ['href'=>'/#skills','label'=>'Skills'],
-                    ['href'=>'/#projects','label'=>'Projects'],
-                    ['href'=>'/#services','label'=>'Services'],
-                    ['href'=>'/#contact','label'=>'Contact'],
-                ];
+                    $links = [
+                        ['href'=>'/#hero','label'=>'Home', 'id'=>'hero'],
+                        ['href'=>'/#projects','label'=>'Works', 'id'=>'projects'],
+                        ['href'=>'/#services','label'=>'Services', 'id'=>'services'],
+                        ['href'=>'/#contact','label'=>'Hire', 'id'=>'contact'],
+                    ];
                 @endphp
+
                 @foreach($links as $link)
                 <a href="{{ $link['href'] }}"
-                   class="relative px-4 py-2 text-sm text-blue-200/70 hover:text-cyan-200 transition duration-300 group rounded-lg hover:bg-cyan-400/5">
+                   @click="activeSection = '{{ $link['id'] }}'"
+                   :class="activeSection === '{{ $link['id'] }}'
+                        ? 'text-primary bg-surface/80 shadow-sm font-bold'
+                        : 'text-muted hover:text-text hover:bg-white/5 font-medium'"
+                   class="px-4 py-1.5 text-[10px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full">
                     {{ $link['label'] }}
-                    <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent group-hover:w-4/5 transition-all duration-300"></span>
                 </a>
                 @endforeach
-
-                <div class="w-px h-5 bg-cyan-400/20 mx-2"></div>
-
-                @auth
-                    <a href="{{ url('/dashboard') }}"
-                       class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/80 to-blue-600/80 text-white text-sm font-semibold hover:from-cyan-400 hover:to-blue-500 transition shadow-lg shadow-cyan-900/30 border border-cyan-400/30">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                        </svg>
-                        Dashboard
-                    </a>
-                @else
-                    <a href="{{ route('login') }}"
-                       class="flex items-center gap-2 px-6 py-2 text-sm text-cyan-300 border border-cyan-400/30 rounded-xl hover:bg-cyan-400/10 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-                        </svg>
-                        Login
-                    </a>
-                @endauth
             </div>
 
-            {{-- Mobile burger --}}
-            <button @click="open = !open"
-                    class="md:hidden p-2 rounded-lg border border-cyan-400/20 bg-cyan-400/5 text-blue-200 hover:text-cyan-300 hover:border-cyan-400/40 transition">
-                <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-                <svg x-show="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
+            {{-- Action Group --}}
+            <div class="flex items-center gap-1.5 pr-1">
+                {{-- Theme Toggle --}}
+                <button id="theme-toggle"
+                        class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-text hover:bg-primary hover:text-surface transition-all duration-500 shadow-inner group/btn">
+                    <i id="theme-icon" class="fa-solid fa-moon text-xs group-hover/btn:rotate-[360deg] transition-transform duration-700"></i>
+                </button>
+
+                {{-- Mobile Menu Trigger --}}
+                <button @click="open = !open"
+                        class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-primary text-surface shadow-lg hover:scale-105 active:scale-95 transition-all duration-500">
+                    <div class="relative w-4 h-4">
+                        <span :class="open ? 'rotate-45 translate-y-0' : '-translate-y-1'" class="absolute inset-0 w-full h-0.5 bg-current transition-all duration-500"></span>
+                        <span :class="open ? 'opacity-0' : 'opacity-100'" class="absolute inset-0 w-full h-0.5 bg-current transition-all duration-500"></span>
+                        <span :class="open ? '-rotate-45 translate-y-0' : 'translate-y-1'" class="absolute inset-0 w-full h-0.5 bg-current transition-all duration-500"></span>
+                    </div>
+                </button>
+            </div>
         </div>
 
-        {{-- Mobile menu --}}
+        {{-- Mobile Expanded Content --}}
         <div x-show="open"
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-2"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-150"
-             x-transition:leave-start="opacity-100 translate-y-0"
-             x-transition:leave-end="opacity-0 -translate-y-2"
-             class="md:hidden border-t border-cyan-400/15 bg-[#020814]/95 backdrop-blur-2xl px-6 py-5 space-y-1">
-            @foreach($links as $link)
-            <a href="{{ $link['href'] }}" @click="open=false"
-               class="block px-4 py-3 rounded-xl text-blue-200/80 hover:text-cyan-200 hover:bg-cyan-400/8 transition text-sm">
-                {{ $link['label'] }}
-            </a>
-            @endforeach
-            <div class="pt-3 border-t border-cyan-400/10 flex gap-3 mt-2">
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="flex-1 text-center py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}"    class="flex-1 text-center py-2.5 rounded-xl border border-cyan-400/30 text-cyan-300 text-sm">Login</a>
-                @endauth
+             x-cloak
+             x-transition:enter="transition ease-[cubic-bezier(0.23,1,0.32,1)] duration-500"
+             x-transition:enter-start="opacity-0 max-h-0 scale-95"
+             x-transition:enter-end="opacity-100 max-h-[500px] scale-100"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 max-h-[500px] scale-100"
+             x-transition:leave-end="opacity-0 max-h-0 scale-95"
+             class="relative z-10">
+
+            <div class="mt-8 grid grid-cols-2 gap-3 pb-4">
+                @foreach(['hero'=>'Home', 'about'=>'About', 'resume'=>'Resume', 'skills'=>'Skills', 'projects'=>'Works', 'services'=>'Services', 'contact'=>'Contact'] as $id => $label)
+                <a href="/#{{ $id }}"
+                   @click="open = false; activeSection = '{{ $id }}'"
+                   :class="activeSection === '{{ $id }}' ? 'bg-primary/20 border-primary/30 text-primary font-bold' : 'bg-white/5 border-white/5 text-muted'"
+                   class="px-4 py-4 rounded-2xl border text-[10px] uppercase tracking-widest text-center transition-all duration-300 hover:bg-white/10">
+                    {{ $label }}
+                </a>
+                @endforeach
+            </div>
+
+            <div class="border-t border-white/5 pt-6 pb-2 text-center">
+                <p class="text-[9px] font-mono text-muted/40 uppercase tracking-[0.4em]">FNR Operating System v2.0</p>
             </div>
         </div>
     </div>

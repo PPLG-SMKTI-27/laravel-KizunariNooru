@@ -1,22 +1,19 @@
-<x-app-layout>
+@extends('layouts.app')
+@section('title', 'Portfolio')
+@section('content')
+    @include('pages.home.partials.hero')
 
-    @include('pages.home.hero')
-    <div class="py-12"></div>
-    @include('pages.home.about')
-    <div class="py-12"></div>
-    @include('pages.home.visi-misi')
-    <div class="py-12"></div>
-    @include('pages.home.resume')
-    <div class="py-12"></div>
-    @include('pages.home.skills')
-    <div class="py-12"></div>
-    @include('pages.home.projects')
-    <div class="py-12"></div>
-    @include('pages.home.services')
-    <div class="py-12"></div>
-    @include('pages.home.contact')
+    @include('pages.home.partials.about-preview')
 
-    {{-- GSAP Hero animations --}}
+    @include('pages.home.partials.featured-project')
+
+    @include('pages.home.partials.skills')
+
+    @include('pages.home.partials.services')
+
+    @include('pages.home.partials.cta')
+@endsection
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Typewriter effect
@@ -69,4 +66,3 @@
         });
     });
     </script>
-</x-app-layout>

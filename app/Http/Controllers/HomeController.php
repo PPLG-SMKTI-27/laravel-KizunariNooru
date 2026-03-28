@@ -13,7 +13,7 @@ class HomeController extends Controller
         $projectCount = Project::count();
         $skills = Skill::all();
 
-        return view('pages.home', compact(
+        return view('pages.home.home', compact(
             'projects',
             'projectCount',
             'skills'
