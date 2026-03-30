@@ -2,7 +2,7 @@
 <div x-show="tab === 'messages'" x-cloak class="space-y-6">
     <div class="card overflow-hidden">
         <div class="p-6 border-b border-cyan-400/10 flex items-center justify-between">
-            <h3 class="font-cinzel text-base font-bold text-white">Archives of Inquiry</h3>
+            <h3 class="font-display text-base font-bold text-white">Archives of Inquiry</h3>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left">
@@ -54,7 +54,7 @@
                             <x-modal name="view-message-{{ $c->id }}" focusable>
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left whitespace-normal">
                                     <div class="mb-6">
-                                        <h2 class="font-cinzel text-xl font-bold text-white mb-1">{{ $c->subject ?? 'Untitled Inquiry' }}</h2>
+                                        <h2 class="font-display text-xl font-bold text-white mb-1">{{ $c->subject ?? 'Untitled Inquiry' }}</h2>
                                         <div class="flex flex-col gap-1 mt-2">
                                             <p class="text-[10px] text-cyan-400/50 uppercase tracking-widest">From: {{ $c->name }} ({{ $c->email }})</p>
                                             <p class="text-[10px] text-emerald-400/80 uppercase tracking-widest font-bold">Budget: {{ $c->budget ?? 'Not specified' }}</p>

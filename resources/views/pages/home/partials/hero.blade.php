@@ -1,7 +1,7 @@
 {{-- ══════════════════════════════════════════════════════
      HERO SECTION — LIQUID GLASS EDITION
 ══════════════════════════════════════════════════════ --}}
-<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-bg transition-colors duration-700">
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-bg transition-colors duration-700 hero-gradient-mesh">
 
 {{-- Background Liquid Orbs (Glassmorphism Base) --}}
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -59,22 +59,30 @@
             {{-- ── LEFT COLUMN ── --}}
             <div class="flex-1 text-center lg:text-left">
 
-                {{-- Liquid Badge --}}
+                {{-- Status Badge --}}
                 <div id="hero-badge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface/40 backdrop-blur-md border border-white/10 shadow-lg mb-8 animate-float">
-                    <span class="flex h-2 w-2 rounded-full bg-success shadow-[0_0_10px_var(--color-success)]"></span>
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-success shadow-[0_0_10px_var(--color-success)]"></span>
+                    </span>
                     <span class="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">{{ __($settings['hero_badge'] ?? 'Ready for Collaboration') }}</span>
                 </div>
 
                 <div class="space-y-4 mb-8">
-                    <h1 id="hero-title" class="font-cinzel text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-[1.1] text-text">
-                        {{ $settings['hero_name'] ?? 'Fahri Noor Royyan' }}
+                    {{-- Name with Gradient Text --}}
+                    <h1 id="hero-title" class="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-[1.1]">
+                        <span class="bg-gradient-to-r from-text via-text to-text/70 bg-clip-text text-transparent">
+                            {{ $settings['hero_name'] ?? 'Fahri Noor Royyan' }}
+                        </span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-text font-medium">
-                        {{ __($settings['hero_tagline'] ?? 'Full-Stack Developer') }}
+
+                    {{-- Animated Tagline --}}
+                    <p class="text-xl md:text-2xl font-medium text-muted">
+                        <span id="hero-tagline-static">{{ __($settings['hero_tagline'] ?? 'Full-Stack Developer') }}</span>
                     </p>
                 </div>
 
-                <p class="text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10 mx-auto lg:mx-0 font-light backdrop-blur-[2px]">
+                <p class="text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10 mx-auto lg:mx-0 font-light">
                     {{ __($settings['hero_bio'] ?? 'Crafting fluid digital solutions.') }}
                 </p>
 
@@ -87,25 +95,25 @@
                         </span>
                     </a>
 
-                    <a href="#contact" class="magnetic-btn px-8 py-4 bg-surface/40 backdrop-blur-md border border-border text-text rounded-2xl font-bold text-sm hover:bg-surface/80 transition-all active:scale-95">
+                    <a href="#contact" class="magnetic-btn px-8 py-4 bg-surface/40 backdrop-blur-md border border-border text-text rounded-2xl font-bold text-sm hover:bg-surface/80 hover:border-primary/30 transition-all active:scale-95">
                         {{ __('Get in Touch') }}
                     </a>
 
-                    <a href="{{ asset('resume.pdf') }}" download class="magnetic-btn px-8 py-4 bg-primary/10 border border-primary/20 text-primary rounded-2xl font-bold text-sm hover:bg-primary/20 transition-all active:scale-95 flex items-center gap-2">
+                    <a href="{{ asset('resume.pdf') }}" download class="magnetic-btn px-8 py-4 bg-primary/10 border border-primary/20 text-primary rounded-2xl font-bold text-sm hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all active:scale-95 flex items-center gap-2">
                         <i class="fa-solid fa-file-arrow-down"></i> {{ __('Download CV') }}
                     </a>
                 </div>
 
                 {{-- Micro Stats --}}
-                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 justify-center lg:justify-start border-t border-border/50 pt-8">
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-border/30 pt-8">
                     @foreach([
                         ['v'=> $settings['stat_1_value'] ?? '2+', 'l'=> $settings['stat_1_label'] ?? 'Years Experience'],
                         ['v'=> $settings['stat_2_value'] ?? '3+', 'l'=> $settings['stat_2_label'] ?? 'Delivered Projects'],
                         ['v'=> $settings['stat_3_value'] ?? '100%', 'l'=> $settings['stat_3_label'] ?? 'Client Satisfaction'],
                         ['v'=> $settings['stat_4_value'] ?? '5+', 'l'=> $settings['stat_4_label'] ?? 'Technologies'],
                     ] as $s)
-                    <div class="flex flex-col text-center lg:text-left">
-                        <span class="text-2xl font-bold text-text">{{ $s['v'] }}</span>
+                    <div class="flex flex-col text-center lg:text-left group">
+                        <span class="text-2xl font-bold font-display text-primary group-hover:scale-110 transition-transform duration-300 inline-block">{{ $s['v'] }}</span>
                         <span class="text-[10px] uppercase tracking-widest text-muted font-bold mt-1">{{ __($s['l']) }}</span>
                     </div>
                     @endforeach
@@ -119,28 +127,31 @@
                 <div class="absolute w-[120%] h-[120%] bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
 
                 {{-- Main Image Container (The Glass Lens) --}}
-                <div id="hero-art" class="relative group">
-                    <div class="relative w-64 h-80 md:w-80 md:h-[450px] rounded-[3rem] p-3 bg-white/5 backdrop-blur-2xl border border-white/20 shadow-2xl overflow-hidden animate-float">
+                <div id="hero-art" class="relative group z-10">
+                    {{-- Interactive Glow behind --}}
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-primary-2 rounded-[3.5rem] blur-[80px] opacity-40 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none animate-pulse"></div>
 
-                        <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"></div>
+                    <div data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.5" class="relative w-64 h-80 md:w-80 md:h-[450px] rounded-[3rem] p-3 bg-white/5 backdrop-blur-3xl border border-white/20 shadow-[0_0_50px_rgba(34,211,238,0.2)] overflow-hidden transition-all duration-700 transform-gpu">
+
+                        <div class="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent pointer-events-none z-10 mix-blend-overlay"></div>
 
                         <div class="w-full h-full rounded-[2.2rem] overflow-hidden bg-container relative">
                             <img src="{{ asset('photo-profile.jpeg') }}"
-                                 class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                                 class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
                                  alt="Professional Headshot">
 
-                            <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-white/10 mix-blend-overlay"></div>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-white/20 mix-blend-overlay pointer-events-none"></div>
                         </div>
 
                         {{-- Floating Badge --}}
-                        <div class="absolute bottom-6 -right-4 bg-surface/90 backdrop-blur-xl border border-border px-4 py-2 rounded-xl shadow-xl rotate-6 group-hover:rotate-0 transition-transform">
+                        <div class="absolute bottom-6 -right-4 bg-surface/90 backdrop-blur-xl border border-border px-4 py-2 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] rotate-6 group-hover:rotate-0 transition-transform duration-500 z-20">
                             <span class="text-[10px] font-black text-primary uppercase">{{ __('Full-Stack Dev') }}</span>
                         </div>
                     </div>
 
                     {{-- Abstract Shapes around the photo --}}
-                    <div class="absolute -top-6 -left-6 w-20 h-20 bg-primary-2/30 rounded-full blur-xl animate-liquid"></div>
-                    <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl animate-liquid" style="animation-delay: -3s"></div>
+                    <div class="absolute -top-6 -left-6 w-20 h-20 bg-primary-2/40 rounded-full blur-2xl animate-liquid pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-primary/30 rounded-full blur-3xl animate-liquid pointer-events-none" style="animation-delay: -3s"></div>
                 </div>
 
             </div>

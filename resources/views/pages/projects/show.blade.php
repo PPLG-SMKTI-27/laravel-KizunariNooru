@@ -7,14 +7,18 @@
     {{-- Full Width Hero --}}
     <div class="relative w-full h-[60vh] min-h-[400px] overflow-hidden group">
         @if($project->image)
-            <img id="hero-parallax-img" src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-[120%] object-cover absolute -top-[10%] left-0">
+            <img id="hero-parallax-img" src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-[120%] object-cover absolute -top-[10%] left-0 opacity-70 mix-blend-screen grayscale-[30%]">
         @else
             <div class="w-full h-full bg-container flex items-center justify-center">
-                <span class="font-cinzel text-3xl text-muted opacity-30">No Hero Image</span>
+                <span class="font-display text-3xl text-muted opacity-30">No Hero Image</span>
             </div>
         @endif
-        <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/20 to-transparent"></div>
+        
+        {{-- Matrix Grid Overlay --}}
+        <div class="absolute inset-0 z-0 opacity-10 pointer-events-none" style="background-image: linear-gradient(rgba(34,211,238,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.2) 1px, transparent 1px); background-size: 40px 40px;"></div>
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/80 to-transparent pointer-events-none z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/30 to-transparent pointer-events-none z-10"></div>
 
         {{-- Hero Content --}}
         <div class="absolute bottom-0 left-0 w-full p-8 md:p-16 z-10">
@@ -24,16 +28,16 @@
                         {{ $project->category }}
                     </span>
                 @endif
-                <h1 class="font-cinzel text-5xl md:text-7xl font-black text-text mb-4 leading-tight drop-shadow-xl">
+                <h1 class="font-display text-5xl md:text-7xl font-black text-text mb-4 leading-tight drop-shadow-xl">
                     {{ $project->title }}
                 </h1>
                 
                 {{-- Action Links --}}
                 <div class="flex flex-wrap gap-4 mt-8">
                     @if($project->demo)
-                        <a href="{{ $project->demo }}" target="_blank" class="magnetic-btn px-8 py-4 bg-primary text-white rounded-2xl font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center gap-2">
+                        <a href="{{ $project->demo }}" target="_blank" aria-label="Lihat Live Demo" class="magnetic-btn px-8 py-4 bg-primary text-white rounded-2xl font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center gap-2">
                             <span>Live Demo</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            <x-icons.link class="w-4 h-4" stroke-width="2.5" />
                         </a>
                     @endif
                     @if($project->github)
@@ -72,13 +76,13 @@
                     ['title' => 'The Result', 'content' => $project->result, 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'color' => 'success']
                 ] as $section)
                     @if($section['content'])
-                    <div class="p-8 bg-surface/40 backdrop-blur-xl border border-border rounded-[2rem] hover:border-{{$section['color']}}/50 transition-colors duration-500 shadow-xl relative overflow-hidden group">
-                        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-{{$section['color']}}/10 blur-2xl rounded-full group-hover:bg-{{$section['color']}}/20 transition-all duration-500"></div>
+                    <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2rem] hover:border-{{$section['color']}}/50 hover:bg-surface/50 transition-all duration-500 shadow-2xl relative overflow-hidden group transform-gpu" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-{{$section['color']}}/10 blur-3xl rounded-full group-hover:bg-{{$section['color']}}/20 transition-all duration-500"></div>
                         <div class="relative z-10">
-                            <div class="w-12 h-12 rounded-2xl bg-{{$section['color']}}/10 border border-{{$section['color']}}/20 flex items-center justify-center text-{{$section['color']}} mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-{{$section['color']}}/10 border border-{{$section['color']}}/20 flex items-center justify-center text-{{$section['color']}} mb-6 group-hover:scale-110 transition-transform duration-500">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{$section['icon']}}"/></svg>
                             </div>
-                            <h3 class="text-lg font-bold text-text mb-3 font-cinzel">{{ $section['title'] }}</h3>
+                            <h3 class="text-xl font-bold text-text mb-3 font-display">{{ $section['title'] }}</h3>
                             <p class="text-sm text-muted leading-relaxed font-light">{{ $section['content'] }}</p>
                         </div>
                     </div>
@@ -97,9 +101,9 @@
                 <div class="relative flex justify-center items-end gap-0 md:gap-8 z-10">
                     {{-- Desktop Mockup --}}
                     @if($project->image_desktop)
-                        <div class="relative w-[300px] md:w-[600px] bg-border p-2 md:p-3 rounded-t-2xl shadow-2xl z-10 border border-border">
-                            <div class="w-full bg-surface rounded-t-xl overflow-hidden border border-border">
-                                <div class="bg-container h-4 md:h-6 w-full flex items-center px-2 gap-1 border-b border-border">
+                        <div data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-perspective="1000" class="relative w-[300px] md:w-[600px] bg-surface/40 backdrop-blur-xl p-2 md:p-3 rounded-t-2xl shadow-2xl z-10 border border-white/10 transform-gpu">
+                            <div class="w-full bg-bg rounded-t-xl overflow-hidden border border-border shadow-inner">
+                                <div class="bg-surface/50 backdrop-blur-md h-4 md:h-6 w-full flex items-center px-2 gap-1.5 border-b border-border">
                                     <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-danger/80"></span>
                                     <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-warning/80"></span>
                                     <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-success/80"></span>
@@ -111,8 +115,8 @@
                     
                     {{-- Mobile Mockup --}}
                     @if($project->image_mobile)
-                        <div class="absolute right-0 -bottom-4 md:bottom-0 md:relative w-[120px] md:w-[200px] bg-border p-2 rounded-[2rem] shadow-2xl border-4 border-container z-20">
-                            <div class="w-full bg-surface rounded-[1.5rem] overflow-hidden">
+                        <div data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" class="absolute right-0 -bottom-4 md:bottom-0 md:relative w-[120px] md:w-[200px] bg-surface/60 backdrop-blur-xl p-2 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 z-20 transform-gpu">
+                            <div class="w-full bg-bg rounded-[1.5rem] overflow-hidden shadow-inner border border-white/5">
                                 <img src="{{ Storage::url($project->image_mobile) }}" class="w-full object-cover">
                             </div>
                         </div>
@@ -127,10 +131,10 @@
         <div class="space-y-8 lg:sticky lg:top-32 self-start">
             {{-- Tech Stack --}}
             @if($project->tech)
-            <div class="p-8 bg-surface/50 backdrop-blur-xl border border-border rounded-[2.5rem] shadow-xl gsap-reveal">
-                <h3 class="font-cinzel text-xl font-bold text-text mb-6">Technologies</h3>
+            <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] shadow-2xl gsap-reveal hover:bg-surface/50 transition-colors duration-500">
+                <h3 class="font-display text-xl font-bold text-text mb-6">Technologies</h3>
                 <div class="flex flex-wrap gap-3">
-                    @foreach(explode(',', $project->tech) as $t)
+                    @foreach($project->tech_array as $t)
                         <div class="px-4 py-2 bg-bg border border-border rounded-xl flex items-center gap-2 group hover:border-primary/50 transition-colors">
                             <div class="w-2 h-2 rounded-full bg-primary group-hover:scale-150 transition-transform"></div>
                             <span class="text-xs font-bold text-muted uppercase tracking-widest">{{ trim($t) }}</span>
@@ -142,8 +146,8 @@
 
             {{-- Key Features --}}
             @if($project->features)
-            <div class="p-8 bg-surface/50 backdrop-blur-xl border border-border rounded-[2.5rem] shadow-xl gsap-reveal">
-                <h3 class="font-cinzel text-xl font-bold text-text mb-6">Key Features</h3>
+            <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] shadow-2xl gsap-reveal hover:bg-surface/50 transition-colors duration-500">
+                <h3 class="font-display text-xl font-bold text-text mb-6">Key Features</h3>
                 <ul class="space-y-4">
                     @php 
                         $featuresDe = is_string($project->features) ? json_decode($project->features, true) : $project->features;

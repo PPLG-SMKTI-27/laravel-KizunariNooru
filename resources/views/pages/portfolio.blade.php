@@ -17,7 +17,7 @@
                     <span class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase border border-cyan-500/30 px-3 py-1 bg-cyan-950/30 rounded shadow-[inset_0_0_10px_rgba(34,211,238,0.05)]">SYSTEM_ARCHIVE</span>
                 </div>
 
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 font-cinzel tracking-wider drop-shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 font-display tracking-wider drop-shadow-[0_0_15px_rgba(34,211,238,0.1)]">
                     PROJECT <span class="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-500">List</span>
                 </h1>
 
@@ -94,13 +94,13 @@
 
                                         <div class="flex gap-2">
                                             @if($project->github)
-                                                <a href="{{ $project->github }}" target="_blank" class="p-1.5 rounded-lg bg-slate-900/50 border border-white/5 text-slate-500 hover:text-white hover:border-cyan-500/30 transition-all duration-300">
-                                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                                <a href="{{ $project->github }}" target="_blank" aria-label="Lihat Source Code di GitHub" class="p-1.5 rounded-lg bg-slate-900/50 border border-white/5 text-slate-500 hover:text-white hover:border-cyan-500/30 transition-all duration-300">
+                                                    <x-icons.github class="w-3.5 h-3.5" />
                                                 </a>
                                             @endif
                                             @if($project->demo)
-                                                <a href="{{ $project->demo }}" target="_blank" class="p-1.5 rounded-lg bg-slate-900/50 border border-white/5 text-slate-500 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300">
-                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                                <a href="{{ $project->demo }}" target="_blank" aria-label="Lihat Live Demo" class="p-1.5 rounded-lg bg-slate-900/50 border border-white/5 text-slate-500 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300">
+                                                    <x-icons.link class="w-3.5 h-3.5" />
                                                 </a>
                                             @endif
                                         </div>
@@ -120,7 +120,7 @@
 
                                     @if($project->tech)
                                         <div class="flex flex-wrap gap-2 mt-auto">
-                                            @foreach(explode(',', $project->tech) as $t)
+                                            @foreach($project->tech_array as $t)
                                                 <span class="px-2.5 py-1 rounded-full bg-slate-900/80 border border-white/10 text-[8px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 transition-all group-hover:border-cyan-500/30">
                                                     <span class="w-1 h-1 rounded-full bg-cyan-500/60 group-hover:bg-cyan-400 transition-colors"></span>
                                                     {{ trim($t) }}

@@ -25,7 +25,7 @@
                             <img src="{{ asset('photo-profile.jpeg') }}" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <div>
-                            <span class="block font-cinzel text-2xl font-black text-text tracking-tighter uppercase">
+                            <span class="block font-display text-2xl font-black text-text tracking-tighter uppercase">
                                 {{ $settings['hero_name'] ?? 'FNR' }}<span class="text-primary italic">.</span>DEV
                             </span>
                             <span class="text-[9px] font-mono text-primary/60 uppercase tracking-[0.4em]">{{ $settings['hero_tagline'] ?? __('Digital Craftsman') }}</span>

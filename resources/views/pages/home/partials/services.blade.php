@@ -15,7 +15,7 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
                 <span class="text-[10px] font-bold text-primary uppercase tracking-[0.4em]">{{ __('Specialized Solutions') }}</span>
             </div>
-            <h2 class="text-5xl md:text-6xl font-black text-text font-cinzel tracking-tight leading-tight">
+            <h2 class="text-5xl md:text-6xl font-black text-text font-display tracking-tight leading-tight">
                 {{ __('Professional') }} <span class="bg-gradient-to-r from-primary via-primary-2 to-primary bg-clip-text text-transparent italic">{{ __('Offerings') }}</span>
             </h2>
             <div class="w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent mx-auto mt-8 rounded-full"></div>
@@ -52,7 +52,7 @@
 
         {{-- 5-Step Workflow --}}
         <div class="mt-32 max-w-5xl mx-auto gsap-reveal relative">
-            <h3 class="text-center font-cinzel text-3xl font-bold text-text mb-16">{{ __('Development Workflow') }} <span class="text-primary italic">{{ __('Workflow') }}</span></h3>
+            <h3 class="text-center font-display text-3xl font-bold text-text mb-16">{{ __('Development Workflow') }} <span class="text-primary italic">{{ __('Workflow') }}</span></h3>
             <div class="relative pl-8 md:pl-0">
                 <div class="hidden md:block absolute top-8 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
                 <div class="md:hidden absolute top-0 bottom-0 left-4 w-0.5 bg-gradient-to-b from-primary/30 via-primary/10 to-transparent"></div>

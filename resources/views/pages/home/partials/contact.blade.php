@@ -17,7 +17,7 @@
             <div class="lg:col-span-2 space-y-10 gsap-reveal">
                 
                 <div>
-                    <h2 class="text-4xl md:text-5xl font-black text-text font-cinzel mb-4">
+                    <h2 class="text-4xl md:text-5xl font-black text-text font-display mb-4">
                         {{ __('Let\'s Talk') }} <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic">{{ __('Business') }}</span>
                     </h2>
                     <p class="text-muted leading-relaxed font-light">

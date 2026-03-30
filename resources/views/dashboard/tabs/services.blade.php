@@ -2,7 +2,7 @@
 <div x-show="tab === 'services'" x-cloak class="space-y-6">
     <div class="card overflow-hidden">
         <div class="p-6 border-b border-cyan-400/10 flex items-center justify-between">
-            <h3 class="font-cinzel text-base font-bold text-white">Professional Services</h3>
+            <h3 class="font-display text-base font-bold text-white">Professional Services</h3>
             <button @click="$dispatch('open-modal', 'create-service')" class="text-xs text-cyan-400 hover:text-white transition font-bold tracking-widest uppercase">+ Add Service</button>
         </div>
         <div class="overflow-x-auto">
@@ -40,7 +40,7 @@
                             </div>
                             <x-modal name="edit-service-{{ $svc->id }}" focusable>
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
-                                    <h2 class="font-cinzel text-xl font-bold text-white mb-6">Edit Service</h2>
+                                    <h2 class="font-display text-xl font-bold text-white mb-6">Edit Service</h2>
                                     <form method="POST" action="{{ route('services.update', $svc) }}" class="space-y-4">
                                         @csrf @method('PATCH')
                                         <div class="grid grid-cols-2 gap-4">
@@ -77,7 +77,7 @@
 
 <x-modal name="create-service" focusable>
     <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
-        <h2 class="font-cinzel text-xl font-bold text-white mb-6">Add Service</h2>
+        <h2 class="font-display text-xl font-bold text-white mb-6">Add Service</h2>
         <form method="POST" action="{{ route('services.store') }}" class="space-y-4">
             @csrf
             <div class="grid grid-cols-2 gap-4">

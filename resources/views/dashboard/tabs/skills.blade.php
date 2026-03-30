@@ -13,7 +13,7 @@
 <div x-show="tab === 'skills'" x-cloak class="space-y-6">
     <div class="card overflow-hidden">
         <div class="p-6 border-b border-cyan-400/10 flex items-center justify-between">
-            <h3 class="font-cinzel text-base font-bold text-white">Skills Repertoire</h3>
+            <h3 class="font-display text-base font-bold text-white">Skills Repertoire</h3>
             <button @click="$dispatch('open-modal', 'create-skill')" class="text-xs text-cyan-400 hover:text-white transition font-bold tracking-widest uppercase">+ Add Skill</button>
         </div>
         <div class="overflow-x-auto">
@@ -79,7 +79,7 @@
                             {{-- Edit Skill Modal --}}
                             <x-modal name="edit-skill-{{ $s->id }}" focusable>
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left whitespace-normal">
-                                    <h2 class="font-cinzel text-xl font-bold text-white mb-6">Refine Talent</h2>
+                                    <h2 class="font-display text-xl font-bold text-white mb-6">Refine Talent</h2>
                                     <form method="POST" action="{{ route('skills.update', $s) }}" class="space-y-4">
                                         @csrf @method('PATCH')
                                         <div>

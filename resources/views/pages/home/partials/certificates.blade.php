@@ -15,7 +15,7 @@
             <span class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
                 {{ __('Continuous Growth') }}
             </span>
-            <h2 class="font-cinzel text-4xl md:text-5xl font-black text-text tracking-tight">
+            <h2 class="font-display text-4xl md:text-5xl font-black text-text tracking-tight">
                 {{ __('Certifications') }} <span class="text-muted/50 font-sans font-light">&</span> <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic px-1">{{ __('Learning') }}</span>
             </h2>
         </div>

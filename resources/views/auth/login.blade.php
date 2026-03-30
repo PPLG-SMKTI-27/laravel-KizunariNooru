@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <h2 class="font-cinzel text-2xl font-bold text-white mb-1">Welcome Back</h2>
+        <h2 class="font-display text-2xl font-bold text-white mb-1">Welcome Back</h2>
         <p class="text-blue-300/50 text-sm">Sign in to your Fontaine account</p>
 
         {{-- Decorative line --}}

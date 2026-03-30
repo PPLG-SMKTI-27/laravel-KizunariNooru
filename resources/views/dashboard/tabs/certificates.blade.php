@@ -2,7 +2,7 @@
 <div x-show="tab === 'certificates'" x-cloak class="space-y-6">
     <div class="card overflow-hidden">
         <div class="p-6 border-b border-cyan-400/10 flex items-center justify-between">
-            <h3 class="font-cinzel text-base font-bold text-white">Certifications & Learning</h3>
+            <h3 class="font-display text-base font-bold text-white">Certifications & Learning</h3>
             <button @click="$dispatch('open-modal', 'create-certificate')" class="text-xs text-cyan-400 hover:text-white transition font-bold tracking-widest uppercase">+ Add Certificate</button>
         </div>
         <div class="overflow-x-auto">
@@ -52,7 +52,7 @@
                             {{-- Edit Modal --}}
                             <x-modal name="edit-cert-{{ $cert->id }}" focusable>
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
-                                    <h2 class="font-cinzel text-xl font-bold text-white mb-6">Edit Certificate</h2>
+                                    <h2 class="font-display text-xl font-bold text-white mb-6">Edit Certificate</h2>
                                     <form method="POST" action="{{ route('certificates.update', $cert) }}" class="space-y-4">
                                         @csrf @method('PATCH')
                                         <div class="grid grid-cols-2 gap-4">
@@ -106,7 +106,7 @@
 {{-- Create Certificate Modal --}}
 <x-modal name="create-certificate" focusable>
     <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
-        <h2 class="font-cinzel text-xl font-bold text-white mb-6">Add Certificate</h2>
+        <h2 class="font-display text-xl font-bold text-white mb-6">Add Certificate</h2>
         <form method="POST" action="{{ route('certificates.store') }}" class="space-y-4">
             @csrf
             <div class="grid grid-cols-2 gap-4">

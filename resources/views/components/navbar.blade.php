@@ -41,7 +41,7 @@
                 <div class="w-8 h-8 rounded-full overflow-hidden shadow-lg group-hover/logo:scale-110 transition-transform duration-500 ring-2 ring-primary/30">
                     <img src="{{ asset('photo-profile.jpeg') }}" alt="Profile" class="w-full h-full object-cover">
                 </div>
-                <span class="hidden sm:block font-cinzel text-sm font-bold text-text tracking-widest uppercase">
+                <span class="hidden sm:block font-display text-sm font-bold text-text tracking-widest uppercase">
                     FNR<span class="text-primary group-hover:animate-pulse">.</span>
                 </span>
             </a>
@@ -61,8 +61,8 @@
                 <a href="{{ $link['href'] }}"
                    @click="activeSection = '{{ $link['id'] }}'"
                    :class="activeSection === '{{ $link['id'] }}'
-                        ? 'text-primary bg-surface/80 shadow-sm font-bold'
-                        : 'text-muted hover:text-text hover:bg-white/5 font-medium'"
+                        ? 'text-primary bg-primary/10 shadow-[0_0_12px_rgba(34,211,238,0.2)] font-bold border border-primary/20'
+                        : 'text-muted hover:text-text hover:bg-white/5 font-medium border border-transparent'"
                    class="px-4 py-1.5 text-[10px] uppercase tracking-[0.2em] transition-all duration-500 rounded-full">
                     {{ $link['label'] }}
                 </a>
@@ -71,7 +71,7 @@
 
             {{-- Action Group --}}
             <div class="flex items-center gap-1.5 pr-1">
-                <a href="/#contact" class="hidden md:flex items-center justify-center px-4 py-2 bg-primary text-white font-bold text-[10px] uppercase tracking-wider rounded-full hover:scale-105 transition-transform duration-300 shadow-lg shadow-primary/20">
+                <a href="/#contact" class="hidden md:flex items-center justify-center px-5 py-2 bg-primary text-white font-bold text-[10px] uppercase tracking-wider rounded-full hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all duration-300 shadow-lg shadow-primary/20">
                     {{ __('Get in Touch') }}
                 </a>
 

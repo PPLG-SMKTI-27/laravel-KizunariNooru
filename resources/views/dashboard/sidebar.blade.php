@@ -15,7 +15,7 @@
                 </svg>
             </div>
             <div>
-                <span class="font-cinzel text-lg font-bold text-white tracking-wide">FNR<span class="text-cyan-400">.</span>Admin</span>
+                <span class="font-display text-lg font-bold text-white tracking-wide">FNR<span class="text-cyan-400">.</span>Admin</span>
                 <p class="text-[8px] text-cyan-400/50 tracking-[0.3em] uppercase -mt-1 text-left">Court of Fontaine</p>
             </div>
         </div>

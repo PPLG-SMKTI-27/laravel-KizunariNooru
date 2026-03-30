@@ -15,7 +15,7 @@
                     <span class="w-8 h-[2px] bg-primary/60 rounded-full"></span>
                     <span class="text-primary font-bold text-[10px] tracking-[0.5em] uppercase">{{ __('Specialized Systems') }}</span>
                 </div>
-                <h2 class="text-5xl md:text-6xl font-black text-text font-cinzel tracking-tight leading-none">
+                <h2 class="text-5xl md:text-6xl font-black text-text font-display tracking-tight leading-none">
                     {{ __('Skills') }} & <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic">{{ __('Learning') }}</span>
                 </h2>
             </div>

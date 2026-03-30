@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="flex-1 text-center md:text-left">
-                            <h2 class="font-cinzel text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">Welcome, <span class="text-cyan-grad">Architect</span></h2>
+                            <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">Welcome, <span class="text-cyan-grad">Architect</span></h2>
                             <p class="text-blue-200/50 text-xs md:text-sm mb-6 leading-relaxed max-w-md mx-auto md:mx-0">The archives of Fontaine are under your command. Setiap baris kode dirajut dengan ketelitian kristal.</p>
                             <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-3">
                                 <a href="/" target="_blank" class="btn-primary hover:btn-glow transition-all" style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">
@@ -72,10 +72,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                 </svg>
                             </div>
-                            <span class="font-cinzel text-[10px] font-bold text-cyan-400/20 group-hover:text-cyan-400/40 transition">LVL.01</span>
+                            <span class="font-display text-[10px] font-bold text-cyan-400/20 group-hover:text-cyan-400/40 transition">LVL.01</span>
                         </div>
                         <h3 class="text-blue-300/40 text-[10px] font-bold uppercase tracking-widest">Total Works</h3>
-                        <p class="text-2xl font-cinzel font-bold text-white mt-1">{{ $projectCount }}</p>
+                        <p class="text-2xl font-display font-bold text-white mt-1">{{ $projectCount }}</p>
                     </div>
                     {{-- Skills --}}
                     <div class="card p-6 border-cyan-400/10 hover:border-cyan-400/30 transition-all group relative overflow-hidden">
@@ -86,10 +86,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
                             </div>
-                            <span class="font-cinzel text-[10px] font-bold text-cyan-400/20 group-hover:text-cyan-400/40 transition">LVL.02</span>
+                            <span class="font-display text-[10px] font-bold text-cyan-400/20 group-hover:text-cyan-400/40 transition">LVL.02</span>
                         </div>
                         <h3 class="text-blue-300/40 text-[10px] font-bold uppercase tracking-widest">Abilities</h3>
-                        <p class="text-2xl font-cinzel font-bold text-white mt-1">{{ $skills->count() }}</p>
+                        <p class="text-2xl font-display font-bold text-white mt-1">{{ $skills->count() }}</p>
                     </div>
                     {{-- Messages --}}
                     <div class="card p-6 border-cyan-400/10 hover:border-cyan-400/30 transition-all group relative overflow-hidden">
@@ -100,10 +100,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                 </svg>
                             </div>
-                            <span class="font-cinzel text-[10px] font-bold text-cyan-400/20 group-hover:text-cyan-400/40 transition">LVL.03</span>
+                            <span class="font-display text-[10px] font-bold text-cyan-400/20 group-hover:text-cyan-400/40 transition">LVL.03</span>
                         </div>
                         <h3 class="text-blue-300/40 text-[10px] font-bold uppercase tracking-widest">Inquiries</h3>
-                        <p class="text-2xl font-cinzel font-bold text-white mt-1">{{ $contacts->count() }}</p>
+                        <p class="text-2xl font-display font-bold text-white mt-1">{{ $contacts->count() }}</p>
                     </div>
                     {{-- System --}}
                     <div class="card p-6 border-emerald-400/10 hover:border-emerald-400/30 transition-all group relative overflow-hidden">
@@ -114,10 +114,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
                                 </svg>
                             </div>
-                            <span class="font-cinzel text-[10px] font-bold text-emerald-400/20 group-hover:text-emerald-400/40 transition">LVL.04</span>
+                            <span class="font-display text-[10px] font-bold text-emerald-400/20 group-hover:text-emerald-400/40 transition">LVL.04</span>
                         </div>
                         <h3 class="text-blue-300/40 text-[10px] font-bold uppercase tracking-widest">Core Status</h3>
-                        <p class="text-2xl font-cinzel font-bold text-white mt-1">Healthy</p>
+                        <p class="text-2xl font-display font-bold text-white mt-1">Healthy</p>
                     </div>
                 </div>
 

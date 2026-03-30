@@ -56,7 +56,7 @@
     @endif
 
     {{-- Google Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* Swup SPA Transitions */
@@ -74,22 +74,56 @@
     @endif
 </head>
 <body class="{{ !request()->routeIs('dashboard*') ? 'bg-bg text-text min-h-screen flex flex-col' : 'bg-[#050f2e] text-white min-h-screen' }}">
+    {{-- Global Cinematic Noise Overlay --}}
+    @if(!request()->routeIs('dashboard*'))
+    <svg id="global-noise" class="hidden">
+        <filter id="cinematic-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+    </svg>
+    <div class="fixed inset-0 pointer-events-none z-[9998] opacity-[0.03] mix-blend-overlay" style="filter: url(#cinematic-noise);"></div>
+    @endif
+
     <div class="{{ !request()->routeIs('dashboard*') ? 'flex-grow flex flex-col' : '' }}">
 
-    {{-- Minimalist GSAP Preloader --}}
-    <div id="fnr-preloader" class="fixed inset-0 z-[9999] bg-bg flex flex-col items-center justify-center overflow-hidden">
-        <div class="relative overflow-hidden">
-            <h1 id="fnr-logo" class="text-7xl md:text-9xl font-black font-cinzel text-text tracking-tighter opacity-0 translate-y-[100%]">
-                FNR<span class="text-primary">.</span>
-            </h1>
+    {{-- Cinematic GSAP Preloader --}}
+    <div id="fnr-preloader" class="fixed inset-0 z-[9999] bg-bg flex flex-col items-center justify-center overflow-hidden border-b border-primary/20">
+        {{-- Matrix/Terminal Background Effect --}}
+        <div class="absolute inset-0 z-0 opacity-10" style="background-image: linear-gradient(rgba(34,211,238,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.1) 1px, transparent 1px); background-size: 40px 40px;"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-bg via-transparent to-bg z-0"></div>
+        
+        {{-- Terminal Header --}}
+        <div class="absolute top-8 left-8 z-10 font-mono text-[10px] sm:text-xs text-primary/60 tracking-[0.2em] flex flex-col gap-1.5">
+            <span id="loader-term-1" class="opacity-0">> SYSTEM_INIT: TRUE</span>
+            <span id="loader-term-2" class="opacity-0">> NEURAL_NET: CONNECTED</span>
         </div>
-        <div class="mt-8 w-48 h-[2px] bg-surface relative overflow-hidden rounded-full opacity-0" id="fnr-loader-track">
-            <div class="absolute top-0 left-0 h-full w-0 bg-primary" id="fnr-loader-bar"></div>
+
+        {{-- Center Content --}}
+        <div class="relative z-10 flex flex-col items-center">
+            <div class="relative overflow-hidden mb-8">
+                {{-- Glitch layers --}}
+                <div id="fnr-glitch-1" class="absolute inset-0 text-7xl md:text-9xl font-black font-display text-primary tracking-tighter opacity-0 mix-blend-screen translate-x-1">FNR.</div>
+                <div id="fnr-glitch-2" class="absolute inset-0 text-7xl md:text-9xl font-black font-display text-red-500 tracking-tighter opacity-0 mix-blend-screen -translate-x-1">FNR.</div>
+                {{-- Main Logo --}}
+                <h1 id="fnr-logo" class="relative z-10 text-7xl md:text-9xl font-black font-display text-text tracking-tighter opacity-0 translate-y-4">
+                    <span id="fnr-text">FNR.</span>
+                </h1>
+            </div>
+
+            {{-- Loader Bar & percentage --}}
+            <div id="loader-ui" class="flex flex-col items-center gap-4 w-64 md:w-80 opacity-0">
+                <div class="w-full h-[1px] bg-white/10 relative overflow-hidden" id="fnr-loader-track">
+                    <div class="absolute top-0 left-0 h-full w-0 bg-primary shadow-[0_0_15px_rgba(34,211,238,0.8)]" id="fnr-loader-bar"></div>
+                </div>
+                <div class="flex justify-between w-full font-mono text-[10px] uppercase tracking-[0.3em] text-primary/70">
+                    <span id="loader-status">BOOTING...</span>
+                    <span id="loader-percent">0%</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div id="cursor-glow"></div>
-    <div id="cursor-dot"></div>
+    {{-- Custom cursor removed --}}
 
     {{-- <div class="orb" style="width:600px;height:600px;background:rgba(6,182,212,0.06);top:-15%;right:-10%;z-index:-1;"></div>
     <div class="orb" style="width:500px;height:500px;background:rgba(8,145,178,0.04);bottom:5%;left:-10%;z-index:-1;"></div>

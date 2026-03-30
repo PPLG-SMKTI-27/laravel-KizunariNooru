@@ -13,7 +13,7 @@
             <span class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
                 Directory
             </span>
-            <h1 class="text-4xl md:text-6xl font-black text-text mb-6 font-cinzel leading-tight tracking-tight">
+            <h1 class="text-4xl md:text-6xl font-black text-text mb-6 font-display leading-tight tracking-tight">
                 Selected <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic">Projects</span>
             </h1>
             <p class="text-muted text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
@@ -86,7 +86,7 @@
                             <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         @else
                             <div class="w-full h-full flex items-center justify-center bg-container text-muted">
-                                <span class="font-cinzel text-lg opacity-30">No Image</span>
+                                <span class="font-display text-lg opacity-30">No Image</span>
                             </div>
                         @endif
                         <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500"></div>
@@ -103,7 +103,7 @@
                     <div class="p-6 flex flex-col grow relative z-10 -mt-6">
                         
                         <div class="bg-surface/90 backdrop-blur-xl rounded-2xl p-5 border border-white/20 shadow-xl grow flex flex-col">
-                            <h3 class="text-xl font-bold text-text mb-2 font-cinzel tracking-tight group-hover:text-primary transition-colors duration-300">
+                            <h3 class="text-xl font-bold text-text mb-2 font-display tracking-tight group-hover:text-primary transition-colors duration-300">
                                 {{ $project->title }}
                             </h3>
                             
@@ -114,7 +114,7 @@
                             {{-- Tech Icons --}}
                             @if($project->tech)
                                 <div class="flex flex-wrap gap-2 mb-6 mt-auto">
-                                    @foreach(explode(',', $project->tech) as $t)
+                                    @foreach($project->tech_array as $t)
                                         <span class="px-2.5 py-1.5 rounded-xl bg-bg border border-border text-[9px] font-bold text-muted uppercase tracking-widest transition-all">
                                             {{ trim($t) }}
                                         </span>
@@ -128,8 +128,8 @@
                                     View Details
                                 </a>
                                 @if($project->demo)
-                                    <a href="{{ $project->demo }}" target="_blank" class="w-10 h-10 rounded-xl bg-bg border border-border flex items-center justify-center text-muted hover:text-primary transition-colors duration-300 shrink-0" title="Live Demo">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                    <a href="{{ $project->demo }}" target="_blank" aria-label="Lihat Live Demo" class="w-10 h-10 rounded-xl bg-bg border border-border flex items-center justify-center text-muted hover:text-primary transition-colors duration-300 shrink-0" title="Live Demo">
+                                        <x-icons.link class="w-4 h-4" />
                                     </a>
                                 @endif
                             </div>

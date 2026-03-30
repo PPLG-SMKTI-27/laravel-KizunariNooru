@@ -56,7 +56,7 @@
             {{-- Contact Form (right) --}}
             <div class="md:col-span-3 gsap-reveal">
                 <div class="card p-7">
-                    <h3 class="font-cinzel text-lg text-slate-100 mb-6 flex items-center gap-2">
+                    <h3 class="font-display text-lg text-slate-100 mb-6 flex items-center gap-2">
                         <span class="w-1.5 h-5 rounded-full bg-gradient-to-b from-cyan-400 to-blue-500 block"></span>
                         Send a Message
                     </h3>

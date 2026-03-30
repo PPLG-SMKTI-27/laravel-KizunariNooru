@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="relative mb-10">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight font-cinzel tracking-wider">
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight font-display tracking-wider">
                                 <span class="text-6xl mt-1 text-cyan-400 select-none drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">V</span>ISI
                             </h2>
                             <div class="clear-both w-12 h-1 bg-linear-to-r from-emerald-500 to-transparent rounded-full"></div>
@@ -76,7 +76,7 @@
             <div class="lg:col-span-7 flex flex-col gap-6 gsap-reveal" style="transition-delay: 200ms">
 
                 <div class="relative mb-2 px-2">
-                    <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight font-cinzel tracking-wider">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight font-display tracking-wider">
                         <span class="text-6xl mt-1 text-blue-400 select-none drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">M</span>ISI
                     </h2>
                     <div class="clear-both w-12 h-1 bg-linear-to-r from-blue-500 to-transparent rounded-full mt-6"></div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Project extends Model
 {
@@ -26,4 +27,14 @@ class Project extends Model
         'github',
         'demo'
     ];
+
+    /**
+     * Get the tech stack as an array.
+     */
+    protected function techArray(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->tech ? array_map('trim', explode(',', $this->tech)) : [],
+        );
+    }
 }

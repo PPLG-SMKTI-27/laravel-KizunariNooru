@@ -3,7 +3,7 @@
 {{-- Create Project --}}
 <x-modal name="create-project" focusable>
     <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
-        <h2 class="font-cinzel text-xl font-bold text-white mb-6">Forge New Project</h2>
+        <h2 class="font-display text-xl font-bold text-white mb-6">Forge New Project</h2>
         <form method="POST" action="{{ route('projects.store') }}" class="space-y-4" enctype="multipart/form-data">
             @csrf
             <div>
@@ -83,7 +83,7 @@
 {{-- Create Skill --}}
 <x-modal name="create-skill" focusable>
     <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
-        <h2 class="font-cinzel text-xl font-bold text-white mb-6">Master New Talent</h2>
+        <h2 class="font-display text-xl font-bold text-white mb-6">Master New Talent</h2>
         <form method="POST" action="{{ route('skills.store') }}" class="space-y-4">
             @csrf
             <div>

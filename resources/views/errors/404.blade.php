@@ -39,7 +39,7 @@
 
         {{-- Giant 404 --}}
         <div class="animate-float mb-8">
-            <h1 class="font-cinzel text-[clamp(6rem,20vw,14rem)] font-black leading-none bg-gradient-to-br from-text via-primary/50 to-primary-2/30 bg-clip-text text-transparent select-none">
+            <h1 class="font-display text-[clamp(6rem,20vw,14rem)] font-black leading-none bg-gradient-to-br from-text via-primary/50 to-primary-2/30 bg-clip-text text-transparent select-none">
                 404
             </h1>
         </div>
@@ -78,7 +78,7 @@
         {{-- Subtle branding --}}
         <div class="mt-20 flex items-center justify-center gap-3 opacity-30">
             <span class="h-px w-8 bg-border"></span>
-            <span class="font-cinzel text-sm font-bold text-muted">FNR<span class="text-primary">.</span></span>
+            <span class="font-display text-sm font-bold text-muted">FNR<span class="text-primary">.</span></span>
             <span class="h-px w-8 bg-border"></span>
         </div>
     </div>

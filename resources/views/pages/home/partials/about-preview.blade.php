@@ -16,7 +16,7 @@
             <span class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
                 {{ __('The Developer') }}
             </span>
-            <h2 class="font-cinzel text-4xl md:text-5xl font-black text-text">
+            <h2 class="font-display text-4xl md:text-5xl font-black text-text">
                 {{ __('About') }} <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic">{{ __('Me') }}</span>
             </h2>
         </div>
