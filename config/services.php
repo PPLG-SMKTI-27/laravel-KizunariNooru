@@ -35,4 +35,17 @@ return [
         ],
     ],
 
+    'turnstile' => [
+        'site_key'   => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
+
+    'google_analytics' => [
+        'id' => env('GOOGLE_ANALYTICS_ID'),
+    ],
+
+    'cloudflare_analytics' => [
+        'token' => env('CLOUDFLARE_ANALYTICS_TOKEN'),
+    ],
+
 ];

@@ -4,11 +4,11 @@
 <section id="cta" class="py-32 relative overflow-hidden bg-bg transition-colors duration-500">
 
     {{-- Background Fluid Orbs --}}
-    <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
         {{-- Primary Orb --}}
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-primary/10 blur-[100px] rounded-[100%] rotate-6 animate-pulse"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-primary/8 blur-[100px] rounded-[100%] rotate-6 animate-pulse"></div>
         {{-- Secondary Orb --}}
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-2/10 blur-[80px] rounded-full opacity-60"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-2/8 blur-[80px] rounded-full opacity-60"></div>
     </div>
 
     <div class="max-w-5xl mx-auto px-6 relative z-10">
@@ -29,24 +29,24 @@
                 <div class="gsap-reveal relative z-10 max-w-2xl">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 backdrop-blur-md">
                         <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_var(--color-primary)]"></span>
-                        <span class="text-[10px] font-bold text-primary uppercase tracking-[0.4em]">Project Inquiry</span>
+                        <span class="text-[10px] font-bold text-primary uppercase tracking-[0.4em]">{{ __('Project Inquiry') }}</span>
                     </div>
 
                     <h2 class="text-4xl md:text-6xl font-black text-text tracking-tight leading-tight mb-8">
-                        Let's Fluidize Your <br>
-                        <span class="bg-gradient-to-r from-primary via-primary-2 to-primary bg-clip-text text-transparent italic">Digital Vision</span>
+                        {{ __('cta_headline_1') }} <br>
+                        <span class="bg-gradient-to-r from-primary via-primary-2 to-primary bg-clip-text text-transparent italic">{{ __('cta_headline_2') }}</span>
                     </h2>
 
                     <p class="text-muted text-lg md:text-xl leading-relaxed mb-12 max-w-lg mx-auto">
-                        Siap mengubah ide kompleks menjadi solusi digital yang jernih dan berperforma tinggi?
+                        {{ __('cta_description') }}
                     </p>
 
                     {{-- Action Buttons --}}
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
                         {{-- Primary Button --}}
-                        <a href="mailto:fahri@example.com"
+                        <a href="mailto:{{ $settings['contact_email'] ?? 'hello@example.com' }}"
                            class="relative w-full sm:w-auto px-10 py-5 group/btn overflow-hidden rounded-2xl bg-primary text-surface font-bold tracking-widest uppercase text-xs transition-all duration-500 hover:shadow-[0_15px_30px_-5px_var(--color-primary)] hover:-translate-y-1">
-                            <span class="relative z-10">Start Project Now</span>
+                            <span class="relative z-10">{{ __('Start Project Now') }}</span>
                             {{-- Liquid Shine Effect --}}
                             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
                         </a>
@@ -54,7 +54,7 @@
                         {{-- Secondary Button --}}
                         <a href="#contact"
                            class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-surface/50 border border-border text-text font-bold tracking-widest uppercase text-xs backdrop-blur-md hover:bg-surface hover:border-primary/50 transition-all duration-300">
-                            Book a Call
+                            {{ __('Book a Call') }}
                         </a>
                     </div>
                 </div>

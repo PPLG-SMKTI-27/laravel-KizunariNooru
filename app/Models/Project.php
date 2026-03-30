@@ -17,6 +17,11 @@ class Project extends Model
         'image_tablet',
         'image_mobile',
         'description',
+        'category',
+        'challenge',
+        'solution',
+        'result',
+        'features',
         'tech',
         'github',
         'demo'

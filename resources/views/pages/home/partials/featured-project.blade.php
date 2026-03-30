@@ -20,9 +20,9 @@
     x-init="startScroll()" @mouseenter="stopScroll()" @mouseleave="startScroll()">
 
     {{-- Liquid Background Elements --}}
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full animate-liquid"></div>
-        <div class="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-primary-2/10 blur-[100px] rounded-full animate-liquid" style="animation-delay: -3s"></div>
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/8 blur-[120px] rounded-full animate-liquid"></div>
+        <div class="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-primary-2/8 blur-[100px] rounded-full animate-liquid" style="animation-delay: -3s"></div>
     </div>
 
     <div class="max-w-6xl mx-auto px-6 relative z-10">
@@ -31,10 +31,10 @@
         <div class="mb-16 gsap-reveal">
             <div class="flex items-center gap-4 mb-4">
                 <span class="h-px w-12 bg-primary/50"></span>
-                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-primary">Selected Works</span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-primary">{{ __('Selected Works') }}</span>
             </div>
             <h2 class="text-4xl md:text-6xl font-black text-text font-cinzel tracking-tight">
-                Featured <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic px-2">Projects</span>
+                {{ __('Featured') }} <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic px-2">{{ __('Projects') }}</span>
             </h2>
         </div>
 
@@ -72,19 +72,22 @@
                                 </div>
                             </div>
 
-                            <h3 class="text-3xl font-bold text-text mb-4 leading-tight">{{ $project->title }}</h3>
-                            <p class="text-muted leading-relaxed mb-8 line-clamp-4 font-light">{{ $project->description }}</p>
+                            <h3 class="text-3xl font-bold text-text mb-4 leading-tight">{{ __($project->title) }}</h3>
+                            <p class="text-muted leading-relaxed mb-8 line-clamp-4 font-light">{{ __($project->description) }}</p>
 
                             <div class="flex flex-wrap gap-2 mb-8">
                                 @foreach(explode(',', $project->tech) as $t)
                                 <span class="px-4 py-1.5 rounded-xl bg-primary/5 border border-primary/10 text-[10px] font-bold text-primary/80 uppercase tracking-widest">
-                                    {{ trim($t) }}
+                                    {{ __($t) }}
                                 </span>
                                 @endforeach
                             </div>
 
-                            <a href="{{ route('portfolio', ['search' => $project->title]) }}" class="inline-flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.3em] text-primary hover:gap-6 transition-all">
-                                EXPLORE_DATABASE <span class="text-lg">→</span>
+                            <a href="{{ route('public.projects.show', $project) }}" class="inline-flex items-center justify-center gap-3 px-8 py-4 mt-2 rounded-[1.25rem] bg-gradient-to-r from-primary to-primary-2 text-white text-[11px] font-bold uppercase tracking-[0.2em] shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all group/btn">
+                                {{ __('View Project Details') }} 
+                                <span class="bg-white/20 rounded-full p-1 group-hover/btn:translate-x-1 transition-transform">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -142,13 +145,22 @@
                                     $imageKey = "image_" . '$deviceView'; // Not possible in PHP, but logic-wise:
                                 @endphp
                                 <template x-if="deviceView === 'desktop'">
-                                    <img src="{{ asset('storage/' . $project->image_desktop) }}" class="w-full h-auto">
+                                    <img src="{{ asset('storage/' . $project->image_desktop) }}" 
+                                         class="w-full h-auto" 
+                                         alt="{{ $project->title }} — Desktop View"
+                                         loading="lazy">
                                 </template>
                                 <template x-if="deviceView === 'tablet'">
-                                    <img src="{{ asset('storage/' . $project->image_tablet) }}" class="w-full h-auto">
+                                    <img src="{{ asset('storage/' . $project->image_tablet) }}" 
+                                         class="w-full h-auto" 
+                                         alt="{{ $project->title }} — Tablet View"
+                                         loading="lazy">
                                 </template>
                                 <template x-if="deviceView === 'mobile'">
-                                    <img src="{{ asset('storage/' . $project->image_mobile) }}" class="w-full h-auto">
+                                    <img src="{{ asset('storage/' . $project->image_mobile) }}" 
+                                         class="w-full h-auto" 
+                                         alt="{{ $project->title }} — Mobile View"
+                                         loading="lazy">
                                 </template>
                             </div>
                         </div>
@@ -156,6 +168,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        {{-- View All Projects CTA --}}
+        <div class="mt-20 flex justify-center gsap-reveal">
+            <a href="{{ route('public.projects.index') }}" class="group/allbtn relative inline-flex items-center justify-center px-10 py-5 rounded-full bg-surface/50 border border-primary/30 text-text font-bold text-xs uppercase tracking-widest backdrop-blur-md overflow-hidden transition-all hover:border-primary hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary-2/10 translate-y-full group-hover/allbtn:translate-y-0 transition-transform duration-500 ease-out"></div>
+                <span class="relative z-10 flex items-center gap-3">
+                    {{ __('Explore Full Portfolio') }}
+                    <svg class="w-4 h-4 group-hover/allbtn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </span>
+            </a>
         </div>
     </div>
 </section>

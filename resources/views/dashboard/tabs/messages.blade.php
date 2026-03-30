@@ -55,7 +55,10 @@
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left whitespace-normal">
                                     <div class="mb-6">
                                         <h2 class="font-cinzel text-xl font-bold text-white mb-1">{{ $c->subject ?? 'Untitled Inquiry' }}</h2>
-                                        <p class="text-[10px] text-cyan-400/50 uppercase tracking-widest">From: {{ $c->name }} ({{ $c->email }})</p>
+                                        <div class="flex flex-col gap-1 mt-2">
+                                            <p class="text-[10px] text-cyan-400/50 uppercase tracking-widest">From: {{ $c->name }} ({{ $c->email }})</p>
+                                            <p class="text-[10px] text-emerald-400/80 uppercase tracking-widest font-bold">Budget: {{ $c->budget ?? 'Not specified' }}</p>
+                                        </div>
                                     </div>
                                     <div class="p-4 rounded-xl bg-white/5 border border-white/5 text-blue-100/70 text-sm leading-relaxed whitespace-pre-wrap mb-8">
                                         {{ $c->message }}

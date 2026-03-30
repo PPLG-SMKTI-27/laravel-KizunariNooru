@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('certificates', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('issuer');
+            $table->enum('category', ['Programming', 'Database', 'Tools'])->default('Programming');
+            $table->string('date')->default('In Progress');
+            $table->unsignedTinyInteger('progress')->default(0); // 0-100
+            $table->string('icon_svg')->nullable(); // SVG path string
+            $table->string('credential_url')->nullable();
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('certificates');
+    }
+};

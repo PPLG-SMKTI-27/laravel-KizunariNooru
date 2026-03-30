@@ -2,8 +2,8 @@
 
     {{-- Liquid Background Blobs --}}
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary/10 blur-[140px] rounded-full animate-liquid"></div>
-        <div class="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-primary-2/10 blur-[120px] rounded-full animate-liquid" style="animation-delay: -4s"></div>
+        <div class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary/8 blur-[140px] rounded-full animate-liquid"></div>
+        <div class="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-primary-2/8 blur-[120px] rounded-full animate-liquid" style="animation-delay: -4s"></div>
     </div>
 
     <div class="max-w-6xl mx-auto px-6 relative z-10">
@@ -13,15 +13,15 @@
             <div>
                 <div class="flex items-center gap-3 mb-4 justify-center lg:justify-start">
                     <span class="w-8 h-[2px] bg-primary/60 rounded-full"></span>
-                    <span class="text-primary font-bold text-[10px] tracking-[0.5em] uppercase">Specialized Systems</span>
+                    <span class="text-primary font-bold text-[10px] tracking-[0.5em] uppercase">{{ __('Specialized Systems') }}</span>
                 </div>
                 <h2 class="text-5xl md:text-6xl font-black text-text font-cinzel tracking-tight leading-none">
-                    Skills & <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic">Abilities</span>
+                    {{ __('Skills') }} & <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic">{{ __('Learning') }}</span>
                 </h2>
             </div>
             <div class="hidden lg:block">
                 <div class="bg-surface/30 backdrop-blur-md border border-white/5 rounded-2xl px-6 py-4 text-right shadow-xl">
-                    <div class="text-primary font-mono text-[10px] tracking-widest uppercase mb-1">Status: Syncing_Core</div>
+                    <div class="text-primary font-mono text-[10px] tracking-widest uppercase mb-1">{{ __('Status') }}: Syncing_Core</div>
                     <div class="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
                         <div class="h-full bg-primary animate-[scan_2s_ease-in-out_infinite]" style="width: 60%"></div>
                     </div>
@@ -115,14 +115,14 @@
 
                     <div class="mb-10 flex items-start justify-between relative z-10">
                         <div>
-                            <h3 class="font-bold text-lg text-text tracking-wide mb-1">{{ $title }}</h3>
+                            <h3 class="font-bold text-lg text-text tracking-wide mb-1">{{ __($title) }}</h3>
                             @if($title == 'AI & Robotics')
                                 <div class="flex items-center gap-2">
                                     <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
                                     <span class="text-[9px] text-primary/80 font-mono uppercase tracking-[0.2em]">Neural_Link_Active</span>
                                 </div>
                             @else
-                                <span class="text-[9px] text-muted font-mono uppercase tracking-[0.2em]">Sub_System_{{ $loop->iteration }}</span>
+                                <span class="text-[9px] text-muted font-mono uppercase tracking-[0.2em]">{{ __('Sub_System') }}_{{ $loop->iteration }}</span>
                             @endif
                         </div>
 
@@ -156,7 +156,7 @@
                             @else
                                 <div class="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover/tag:bg-primary transition-colors"></div>
                             @endif
-                            <span class="text-[11px] font-bold text-text/70 group-hover/tag:text-text transition-colors">{{ $s->name }}</span>
+                            <span class="text-[11px] font-bold text-text/70 group-hover/tag:text-text transition-colors">{{ __($s->name) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -172,7 +172,7 @@
                     <div class="w-3 h-3 rounded-full bg-primary animate-ping absolute inset-0 opacity-40"></div>
                     <div class="w-3 h-3 rounded-full bg-primary relative"></div>
                 </div>
-                <span class="text-xs font-bold text-muted uppercase tracking-[0.3em]">Module Efficiency: <span class="text-text">98.4%</span></span>
+                <span class="text-xs font-bold text-muted uppercase tracking-[0.3em]">{{ __('Module Efficiency') }}: <span class="text-text">98.4%</span></span>
             </div>
             <div class="flex gap-4">
                 <div class="px-4 py-2 rounded-full bg-white/5 text-[9px] font-mono text-muted uppercase tracking-widest border border-white/5">Protocol_Liquid_Glass</div>

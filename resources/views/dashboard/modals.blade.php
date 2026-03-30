@@ -16,7 +16,35 @@
             </div>
             <div>
                 <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Tech Stack</label>
-                <input type="text" name="tech" placeholder="PHP, Laravel, CSS" class="input-furina">
+                <input type="text" name="tech" placeholder="PHP, Laravel, Tailwind" class="input-furina">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category</label>
+                    <select name="category" class="input-furina bg-[#050f2e]">
+                        <option value="Web Development">Web Development</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="Open Source">Open Source</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Features (Markdown)</label>
+                    <textarea name="features" rows="2" placeholder="- Feature 1&#10;- Feature 2" class="input-furina"></textarea>
+                </div>
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Challenge</label>
+                <textarea name="challenge" rows="2" placeholder="What was the core problem?" class="input-furina"></textarea>
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Solution</label>
+                <textarea name="solution" rows="2" placeholder="How was it solved?" class="input-furina"></textarea>
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Result</label>
+                <textarea name="result" rows="2" placeholder="What was the impact?" class="input-furina"></textarea>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>

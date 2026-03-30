@@ -67,10 +67,6 @@
 @layer base {
     body {
         @apply transition-colors duration-500 bg-bg text-text min-h-screen;
-        background-image:
-            radial-gradient(at 0% 0%, var(--color-primary) 0, transparent 25%),
-            radial-gradient(at 100% 100%, var(--color-primary) 0, transparent 25%);
-        background-attachment: fixed;
     }
 
     ::-webkit-scrollbar { width: 6px; }

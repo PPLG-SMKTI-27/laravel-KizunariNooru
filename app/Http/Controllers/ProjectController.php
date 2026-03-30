@@ -27,15 +27,29 @@ class ProjectController extends Controller
             });
         }
 
+        if ($request->has('category') && $request->category != 'All') {
+            $query->where('category', $request->category);
+        }
+
         $projects = $query->get();
-        return view('pages.portfolio', compact('projects'));
+        return view('pages.projects.index', compact('projects'));
+    }
+
+    public function show(Project $project)
+    {
+        return view('pages.projects.show', compact('project'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'category' => 'nullable|string|max:255',
             'description' => 'required|string',
+            'challenge' => 'nullable|string',
+            'solution' => 'nullable|string',
+            'result' => 'nullable|string',
+            'features' => 'nullable|string',
             'tech' => 'nullable|string',
             'github' => 'nullable|url',
             'demo' => 'nullable|url',
@@ -52,7 +66,12 @@ class ProjectController extends Controller
         Project::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
+            'category' => $request->category,
             'description' => $request->description,
+            'challenge' => $request->challenge,
+            'solution' => $request->solution,
+            'result' => $request->result,
+            'features' => $request->features,
             'tech' => $request->tech,
             'github' => $request->github,
             'demo' => $request->demo,
@@ -69,7 +88,12 @@ class ProjectController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'category' => 'nullable|string|max:255',
             'description' => 'required|string',
+            'challenge' => 'nullable|string',
+            'solution' => 'nullable|string',
+            'result' => 'nullable|string',
+            'features' => 'nullable|string',
             'tech' => 'nullable|string',
             'github' => 'nullable|url',
             'demo' => 'nullable|url',
@@ -92,7 +116,12 @@ class ProjectController extends Controller
         $project->update([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
+            'category' => $request->category,
             'description' => $request->description,
+            'challenge' => $request->challenge,
+            'solution' => $request->solution,
+            'result' => $request->result,
+            'features' => $request->features,
             'tech' => $request->tech,
             'github' => $request->github,
             'demo' => $request->demo,

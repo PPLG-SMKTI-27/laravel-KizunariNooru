@@ -124,6 +124,9 @@
                 @include('dashboard.tabs.projects')
                 @include('dashboard.tabs.skills')
                 @include('dashboard.tabs.messages')
+                @include('dashboard.tabs.certificates')
+                @include('dashboard.tabs.services')
+                @include('dashboard.tabs.settings')
             </div>
         </main>
 
