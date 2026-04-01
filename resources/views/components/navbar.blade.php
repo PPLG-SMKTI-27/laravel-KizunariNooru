@@ -104,6 +104,7 @@
                             ['code' => 'ja', 'flag' => 'jp', 'label' => '日本語'],
                         ] as $lang)
                             <a href="{{ route('locale.switch', $lang['code']) }}"
+                               data-no-swup
                                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-300
                                       {{ app()->getLocale() === $lang['code'] ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:bg-white/5 hover:text-text border border-transparent' }}">
                                 <img src="https://flagcdn.com/w40/{{ $lang['flag'] }}.png" alt="{{ $lang['label'] }}" class="w-5 h-auto rounded-sm shadow-sm">

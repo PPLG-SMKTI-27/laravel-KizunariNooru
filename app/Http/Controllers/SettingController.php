@@ -16,7 +16,7 @@ class SettingController extends Controller
             'stat_3_value', 'stat_3_label',
             'stat_4_value', 'stat_4_label',
             'contact_email', 'contact_location',
-            'social_github', 'social_linkedin', 'social_instagram',
+            'social_github', 'social_linkedin', 'social_instagram', 'social_whatsapp',
             'footer_bio',
         ];
 

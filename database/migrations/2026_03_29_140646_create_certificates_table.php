@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('issuer');
-            $table->enum('category', ['Programming', 'Database', 'Tools'])->default('Programming');
+            $table->enum('category', ['Programming', 'Database', 'Tools', 'Seminar'])->default('Programming');
             $table->string('date')->default('In Progress');
             $table->unsignedTinyInteger('progress')->default(0); // 0-100
             $table->string('icon_svg')->nullable(); // SVG path string

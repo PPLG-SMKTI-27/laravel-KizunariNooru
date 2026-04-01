@@ -10,9 +10,9 @@
     @include('pages.home.partials.skills')
 
     {{-- Section disembunyikan agar Landing Page lebih ringkas --}}
-    {{-- @include('pages.home.partials.certificates') --}}
+    @include('pages.home.partials.certificates')
 
-    {{-- @include('pages.home.partials.services') --}}
+    @include('pages.home.partials.services')
 
     @include('pages.home.partials.contact')
     @include('pages.home.partials.cta')

@@ -82,7 +82,7 @@
                 </span>
                 Social Links
             </h3>
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-4 gap-6">
                 <div>
                     <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">GitHub URL</label>
                     <input type="url" name="social_github" value="{{ $settings['social_github'] ?? '' }}" placeholder="https://github.com/..." class="input-furina w-full">
@@ -94,6 +94,10 @@
                 <div>
                     <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Instagram URL</label>
                     <input type="url" name="social_instagram" value="{{ $settings['social_instagram'] ?? '' }}" placeholder="https://instagram.com/..." class="input-furina w-full">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">WhatsApp URL</label>
+                    <input type="url" name="social_whatsapp" value="{{ $settings['social_whatsapp'] ?? '' }}" placeholder="https://wa.me/..." class="input-furina w-full">
                 </div>
             </div>
         </div>

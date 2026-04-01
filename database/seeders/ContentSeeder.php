@@ -25,11 +25,12 @@ class ContentSeeder extends Seeder
             'stat_3_label'   => 'Client Satisfaction',
             'stat_4_value'   => '5+',
             'stat_4_label'   => 'Technologies',
-            'contact_email'  => 'hello@fahri.dev',
-            'contact_location' => 'Jakarta, Indonesia (GMT+7)',
-            'social_github'  => 'https://github.com/',
-            'social_linkedin'=> 'https://linkedin.com/',
-            'social_twitter' => 'https://twitter.com/',
+            'contact_email'  => '24_fahrinoor@student.smkti.net',
+            'contact_location' => 'Samarinda, Kaltim',
+            'social_github'  => 'https://github.com/rusherimfa',
+            'social_linkedin'=> 'https://www.linkedin.com/in/fahri-noor-royyan-66ba803a2',
+            'social_instagram'=> 'https://instagram.com/rusherimfaa',
+            'social_whatsapp' => 'https://wa.me/6282353830741',
         ];
 
         foreach ($settings as $key => $value) {

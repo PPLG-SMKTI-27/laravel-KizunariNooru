@@ -53,6 +53,11 @@
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849s-.011 3.585-.069 4.85c-.148 3.217-1.659 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.849-.07c-3.264-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.849s.011-3.584.069-4.849c.149-3.264 1.658-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.338-.2 6.78-2.617 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.338-2.617-6.78-6.98-6.98-1.28-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c0 .796-.646 1.442-1.442 1.442s-1.442-.646-1.442-1.442.646-1.442 1.442-1.442 1.442.646 1.442 1.442z"/></svg>
                         </a>
                         @endif
+                        @if(!empty($settings['social_whatsapp']))
+                        <a href="{{ $settings['social_whatsapp'] }}" target="_blank" class="w-12 h-12 rounded-xl bg-bg/20 border border-white/5 flex items-center justify-center text-muted hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 backdrop-blur-md">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.551 4.195 1.597 6.01L.004 24l6.104-1.6c1.761.96 3.737 1.464 5.923 1.464 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm3.899 17.553c-.161.458-.949.883-1.312.923-.342.039-1.099.166-3.483-.822-2.883-1.192-4.735-4.14-4.881-4.336-.145-.195-1.166-1.554-1.166-2.964s.738-2.105.996-2.378c.258-.273.563-.342.75-.342.188 0 .375.008.539.016.172.008.406-.062.641.5.242.578.828 2.016.898 2.156.07.141.117.305.023.492-.094.188-.141.305-.281.472-.141.164-.297.359-.422.492-.141.141-.289.297-.125.578.164.281.727 1.203 1.563 1.953.922.825 1.832 1.139 2.113 1.28.281.141.445.117.613-.07.168-.188.727-.844.922-1.133.195-.289.391-.242.648-.148.258.094 1.633.766 1.914.906.281.141.469.211.539.328.07.117.07.676-.091 1.134z"/></svg>
+                        </a>
+                        @endif
                     </div>
                 </div>
 
@@ -71,13 +76,13 @@
                     </ul>
                 </div>
 
-                {{-- Fontaine Quote --}}
+                {{-- Footer Quote --}}
                 <div class="relative bg-primary/5 rounded-3xl p-8 border border-white/5 md:col-span-1">
-                    <div class="absolute -top-3 left-6 px-3 bg-primary text-surface text-[10px] font-bold tracking-widest uppercase rounded-full">{{ __('Judge') }}</div>
+                    <div class="absolute -top-3 left-6 px-3 bg-primary text-surface text-[10px] font-bold tracking-widest uppercase rounded-full">{{ __('Developer') }}</div>
                     <p class="text-text/70 italic text-sm leading-relaxed pt-2 opacity-80">
-                        "{{ __('Under the gaze of Justice, every line of code shall be judged by its elegance.') }}"
+                        "{{ __('Setiap baris kode dirajut dengan ketelitian kristal untuk masa depan.') }}"
                     </p>
-                    <p class="text-[9px] text-primary font-bold uppercase tracking-[0.2em] mt-6">— {{ __('Court of Fontaine') }}</p>
+                    <p class="text-[9px] text-primary font-bold uppercase tracking-[0.2em] mt-6">— {{ __('Samarinda Kaltim') }}</p>
                 </div>
 
             </div>

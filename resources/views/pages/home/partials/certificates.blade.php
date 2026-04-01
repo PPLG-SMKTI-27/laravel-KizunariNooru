@@ -22,7 +22,7 @@
 
         {{-- Dynamic Tabs --}}
         <div class="gsap-reveal flex flex-wrap justify-center gap-2 mb-12">
-            @foreach(['Programming', 'Database', 'Tools'] as $tab)
+            @foreach(['Programming', 'Database', 'Tools', 'Seminar'] as $tab)
                 <button @click="activeTab = '{{ $tab }}'"
                         :class="activeTab === '{{ $tab }}' ? 'bg-primary text-white shadow-primary/30 border-primary' : 'bg-surface/40 text-muted border-border hover:border-primary/50 hover:text-text'"
                         class="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all duration-300 shadow-lg backdrop-blur-md">
