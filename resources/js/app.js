@@ -574,6 +574,59 @@ function initRetroMinigame() {
     // Do NOT add it again here to avoid duplicate triggers
     if (btnRestart) btnRestart.addEventListener('click', resetGame);
     if (btnQuit) btnQuit.addEventListener('click', quitGame);
+
+    // ── Mobile Gamepad Touch Controls ──────────────────────────────────────
+    function wireGamepadTouch() {
+        // Map gamepad button IDs to their corresponding key codes
+        const gpMap = [
+            { id: 'gp-up',     key: 'ArrowUp'    },
+            { id: 'gp-down',   key: 'ArrowDown'  },
+            { id: 'gp-left',   key: 'ArrowLeft'  },
+            { id: 'gp-right',  key: 'ArrowRight' },
+            { id: 'gp-attack', key: 'Space'       },
+        ];
+
+        gpMap.forEach(({ id, key }) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+
+            // Touch events (mobile)
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                keys[key] = true;
+            }, { passive: false });
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                keys[key] = false;
+            }, { passive: false });
+            btn.addEventListener('touchcancel', (e) => {
+                e.preventDefault();
+                keys[key] = false;
+            }, { passive: false });
+
+            // Mouse events (desktop testing / fallback)
+            btn.addEventListener('mousedown', () => { keys[key] = true; });
+            btn.addEventListener('mouseup',   () => { keys[key] = false; });
+            btn.addEventListener('mouseleave',() => { keys[key] = false; });
+        });
+
+        // Quit button
+        const mobileQuitBtn = document.getElementById('gp-quit-mobile');
+        if (mobileQuitBtn) {
+            mobileQuitBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                quitGame();
+            }, { passive: false });
+            mobileQuitBtn.addEventListener('click', () => quitGame());
+        }
+
+        // Release all keys when game loses focus (prevent stuck keys)
+        canvas.addEventListener('touchstart', (e) => {
+            // Prevent canvas touch from scrolling the page
+            e.preventDefault();
+        }, { passive: false });
+    }
+    wireGamepadTouch();
     
     // Additional Global Key Listeners for states
     window.addEventListener('keydown', e => {

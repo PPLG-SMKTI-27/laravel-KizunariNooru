@@ -200,9 +200,55 @@
                                         <span id="game-hp" class="text-red-400">HP: 100%</span>
                                     </div>
                                     <canvas id="retro-game-canvas" width="400" height="300" class="w-full max-w-[400px] bg-[#0a0f12] border-2 border-white/20 aspect-[4/3] block shadow-[inset_0_0_20px_rgba(34,211,238,0.1)]"></canvas>
-                                    <p class="text-white/60 text-[8px] md:text-[10px] font-vt323 mt-2 text-center uppercase tracking-widest leading-tight">
+                                    <p class="hidden md:block text-white/60 text-[8px] md:text-[10px] font-vt323 mt-1 text-center uppercase tracking-widest leading-tight">
                                         [WASD/Arrows] Move &nbsp;|&nbsp; [SPACE] Attack &nbsp;|&nbsp; [ESC] Quit
                                     </p>
+
+                                    {{-- Mobile Touch Gamepad --}}
+                                    <div id="mobile-gamepad" class="w-full max-w-[400px] mt-2 px-2 md:hidden select-none" style="touch-action:none;">
+                                        <style>
+                                            .gp-btn { -webkit-tap-highlight-color: transparent; touch-action: none; user-select: none; }
+                                            .gp-btn:active { filter: brightness(1.5); transform: scale(0.92); }
+                                        </style>
+                                        <div class="flex justify-between items-center gap-2">
+
+                                            {{-- D-Pad (Left) --}}
+                                            <div class="relative flex-shrink-0" style="width:108px;height:108px;">
+                                                {{-- Up --}}
+                                                <button id="gp-up" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
+                                                    style="width:36px;height:36px;top:0;left:50%;transform:translateX(-50%);">▲</button>
+                                                {{-- Left --}}
+                                                <button id="gp-left" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
+                                                    style="width:36px;height:36px;left:0;top:50%;transform:translateY(-50%);">◀</button>
+                                                {{-- Center (decorative) --}}
+                                                <div class="absolute bg-white/5 border border-white/15 rounded"
+                                                    style="width:36px;height:36px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+                                                {{-- Right --}}
+                                                <button id="gp-right" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
+                                                    style="width:36px;height:36px;right:0;top:50%;transform:translateY(-50%);">▶</button>
+                                                {{-- Down --}}
+                                                <button id="gp-down" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
+                                                    style="width:36px;height:36px;bottom:0;left:50%;transform:translateX(-50%);">▼</button>
+                                            </div>
+
+                                            {{-- Center: Quit button --}}
+                                            <div class="flex flex-col items-center gap-2 flex-1">
+                                                <span class="font-vt323 text-white/25 text-[8px] uppercase tracking-widest">CTRL</span>
+                                                <button id="gp-quit-mobile" class="gp-btn px-3 py-1 bg-red-500/20 border border-red-500/40 rounded font-vt323 text-red-400 text-[10px] uppercase transition-all">
+                                                    QUIT
+                                                </button>
+                                            </div>
+
+                                            {{-- Attack Button (Right) --}}
+                                            <div class="flex-shrink-0 flex flex-col items-center gap-1">
+                                                <button id="gp-attack" class="gp-btn flex items-center justify-center bg-cyan-400/20 border-2 border-cyan-400/60 rounded-full font-vt323 text-cyan-300 uppercase font-bold transition-all shadow-[0_0_20px_rgba(34,211,238,0.25)]"
+                                                    style="width:68px;height:68px;font-size:13px;">
+                                                    FIRE
+                                                </button>
+                                                <span class="font-vt323 text-cyan-400/40 text-[8px] uppercase tracking-widest">SPACE</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     
                                     <!-- Game Over Overlay -->
                                     <div id="game-over-screen" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0000b3]/90 backdrop-blur-sm hidden z-40">
