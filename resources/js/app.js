@@ -586,43 +586,67 @@ function initRetroMinigame() {
             { id: 'gp-attack', key: 'Space'       },
         ];
 
+        // Helper: clear all gamepad keys (safety net for stuck keys)
+        const gpKeys = gpMap.map(m => m.key);
+        const clearAllGpKeys = () => { gpKeys.forEach(k => { keys[k] = false; }); };
+
         gpMap.forEach(({ id, key }) => {
             const btn = document.getElementById(id);
             if (!btn) return;
 
-            // Touch events (mobile)
-            btn.addEventListener('touchstart', (e) => {
+            // ── Pointer Events (most reliable — works on touch & mouse) ──
+            // setPointerCapture: even if finger slides OFF the button, pointerup/cancel
+            // still fires ON THIS element — prevents "stuck key" bug.
+            btn.addEventListener('pointerdown', (e) => {
                 e.preventDefault();
+                try { btn.setPointerCapture(e.pointerId); } catch(_) {}
                 keys[key] = true;
-            }, { passive: false });
-            btn.addEventListener('touchend', (e) => {
+            });
+            btn.addEventListener('pointerup', (e) => {
                 e.preventDefault();
                 keys[key] = false;
-            }, { passive: false });
-            btn.addEventListener('touchcancel', (e) => {
+            });
+            btn.addEventListener('pointercancel', (e) => {
                 e.preventDefault();
                 keys[key] = false;
-            }, { passive: false });
+            });
+            // Extra safety: if pointer leaves WITHOUT capture (edge case)
+            btn.addEventListener('pointerleave', (e) => {
+                if (!btn.hasPointerCapture || !btn.hasPointerCapture(e.pointerId)) {
+                    keys[key] = false;
+                }
+            });
 
-            // Mouse events (desktop testing / fallback)
-            btn.addEventListener('mousedown', () => { keys[key] = true; });
-            btn.addEventListener('mouseup',   () => { keys[key] = false; });
-            btn.addEventListener('mouseleave',() => { keys[key] = false; });
+            // Prevent context menu on long-press
+            btn.addEventListener('contextmenu', (e) => e.preventDefault());
         });
+
+        // ── Global Safety Net: clear ALL keys on lose-focus ──────────────
+        // Catches cases like: switching apps, pulling down notification bar, etc.
+        window.addEventListener('blur', clearAllGpKeys);
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) clearAllGpKeys();
+        });
+        // If ALL pointer contact ends (lift all fingers), clear keys
+        window.addEventListener('pointerup',     clearAllGpKeys);
+        window.addEventListener('pointercancel', clearAllGpKeys);
 
         // Quit button
         const mobileQuitBtn = document.getElementById('gp-quit-mobile');
         if (mobileQuitBtn) {
-            mobileQuitBtn.addEventListener('touchend', (e) => {
+            mobileQuitBtn.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                try { mobileQuitBtn.setPointerCapture(e.pointerId); } catch(_) {}
+            });
+            mobileQuitBtn.addEventListener('pointerup', (e) => {
                 e.preventDefault();
                 quitGame();
-            }, { passive: false });
-            mobileQuitBtn.addEventListener('click', () => quitGame());
+            });
+            mobileQuitBtn.addEventListener('contextmenu', (e) => e.preventDefault());
         }
 
-        // Release all keys when game loses focus (prevent stuck keys)
+        // Prevent canvas touch from scrolling the page
         canvas.addEventListener('touchstart', (e) => {
-            // Prevent canvas touch from scrolling the page
             e.preventDefault();
         }, { passive: false });
     }
