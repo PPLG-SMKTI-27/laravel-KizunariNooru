@@ -82,6 +82,9 @@
         </filter>
     </svg>
     <div class="fixed inset-0 pointer-events-none z-[9998] opacity-[0.03] mix-blend-overlay" style="filter: url(#cinematic-noise);"></div>
+    
+    {{-- Adaptive Background: Rain (Dark) or Ocean Waves (Light) --}}
+    <x-background.dynamic-background />
     @endif
 
     <div class="{{ !request()->routeIs('dashboard*') ? 'flex-grow flex flex-col' : '' }}">
