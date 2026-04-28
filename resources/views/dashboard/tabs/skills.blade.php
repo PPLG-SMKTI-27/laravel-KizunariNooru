@@ -59,7 +59,7 @@
                             <div class="flex items-center gap-4">
                                 <div class="flex-1 max-w-[140px] h-2 bg-slate-900/60 rounded-full overflow-hidden border border-white/5 relative">
                                     <div class="absolute inset-0 bg-cyan-400/5 animate-pulse"></div>
-                                    <div class="h-full bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 rounded-full group-hover:brightness-125 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.6)] transition-all duration-700 relative z-10" style="width: {{ $s->percentage }}%"></div>
+                                    <div class="h-full bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 rounded-full group-hover:brightness-125 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.6)] transition-all duration-700 relative z-10" @style(['width' => ($s->percentage ?? 0) . '%'])></div>
                                 </div>
                                 <span class="text-[10px] font-mono font-black text-cyan-400/80 group-hover:text-cyan-400 transition tracking-tighter">{{ $s->percentage }}%</span>
                             </div>
@@ -83,16 +83,16 @@
                                     <form method="POST" action="{{ route('skills.update', $s) }}" class="space-y-4">
                                         @csrf @method('PATCH')
                                         <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Skill Name</label>
-                                            <input type="text" name="name" value="{{ $s->name }}" required class="input-furina">
+                                            <label for="edit-skill-name-{{ $s->id }}" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Skill Name</label>
+                                            <input type="text" id="edit-skill-name-{{ $s->id }}" name="name" value="{{ $s->name }}" required class="input-furina">
                                         </div>
                                         <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Percentage (0-100)</label>
-                                            <input type="number" name="percentage" value="{{ $s->percentage }}" min="0" max="100" required class="input-furina">
+                                            <label for="edit-skill-percentage-{{ $s->id }}" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Percentage (0-100)</label>
+                                            <input type="number" id="edit-skill-percentage-{{ $s->id }}" name="percentage" value="{{ $s->percentage }}" min="0" max="100" required class="input-furina">
                                         </div>
                                         <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category</label>
-                                            <select name="category" class="input-furina bg-[#050f2e]">
+                                            <label for="edit-skill-category-{{ $s->id }}" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category</label>
+                                            <select id="edit-skill-category-{{ $s->id }}" name="category" class="input-furina bg-[#050f2e]">
                                                 <option value="General" {{ (!$s->category || $s->category == 'General') ? 'selected' : '' }}>General</option>
                                                 <option value="Backend" {{ $s->category == 'Backend' ? 'selected' : '' }}>Backend</option>
                                                 <option value="Frontend" {{ $s->category == 'Frontend' ? 'selected' : '' }}>Frontend</option>

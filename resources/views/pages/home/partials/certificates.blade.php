@@ -75,7 +75,7 @@
                                 <span class="text-primary">{{ $cert->progress }}%</span>
                             </div>
                             <div class="w-full h-1 bg-border rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-primary to-primary-2 rounded-full" style="width: {{ $cert->progress }}%"></div>
+                                <div class="h-full bg-gradient-to-r from-primary to-primary-2 rounded-full" @style(['width' => ($cert->progress ?? 0) . '%'])></div>
                             </div>
                         </div>
                     @else

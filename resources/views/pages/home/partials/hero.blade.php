@@ -76,11 +76,54 @@
                         </span>
                     </h1>
 
-                    {{-- Animated Tagline --}}
-                    <p class="text-xl md:text-2xl font-medium text-muted">
-                        <span id="hero-tagline-static">{{ __($settings['hero_tagline'] ?? 'Full-Stack Developer') }}</span>
+                    {{-- Animated Tagline with Typewriter Effect --}}
+                    <p class="text-xl md:text-2xl font-medium text-muted h-[1.5em] flex items-center justify-center lg:justify-start">
+                        <span id="typewriter-text" class="border-r-2 border-primary/50 pr-1 min-w-[1px]"></span>
                     </p>
                 </div>
+
+                <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const textElement = document.getElementById('typewriter-text');
+                    const phrases = [
+                        'Full-Stack Developer',
+                        'Laravel Specialist',
+                        'UI/UX Enthusiast',
+                        'Creative Web Architect'
+                    ];
+                    let phraseIndex = 0;
+                    let characterIndex = 0;
+                    let isDeleting = false;
+                    let typeSpeed = 100;
+
+                    function type() {
+                        const currentPhrase = phrases[phraseIndex];
+                        
+                        if (isDeleting) {
+                            textElement.textContent = currentPhrase.substring(0, characterIndex - 1);
+                            characterIndex--;
+                            typeSpeed = 50;
+                        } else {
+                            textElement.textContent = currentPhrase.substring(0, characterIndex + 1);
+                            characterIndex++;
+                            typeSpeed = 100;
+                        }
+
+                        if (!isDeleting && characterIndex === currentPhrase.length) {
+                            isDeleting = true;
+                            typeSpeed = 2000; // Pause at end
+                        } else if (isDeleting && characterIndex === 0) {
+                            isDeleting = false;
+                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                            typeSpeed = 500;
+                        }
+
+                        setTimeout(type, typeSpeed);
+                    }
+
+                    type();
+                });
+                </script>
 
                 <p class="text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10 mx-auto lg:mx-0 font-light">
                     {{ __($settings['hero_bio'] ?? 'Crafting fluid digital solutions.') }}
@@ -158,9 +201,21 @@
         </div>
     </div>
 
-    {{-- Scroll Indicator --}}
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-        <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
-        <span class="text-[9px] uppercase tracking-[0.4em] text-muted rotate-90 origin-left mt-8">{{ __('Explore') }}</span>
+    {{-- ── SCROLL INDICATOR ── --}}
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 pointer-events-none opacity-60">
+        <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-muted animate-pulse">{{ __('Scroll') }}</span>
+        <div class="w-[2px] h-12 bg-gradient-to-b from-primary via-primary/20 to-transparent rounded-full overflow-hidden relative">
+            <div class="absolute top-0 left-0 w-full h-full bg-primary animate-scroll-line"></div>
+        </div>
     </div>
+
+    <style>
+    @keyframes scroll-line {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+    }
+    .animate-scroll-line {
+        animation: scroll-line 2s cubic-bezier(.76,.17,.24,.84) infinite;
+    }
+    </style>
 </section>

@@ -20,7 +20,7 @@
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-xl {{ $cert->progress == 100 ? 'bg-emerald-400/10 border-emerald-400/20 text-emerald-400' : 'bg-cyan-400/10 border-cyan-400/20 text-cyan-400' }} border flex items-center justify-center text-xs font-bold">
-                                    {{ $cert->progress }}%
+                                    {{ $cert->progress ?? 0 }}%
                                 </div>
                                 <div>
                                     <span class="text-sm font-bold text-white block">{{ $cert->title }}</span>
@@ -32,7 +32,7 @@
                             <div class="flex flex-col gap-1">
                                 <span class="text-xs font-bold text-cyan-300/70">{{ $cert->category }}</span>
                                 <div class="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
-                                    <div class="{{ $cert->progress == 100 ? 'bg-emerald-400' : 'bg-gradient-to-r from-cyan-400 to-blue-500' }} h-full rounded-full" style="width: {{ $cert->progress }}%"></div>
+                                    <div class="{{ $cert->progress == 100 ? 'bg-emerald-400' : 'bg-gradient-to-r from-cyan-400 to-blue-500' }} h-full rounded-full" @style(['width' => ($cert->progress ?? 0) . '%'])></div>
                                 </div>
                                 <span class="text-[9px] text-blue-200/30">{{ $cert->date }}</span>
                             </div>

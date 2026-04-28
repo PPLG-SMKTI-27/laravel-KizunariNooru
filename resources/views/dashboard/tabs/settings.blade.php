@@ -13,24 +13,24 @@
             </h3>
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Full Name</label>
-                    <input type="text" name="hero_name" value="{{ $settings['hero_name'] ?? '' }}" class="input-furina w-full">
+                    <label for="setting-hero-name" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Full Name</label>
+                    <input type="text" id="setting-hero-name" name="hero_name" value="{{ $settings['hero_name'] ?? '' }}" class="input-furina w-full">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Badge Text (green dot)</label>
-                    <input type="text" name="hero_badge" value="{{ $settings['hero_badge'] ?? '' }}" class="input-furina w-full">
+                    <label for="setting-hero-badge" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Badge Text (green dot)</label>
+                    <input type="text" id="setting-hero-badge" name="hero_badge" value="{{ $settings['hero_badge'] ?? '' }}" class="input-furina w-full">
                 </div>
                 <div class="md:col-span-2">
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Tagline / Role</label>
-                    <input type="text" name="hero_tagline" value="{{ $settings['hero_tagline'] ?? '' }}" class="input-furina w-full">
+                    <label for="setting-hero-tagline" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Tagline / Role</label>
+                    <input type="text" id="setting-hero-tagline" name="hero_tagline" value="{{ $settings['hero_tagline'] ?? '' }}" class="input-furina w-full">
                 </div>
                 <div class="md:col-span-2">
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Bio Paragraph</label>
-                    <textarea name="hero_bio" rows="3" class="input-furina w-full">{{ $settings['hero_bio'] ?? '' }}</textarea>
+                    <label for="setting-hero-bio" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Bio Paragraph</label>
+                    <textarea id="setting-hero-bio" name="hero_bio" rows="3" class="input-furina w-full">{{ $settings['hero_bio'] ?? '' }}</textarea>
                 </div>
                 <div class="md:col-span-2">
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Footer Branding Bio</label>
-                    <textarea name="footer_bio" rows="2" class="input-furina w-full" placeholder="Membangun jembatan antara imajinasi dan realitas digital...">{{ $settings['footer_bio'] ?? '' }}</textarea>
+                    <label for="setting-footer-bio" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Footer Branding Bio</label>
+                    <textarea id="setting-footer-bio" name="footer_bio" rows="2" class="input-furina w-full" placeholder="Membangun jembatan antara imajinasi dan realitas digital...">{{ $settings['footer_bio'] ?? '' }}</textarea>
                 </div>
             </div>
         </div>
@@ -46,9 +46,9 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @foreach([1,2,3,4] as $i)
                 <div class="space-y-3 p-4 rounded-2xl bg-white/2 border border-white/5">
-                    <label class="text-[9px] font-bold text-cyan-400/40 uppercase tracking-widest block">Stat {{ $i }}</label>
-                    <input type="text" name="stat_{{ $i }}_value" value="{{ $settings['stat_'.$i.'_value'] ?? '' }}" placeholder="2+" class="input-furina w-full text-center font-bold">
-                    <input type="text" name="stat_{{ $i }}_label" value="{{ $settings['stat_'.$i.'_label'] ?? '' }}" placeholder="Years Experience" class="input-furina w-full text-center text-xs">
+                    <label for="setting-stat-{{ $i }}-value" class="text-[9px] font-bold text-cyan-400/40 uppercase tracking-widest block">Stat {{ $i }}</label>
+                    <input type="text" id="setting-stat-{{ $i }}-value" name="stat_{{ $i }}_value" value="{{ $settings['stat_'.$i.'_value'] ?? '' }}" placeholder="2+" class="input-furina w-full text-center font-bold">
+                    <input type="text" id="setting-stat-{{ $i }}-label" name="stat_{{ $i }}_label" value="{{ $settings['stat_'.$i.'_label'] ?? '' }}" placeholder="Years Experience" class="input-furina w-full text-center text-xs">
                 </div>
                 @endforeach
             </div>
@@ -64,12 +64,12 @@
             </h3>
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Email Address</label>
-                    <input type="email" name="contact_email" value="{{ $settings['contact_email'] ?? '' }}" class="input-furina w-full">
+                    <label for="setting-contact-email" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Email Address</label>
+                    <input type="email" id="setting-contact-email" name="contact_email" value="{{ $settings['contact_email'] ?? '' }}" class="input-furina w-full">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Location</label>
-                    <input type="text" name="contact_location" value="{{ $settings['contact_location'] ?? '' }}" class="input-furina w-full">
+                    <label for="setting-contact-location" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Location</label>
+                    <input type="text" id="setting-contact-location" name="contact_location" value="{{ $settings['contact_location'] ?? '' }}" class="input-furina w-full">
                 </div>
             </div>
         </div>
@@ -84,20 +84,20 @@
             </h3>
             <div class="grid md:grid-cols-4 gap-6">
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">GitHub URL</label>
-                    <input type="url" name="social_github" value="{{ $settings['social_github'] ?? '' }}" placeholder="https://github.com/..." class="input-furina w-full">
+                    <label for="setting-social-github" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">GitHub URL</label>
+                    <input type="url" id="setting-social-github" name="social_github" value="{{ $settings['social_github'] ?? '' }}" placeholder="https://github.com/..." class="input-furina w-full">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">LinkedIn URL</label>
-                    <input type="url" name="social_linkedin" value="{{ $settings['social_linkedin'] ?? '' }}" placeholder="https://linkedin.com/..." class="input-furina w-full">
+                    <label for="setting-social-linkedin" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">LinkedIn URL</label>
+                    <input type="url" id="setting-social-linkedin" name="social_linkedin" value="{{ $settings['social_linkedin'] ?? '' }}" placeholder="https://linkedin.com/..." class="input-furina w-full">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Instagram URL</label>
-                    <input type="url" name="social_instagram" value="{{ $settings['social_instagram'] ?? '' }}" placeholder="https://instagram.com/..." class="input-furina w-full">
+                    <label for="setting-social-instagram" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">Instagram URL</label>
+                    <input type="url" id="setting-social-instagram" name="social_instagram" value="{{ $settings['social_instagram'] ?? '' }}" placeholder="https://instagram.com/..." class="input-furina w-full">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">WhatsApp URL</label>
-                    <input type="url" name="social_whatsapp" value="{{ $settings['social_whatsapp'] ?? '' }}" placeholder="https://wa.me/..." class="input-furina w-full">
+                    <label for="setting-social-whatsapp" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-2">WhatsApp URL</label>
+                    <input type="url" id="setting-social-whatsapp" name="social_whatsapp" value="{{ $settings['social_whatsapp'] ?? '' }}" placeholder="https://wa.me/..." class="input-furina w-full">
                 </div>
             </div>
         </div>

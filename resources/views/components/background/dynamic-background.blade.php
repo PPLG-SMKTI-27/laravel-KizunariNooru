@@ -18,9 +18,15 @@
         let width, height;
         let isDark = document.documentElement.classList.contains('dark');
         
+        let mouse = { x: -1000, y: -1000 };
+        window.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
         // --- RAIN ENGINE DATA ---
         let drops = [];
-        const dropCount = 60; 
+        const dropCount = 70; 
         const tech = ['Laravel', 'Tailwind', 'CSS', 'PHP', 'Vite', 'Alpine', 'JS', 'SQL'];
 
         class Drop {
@@ -32,9 +38,9 @@
                 this.isText = Math.random() > 0.85;
                 if (this.isText) {
                     this.text = tech[Math.floor(Math.random() * tech.length)];
-                    this.speed = 2 + Math.random() * 3;
+                    this.speed = 2 + Math.random() * 2.5;
                 } else {
-                    this.speed = 7 + Math.random() * 10;
+                    this.speed = 6 + Math.random() * 8;
                 }
             }
             update() {
@@ -42,20 +48,23 @@
                 if (this.y > height) { this.init(); this.y = -this.len; }
             }
             draw() {
+                const dist = Math.hypot(this.x - mouse.x, this.y - mouse.y);
+                const isNear = dist < 150;
+
                 if (this.isText) {
-                    const textColor = '#22D3EE';
-                    ctx.shadowBlur = 10;
+                    const textColor = isNear ? '#67E8F9' : '#22D3EE';
+                    ctx.shadowBlur = isNear ? 20 : 10;
                     ctx.shadowColor = textColor;
-                    ctx.font = 'bold 15px "Outfit", sans-serif';
+                    ctx.font = `bold ${isNear ? 17 : 15}px "Outfit", sans-serif`;
                     ctx.fillStyle = textColor;
                     ctx.fillText(this.text, this.x, this.y);
                     ctx.shadowBlur = 0;
                 } else {
-                    ctx.strokeStyle = 'rgba(34, 211, 238, 0.4)';
-                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = isNear ? 'rgba(34, 211, 238, 0.7)' : 'rgba(34, 211, 238, 0.3)';
+                    ctx.lineWidth = isNear ? 2 : 1;
                     ctx.beginPath();
                     ctx.moveTo(this.x, this.y);
-                    ctx.lineTo(this.x, this.y + this.len);
+                    ctx.lineTo(this.x, this.y + this.len + (isNear ? 10 : 0));
                     ctx.stroke();
                 }
             }
@@ -78,7 +87,12 @@
                 ctx.beginPath();
                 ctx.moveTo(0, height);
                 for (let x = 0; x <= width; x += 10) {
-                    const y = this.y + Math.sin(x * this.freq + this.offset) * this.amp;
+                    // Interaction: waves react to mouse x
+                    const distToMouse = Math.abs(x - mouse.x);
+                    const mousePower = Math.max(0, (200 - distToMouse) / 200);
+                    const interactAmp = this.amp + (mousePower * 30);
+                    
+                    const y = this.y + Math.sin(x * this.freq + this.offset) * interactAmp;
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(width, height);
@@ -92,19 +106,13 @@
             canvas.width = width;
             canvas.height = height;
 
-            // Init Rain
             drops = [];
             for (let i = 0; i < dropCount; i++) drops.push(new Drop());
 
-            // Init Waves (Furina Style)
-            const seaBlue = 'rgba(186, 230, 253, 0.3)';
-            const cyanBlue = 'rgba(103, 232, 249, 0.25)';
-            const foamBlue = 'rgba(224, 242, 254, 0.4)';
-            
             waves = [
-                new Wave(height * 0.75, 30, 0.005, 0.02, seaBlue),
-                new Wave(height * 0.8, 45, 0.007, 0.015, cyanBlue),
-                new Wave(height * 0.85, 25, 0.01, 0.025, foamBlue)
+                new Wave(height * 0.75, 30, 0.005, 0.02, 'rgba(186, 230, 253, 0.3)'),
+                new Wave(height * 0.82, 45, 0.007, 0.015, 'rgba(103, 232, 249, 0.25)'),
+                new Wave(height * 0.88, 25, 0.01, 0.025, 'rgba(224, 242, 254, 0.4)')
             ];
         }
 
@@ -117,7 +125,6 @@
         initEngines();
 
         function animate() {
-            // Background clearing depends on mode
             if (isDark) {
                 ctx.fillStyle = 'rgba(5, 11, 26, 0.15)';
                 ctx.fillRect(0, 0, width, height);
@@ -127,11 +134,6 @@
                 ctx.clearRect(0, 0, width, height);
                 canvas.style.opacity = '0.6';
                 waves.forEach(w => w.draw());
-                
-                // Add tiny bubbles for light mode
-                if (Math.random() > 0.95) {
-                    // Quick bubble draw (optional flare)
-                }
             }
             requestAnimationFrame(animate);
         }

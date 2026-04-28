@@ -18,6 +18,7 @@
     @include('pages.home.partials.cta')
 @endsection
 
+@push('scripts')
     <script>
     function initHomeScripts() {
         // Typewriter effect
@@ -89,3 +90,4 @@
     document.addEventListener('pageLoaded', initHomeScripts);
     document.addEventListener('preloaderDone', initHomeScripts);
     </script>
+@endpush

@@ -50,8 +50,8 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '{{ config('services.google_analytics.id') }}', { 'send_page_view': false });
-        window._gaId = '{{ config('services.google_analytics.id') }}';
+        gtag('config', "{{ config('services.google_analytics.id') }}", { 'send_page_view': false });
+        window._gaId = "{{ config('services.google_analytics.id') }}";
     </script>
     @endif
 
@@ -224,5 +224,7 @@
 
     <x-loaders.lang-loader />
     <x-loaders.dash-loader />
+
+    @stack('scripts')
 </body>
 </html>

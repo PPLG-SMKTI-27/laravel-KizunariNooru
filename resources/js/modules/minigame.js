@@ -47,9 +47,11 @@ export function initRetroMinigame() {
         btnGame.style.position = 'relative';
         btnGame.style.zIndex = '9999';
 
-        btnGame.addEventListener('click', startMinigame);
-        btnGame.addEventListener('touchend', startMinigame, { passive: false });
-        btnGame.addEventListener('pointerup', startMinigame);
+        btnGame.addEventListener('pointerdown', startMinigame);
+        btnGame.addEventListener('click', (e) => {
+            // If already started by pointerdown, click won't re-trigger due to isPlaying check inside
+            startMinigame(e);
+        });
     }
 
     window.startRetroMinigame = startMinigame;

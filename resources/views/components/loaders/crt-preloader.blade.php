@@ -29,8 +29,19 @@
         }
         @keyframes crtFlicker { 0% { opacity: 0.95; } 5% { opacity: 0.85; } 10% { opacity: 0.95; } 15% { opacity: 1; } 100% { opacity: 1; } }
         /* isolation:isolate removed — it caused a new stacking context that blocked pointer-events on buttons */
-        .crt-content { animation: crtFlicker 4s infinite alternate; position: relative; z-index: 1; }
-        .crt-btn { position: relative; z-index: 100; }
+        .crt-content { 
+            animation: crtFlicker 4s infinite alternate; 
+            position: relative; 
+            z-index: 10; 
+            transform: translateZ(50px); /* Bring content forward in 3D space */
+            transform-style: preserve-3d;
+        }
+        .crt-btn { 
+            position: relative; 
+            z-index: 100; 
+            transform: translateZ(10px);
+            cursor: pointer !important;
+        }
         .animate-blink { animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
     </style>
@@ -91,7 +102,7 @@
                                         <div class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-1"><span class="text-white/60">OPERATOR:</span><span class="text-white leading-none truncate">FULL-STACK WEB</span></div>
                                     </div>
                                     <!-- CRT Interactive Menu -->
-                                    <div id="crt-menu-options" class="mt-2 md:mt-4 flex flex-col items-center space-y-1 transition-opacity w-full" style="opacity:0.5; pointer-events:none;">
+                                    <div id="crt-menu-options" class="mt-2 md:mt-4 flex flex-col items-center space-y-1 transition-opacity w-full" style="opacity:0; pointer-events:none; transform: translateZ(20px);">
                                         <p id="crt-msg-wait" class="text-yellow-300 animate-blink uppercase text-[10px] md:text-sm">&lt;Wait For Boot Sequence&gt;</p>
                                         <div id="crt-msg-ready" class="flex-col items-center gap-2 w-full max-w-xs bg-black/40 p-3 rounded border border-white/20 relative" style="display:none; z-index:100; pointer-events:auto; position:relative;">
                                             <button type="button" id="btn-enter" class="crt-btn w-full text-center px-4 py-3 text-yellow-300 hover:bg-white hover:text-[#0000b3] border border-white/30 outline-none transition-all uppercase font-bold text-xs md:text-sm rounded shadow-[0_0_10px_rgba(253,224,71,0.2)]" style="display:block; width:100%; cursor:pointer; position:relative; z-index:100;">
@@ -105,12 +116,12 @@
                                 </div>
                             </div>
                             
-                            <!-- Retro Minigame Container -->
-                            <div id="crt-game-container" class="absolute inset-0 hidden flex-col items-center justify-center p-2 z-30 bg-[#0000b3] overflow-hidden rounded-xl">
-                                <div class="w-full max-w-[400px] flex justify-between text-white font-vt323 text-xs md:text-base mb-1 px-1">
-                                    <span id="game-score">SCORE: 000</span>
-                                    <span id="game-hp" class="text-red-400">HP: 100%</span>
-                                </div>
+                                <!-- Retro Minigame Container -->
+                                <div id="crt-game-container" class="absolute inset-0 hidden flex-col items-center justify-center p-2 z-30 bg-[#0000b3] overflow-hidden rounded-xl">
+                                    <div class="absolute top-4 w-full max-w-[360px] flex justify-between text-white font-vt323 text-sm md:text-xl px-4 z-40 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+                                        <span id="game-score">SCORE: 000</span>
+                                        <span id="game-hp" class="text-red-400">HP: 100%</span>
+                                    </div>
                                 <canvas id="retro-game-canvas" width="400" height="300" class="w-full max-w-[400px] bg-[#0a0f12] border-2 border-white/20 aspect-[4/3] block shadow-[inset_0_0_20px_rgba(34,211,238,0.1)]"></canvas>
                                 <p class="hidden md:block text-white/60 text-[8px] md:text-[10px] font-vt323 mt-1 text-center uppercase tracking-widest leading-tight">
                                     [WASD/Arrows] Move &nbsp;|&nbsp; [SPACE] Attack &nbsp;|&nbsp; [ESC] Quit

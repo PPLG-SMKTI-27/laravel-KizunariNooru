@@ -45,17 +45,17 @@
                                         @csrf @method('PATCH')
                                         <div class="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>
-                                                <input type="text" name="title" value="{{ $svc->title }}" required class="input-furina">
+                                                <label for="edit-service-title-{{ $svc->id }}" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>
+                                                <input type="text" id="edit-service-title-{{ $svc->id }}" name="title" value="{{ $svc->title }}" required class="input-furina">
                                             </div>
                                             <div>
-                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Label / Subtitle</label>
-                                                <input type="text" name="label" value="{{ $svc->label }}" required class="input-furina">
+                                                <label for="edit-service-label-{{ $svc->id }}" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Label / Subtitle</label>
+                                                <input type="text" id="edit-service-label-{{ $svc->id }}" name="label" value="{{ $svc->label }}" required class="input-furina">
                                             </div>
                                         </div>
                                         <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description</label>
-                                            <textarea name="description" rows="3" required class="input-furina">{{ $svc->description }}</textarea>
+                                            <label for="edit-service-description-{{ $svc->id }}" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description</label>
+                                            <textarea id="edit-service-description-{{ $svc->id }}" name="description" rows="3" required class="input-furina">{{ $svc->description }}</textarea>
                                         </div>
                                         <div class="flex justify-end gap-3 mt-4">
                                             <button type="button" @click="$dispatch('close')" class="px-6 py-2 text-blue-200/50 text-sm">Cancel</button>
@@ -82,17 +82,17 @@
             @csrf
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>
-                    <input type="text" name="title" required placeholder="Full-Stack Development" class="input-furina">
+                    <label for="create-service-title" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>
+                    <input type="text" id="create-service-title" name="title" required placeholder="Full-Stack Development" class="input-furina">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Label / Subtitle</label>
-                    <input type="text" name="label" required placeholder="Scalable Systems" class="input-furina">
+                    <label for="create-service-label" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Label / Subtitle</label>
+                    <input type="text" id="create-service-label" name="label" required placeholder="Scalable Systems" class="input-furina">
                 </div>
             </div>
             <div>
-                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description</label>
-                <textarea name="description" rows="3" required placeholder="Describe what you offer..." class="input-furina"></textarea>
+                <label for="create-service-description" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description</label>
+                <textarea id="create-service-description" name="description" rows="3" required placeholder="Describe what you offer..." class="input-furina"></textarea>
             </div>
             <div class="flex justify-end gap-3 mt-4">
                 <button type="button" @click="$dispatch('close')" class="px-6 py-2 text-blue-200/50 text-sm">Cancel</button>

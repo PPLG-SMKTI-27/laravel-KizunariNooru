@@ -118,11 +118,23 @@ export function initCrtBoot() {
             };
             window.bootSystemOsc = bootSystem;
 
-            // Wire btn-enter
+            // Wire btn-enter & btn-game more robustly
             const btnEnterEl = document.getElementById('btn-enter');
+            const btnGameEl = document.getElementById('btn-game');
+
             if (btnEnterEl) {
-                btnEnterEl.addEventListener('click', bootSystem);
-                btnEnterEl.addEventListener('touchend', bootSystem, { passive: false });
+                // Use pointerdown for faster response and better compatibility
+                btnEnterEl.addEventListener('pointerdown', bootSystem);
+                // Keep click as fallback
+                btnEnterEl.addEventListener('click', (e) => {
+                    if (!booted) bootSystem(e);
+                });
+            }
+            
+            if (btnGameEl) {
+                // Although minigame.js wires this, we ensure it's clickable by parent pointer-events
+                btnGameEl.style.pointerEvents = 'auto';
+                btnGameEl.style.cursor = 'pointer';
             }
 
             // --- Action RPG Minigame Engine ---

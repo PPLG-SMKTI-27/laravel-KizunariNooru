@@ -101,23 +101,23 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             {{-- Name --}}
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Your Name') }}</label>
+                                <label for="contact-name" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Your Name') }}</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                     </div>
-                                    <input type="text" name="name" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none" placeholder="{{ __('John Doe') }}">
+                                    <input type="text" id="contact-name" name="name" required autocomplete="name" class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none" placeholder="{{ __('John Doe') }}">
                                 </div>
                             </div>
 
                             {{-- Email --}}
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Email Address') }}</label>
+                                <label for="contact-email" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Email Address') }}</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                     </div>
-                                    <input type="email" name="email" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none" placeholder="{{ __('john@example.com') }}">
+                                    <input type="email" id="contact-email" name="email" required autocomplete="email" class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none" placeholder="{{ __('john@example.com') }}">
                                 </div>
                             </div>
                         </div>
@@ -125,12 +125,12 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             {{-- Subject --}}
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Subject') }}</label>
+                                <label for="contact-subject" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Subject') }}</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted z-10">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
                                     </div>
-                                    <select name="subject" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none appearance-none cursor-pointer">
+                                    <select id="contact-subject" name="subject" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none appearance-none cursor-pointer">
                                         <option value="" disabled selected>{{ __('Select a subject') }}</option>
                                         <option value="Web Development">{{ __('Web Development') }}</option>
                                         <option value="UI/UX Design">{{ __('UI/UX Design') }}</option>
@@ -145,12 +145,12 @@
 
                             {{-- Budget --}}
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Project Budget') }}</label>
+                                <label for="contact-budget" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Project Budget') }}</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted z-10">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                     </div>
-                                    <select name="budget" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none appearance-none cursor-pointer">
+                                    <select id="contact-budget" name="budget" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none appearance-none cursor-pointer">
                                         <option value="" disabled selected>{{ __('Select range') }}</option>
                                         <option value="< $1k">{{ __('Less than $1,000') }}</option>
                                         <option value="$1k - $5k">{{ __('$1,000 - $5,000') }}</option>
@@ -166,8 +166,8 @@
 
                         {{-- Message --}}
                         <div class="space-y-2">
-                            <label class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Project Details') }}</label>
-                            <textarea name="message" required rows="5" class="w-full p-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none resize-none" placeholder="{{ __('project_details_placeholder') }}"></textarea>
+                            <label for="contact-message" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Project Details') }}</label>
+                            <textarea id="contact-message" name="message" required rows="5" class="w-full p-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none resize-none" placeholder="{{ __('project_details_placeholder') }}"></textarea>
                         </div>
 
                         {{-- Cloudflare Turnstile Anti-Bot (Invisible) --}}

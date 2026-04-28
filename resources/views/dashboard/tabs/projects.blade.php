@@ -85,18 +85,34 @@
                                 <button @click="$dispatch('open-modal', 'edit-project-{{ $p->id }}')" title="Edit" class="p-2 text-cyan-400/40 hover:text-cyan-400 hover:bg-cyan-400/10 rounded-lg transition">
                                     <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-width="1.5"/></svg>
                                 </button>
-                                <form method="POST" action="{{ route('projects.destroy', $p) }}" onsubmit="return confirm('Erase this project?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" title="Delete" class="p-2 text-red-500/40 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition">
-                                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="1.5"/></svg>
-                                    </button>
-                                </form>
+                                <button @click="$dispatch('open-modal', 'delete-project-{{ $p->id }}')" title="Delete" class="p-2 text-red-500/40 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition">
+                                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="1.5"/></svg>
+                                </button>
+                                
+                                {{-- Delete Confirmation Modal --}}
+                                <x-modal name="delete-project-{{ $p->id }}" focusable>
+                                    <div class="p-8 bg-[#050f2e] border border-red-500/20 text-center">
+                                        <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 mx-auto mb-6">
+                                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <h2 class="font-display text-xl font-bold text-white mb-2">Erase Archive?</h2>
+                                        <p class="text-blue-200/50 text-sm mb-8 leading-relaxed">
+                                            Project <span class="text-white font-bold">"{{ $p->title }}"</span> akan dihapus selamanya dari arsip Court of Fontaine. Tindakan ini tidak dapat dibatalkan.
+                                        </p>
+                                        
+                                        <form method="POST" action="{{ route('projects.destroy', $p) }}" data-no-swup class="flex justify-center gap-4">
+                                            @csrf @method('DELETE')
+                                            <button type="button" @click="$dispatch('close')" class="px-6 py-2.5 rounded-xl border border-cyan-400/10 text-cyan-400 hover:bg-cyan-400/5 transition text-sm font-bold uppercase tracking-widest">Cancel</button>
+                                            <button type="submit" class="px-8 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white font-bold text-sm uppercase tracking-widest hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all">Destroy</button>
+                                        </form>
+                                    </div>
+                                </x-modal>
                             </div>
                             {{-- Edit Project Modal --}}
                             <x-modal name="edit-project-{{ $p->id }}" focusable>
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left whitespace-normal">
                                     <h2 class="font-display text-xl font-bold text-white mb-6">Refine Project</h2>
-                                    <form method="POST" action="{{ route('projects.update', $p) }}" class="space-y-4" enctype="multipart/form-data">
+                                    <form method="POST" action="{{ route('projects.update', $p) }}" class="space-y-4" enctype="multipart/form-data" data-no-swup>
                                         @csrf @method('PATCH')
                                         <div>
                                             <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>

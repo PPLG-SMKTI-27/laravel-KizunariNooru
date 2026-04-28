@@ -65,7 +65,7 @@ class ProjectController extends Controller
 
         Project::create([
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            'slug' => $this->generateUniqueSlug($request->title),
             'category' => $request->category,
             'description' => $request->description,
             'challenge' => $request->challenge,
@@ -115,7 +115,7 @@ class ProjectController extends Controller
 
         $project->update([
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            'slug' => $this->generateUniqueSlug($request->title, $project->id),
             'category' => $request->category,
             'description' => $request->description,
             'challenge' => $request->challenge,
@@ -138,5 +138,21 @@ class ProjectController extends Controller
     {
         $project->delete();
         return redirect()->back()->with('success', 'Project deleted successfully!');
+    }
+
+    /**
+     * Generate a unique slug for the project.
+     */
+    private function generateUniqueSlug(string $title, int|string|null $id = null)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Project::where('slug', $slug)->when($id, fn($q) => $q->where('id', '!=', $id))->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
+        return $slug;
     }
 }
