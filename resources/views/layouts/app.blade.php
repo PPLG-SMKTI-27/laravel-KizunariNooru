@@ -22,18 +22,17 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $settings['hero_name'] ?? 'Fahri' }} | Professional Portfolio">
     <meta property="og:description" content="{{ $settings['hero_bio'] ?? 'Membangun jembatan antara imajinasi dan realitas digital.' }}">
-    <meta property="og:image" content="{{ url('/photo-profile.jpeg') }}">
+    <meta property="og:image" content="{{ url('/Foto_pribadi.jpg') }}">
 
     {{-- Twitter --}}
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta property="twitter:title" content="{{ $settings['hero_name'] ?? 'Fahri' }} | Professional Portfolio">
     <meta property="twitter:description" content="{{ $settings['hero_bio'] ?? 'Membangun jembatan antara imajinasi dan realitas digital.' }}">
-    <meta property="twitter:image" content="{{ url('/photo-profile.jpeg') }}">
+    <meta property="twitter:image" content="{{ url('/Foto_pribadi.jpg') }}">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/jpeg" href="{{ asset('Logo.jpeg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('Logo.jpeg') }}">
 
     <title>{{ $settings['hero_name'] ?? 'Fahri' }} | @yield('title', 'Portfolio')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">

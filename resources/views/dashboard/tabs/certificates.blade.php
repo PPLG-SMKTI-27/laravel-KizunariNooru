@@ -11,6 +11,7 @@
                     <tr>
                         <th class="px-6 py-4 text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest">Certificate</th>
                         <th class="px-6 py-4 text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest hidden md:table-cell">Category / Progress</th>
+                        <th class="px-6 py-4 text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest hidden lg:table-cell">Image</th>
                         <th class="px-6 py-4 text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest text-right pr-12">Actions</th>
                     </tr>
                 </thead>
@@ -37,6 +38,15 @@
                                 <span class="text-[9px] text-blue-200/30">{{ $cert->date }}</span>
                             </div>
                         </td>
+                        <td class="px-6 py-4 hidden lg:table-cell">
+                            @if($cert->image)
+                                <a href="{{ Storage::url($cert->image) }}" target="_blank">
+                                    <img src="{{ Storage::url($cert->image) }}" alt="Certificate" class="w-20 h-14 object-cover rounded-lg border border-cyan-400/20 hover:scale-105 transition-transform">
+                                </a>
+                            @else
+                                <span class="text-[10px] text-blue-200/20 italic">No image</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-right pr-6">
                             <div class="flex justify-end gap-1">
                                 <button @click="$dispatch('open-modal', 'edit-cert-{{ $cert->id }}')" class="p-2 text-cyan-400/40 hover:text-cyan-400 hover:bg-cyan-400/10 rounded-lg transition">
@@ -53,7 +63,7 @@
                             <x-modal name="edit-cert-{{ $cert->id }}" focusable>
                                 <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
                                     <h2 class="font-display text-xl font-bold text-white mb-6">Edit Certificate</h2>
-                                    <form method="POST" action="{{ route('certificates.update', $cert) }}" class="space-y-4">
+                                    <form method="POST" action="{{ route('certificates.update', $cert) }}" class="space-y-4" enctype="multipart/form-data">
                                         @csrf @method('PATCH')
                                         <div class="grid grid-cols-2 gap-4">
                                             <div>
@@ -67,7 +77,7 @@
                                             <div>
                                                 <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category</label>
                                                 <select name="category" class="input-furina bg-[#050f2e]">
-                                                    @foreach(['Programming','Database','Tools'] as $cat)
+                                                    @foreach(['Programming','Database','Tools','Seminar'] as $cat)
                                                     <option value="{{ $cat }}" {{ $cert->category === $cat ? 'selected' : '' }}>{{ $cat }}</option>
                                                     @endforeach
                                                 </select>
@@ -84,6 +94,16 @@
                                                 <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Credential URL</label>
                                                 <input type="url" name="credential_url" value="{{ $cert->credential_url }}" placeholder="https://..." class="input-furina">
                                             </div>
+                                            <div class="col-span-2">
+                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Certificate Image</label>
+                                                @if($cert->image)
+                                                    <div class="mb-2">
+                                                        <img src="{{ Storage::url($cert->image) }}" alt="Current" class="h-24 rounded-lg border border-cyan-400/20 object-cover">
+                                                        <p class="text-[9px] text-cyan-400/40 mt-1">Current image — upload new to replace</p>
+                                                    </div>
+                                                @endif
+                                                <input type="file" name="image" accept="image/*" class="input-furina text-sm file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-cyan-400/10 file:text-cyan-400 file:text-xs file:font-bold hover:file:bg-cyan-400/20">
+                                            </div>
                                         </div>
                                         <div class="flex justify-end gap-3 mt-6">
                                             <button type="button" @click="$dispatch('close')" class="px-6 py-2 text-blue-200/50 text-sm">Cancel</button>
@@ -95,7 +115,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="3" class="px-6 py-12 text-center text-blue-300/30 text-sm italic">No certificates yet. Add your first one!</td></tr>
+                    <tr><td colspan="4" class="px-6 py-12 text-center text-blue-300/30 text-sm italic">No certificates yet. Add your first one!</td></tr>
                 @endforelse
                 </tbody>
             </table>
@@ -107,7 +127,7 @@
 <x-modal name="create-certificate" focusable>
     <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
         <h2 class="font-display text-xl font-bold text-white mb-6">Add Certificate</h2>
-        <form method="POST" action="{{ route('certificates.store') }}" class="space-y-4">
+        <form method="POST" action="{{ route('certificates.store') }}" class="space-y-4" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -124,6 +144,7 @@
                         <option value="Programming">Programming</option>
                         <option value="Database">Database</option>
                         <option value="Tools">Tools</option>
+                        <option value="Seminar">Seminar</option>
                     </select>
                 </div>
                 <div>
@@ -137,6 +158,11 @@
                 <div>
                     <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Credential URL</label>
                     <input type="url" name="credential_url" placeholder="https://..." class="input-furina">
+                </div>
+                <div class="col-span-2">
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Certificate Image</label>
+                    <input type="file" name="image" accept="image/*" class="input-furina text-sm file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-cyan-400/10 file:text-cyan-400 file:text-xs file:font-bold hover:file:bg-cyan-400/20">
+                    <p class="text-[9px] text-blue-200/30 mt-1">JPG, PNG, WEBP — max 5MB</p>
                 </div>
             </div>
             <div class="flex justify-end gap-3 mt-6">

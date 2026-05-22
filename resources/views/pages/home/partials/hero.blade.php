@@ -54,7 +54,7 @@
     </script>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
 
             {{-- ── LEFT COLUMN ── --}}
             <div class="flex-1 text-center lg:text-left">
@@ -125,24 +125,24 @@
                 });
                 </script>
 
-                <p class="text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10 mx-auto lg:mx-0 font-light">
+                <p class="gsap-reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10 mx-auto lg:mx-0 font-light">
                     {{ __($settings['hero_bio'] ?? 'Crafting fluid digital solutions.') }}
                 </p>
 
                 {{-- Action Buttons --}}
                 <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                    <a href="#projects" class="magnetic-btn group relative px-8 py-4 bg-primary text-white rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20">
+                    <a href="#projects" class="magnetic-btn-reveal group relative px-8 py-4 bg-primary text-white rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20">
                         <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         <span class="relative z-10 font-bold text-sm flex items-center gap-2">
                             {{ __('View Portfolio') }} <i class="fa-solid fa-arrow-right-long"></i>
                         </span>
                     </a>
 
-                    <a href="#contact" class="magnetic-btn px-8 py-4 bg-surface/40 backdrop-blur-md border border-border text-text rounded-2xl font-bold text-sm hover:bg-surface/80 hover:border-primary/30 transition-all active:scale-95">
+                    <a href="#contact" class="magnetic-btn-reveal px-8 py-4 bg-surface/40 backdrop-blur-md border border-border text-text rounded-2xl font-bold text-sm hover:bg-surface/80 hover:border-primary/30 transition-all active:scale-95">
                         {{ __('Get in Touch') }}
                     </a>
 
-                    <a href="{{ asset('resume.pdf') }}" download class="magnetic-btn px-8 py-4 bg-primary/10 border border-primary/20 text-primary rounded-2xl font-bold text-sm hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all active:scale-95 flex items-center gap-2">
+                    <a href="{{ asset('storage/' . ($settings['cv_file'] ?? 'CV_Fahri_Noor_Royyan.png')) }}" download class="magnetic-btn-reveal px-8 py-4 bg-primary/10 border border-primary/20 text-primary rounded-2xl font-bold text-sm hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all active:scale-95 flex items-center gap-2">
                         <i class="fa-solid fa-file-arrow-down"></i> {{ __('Download CV') }}
                     </a>
                 </div>
@@ -179,7 +179,7 @@
                         <div class="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent pointer-events-none z-10 mix-blend-overlay"></div>
 
                         <div class="w-full h-full rounded-[2.2rem] overflow-hidden bg-container relative">
-                            <img src="{{ asset('photo-profile.jpeg') }}"
+                            <img src="{{ asset('Foto_pribadi.jpg') }}"
                                  class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
                                  alt="Professional Headshot">
 

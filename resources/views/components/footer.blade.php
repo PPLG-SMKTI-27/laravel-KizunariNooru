@@ -22,7 +22,7 @@
                 <div class="md:col-span-2 space-y-8">
                     <a href="/" class="inline-flex items-center gap-4 group/logo">
                         <div class="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 shadow-inner group-hover/logo:scale-110 group-hover/logo:rotate-3 transition-all duration-500 ring-2 ring-primary/20">
-                            <img src="{{ asset('photo-profile.jpeg') }}" alt="Profile" class="w-full h-full object-cover">
+                            <img src="{{ asset('Foto_pribadi.jpg') }}" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <div>
                             <span class="block font-display text-2xl font-black text-text tracking-tighter uppercase">

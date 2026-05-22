@@ -1,3 +1,30 @@
+<style>
+    @keyframes waveDrift1 {
+        0% { transform: translateX(0) scaleY(1); }
+        50% { transform: translateX(-15%) scaleY(1.05); }
+        100% { transform: translateX(0) scaleY(1); }
+    }
+    @keyframes waveDrift2 {
+        0% { transform: translateX(-20%) scaleY(1.05); }
+        50% { transform: translateX(0) scaleY(0.95); }
+        100% { transform: translateX(-20%) scaleY(1.05); }
+    }
+    @keyframes waveDrift3 {
+        0% { transform: translateX(-5%) scaleY(0.98); }
+        50% { transform: translateX(-25%) scaleY(1.08); }
+        100% { transform: translateX(-5%) scaleY(0.98); }
+    }
+    .animate-wave1 {
+        animation: waveDrift1 28s ease-in-out infinite;
+    }
+    .animate-wave2 {
+        animation: waveDrift2 22s ease-in-out infinite;
+    }
+    .animate-wave3 {
+        animation: waveDrift3 16s ease-in-out infinite;
+    }
+</style>
+
 {{-- ══════════════════════════════════════════════════════
      DYNAMIC ISLAND NAV — LIQUID GLASS REDESIGN
 ══════════════════════════════════════════════════════ --}}
@@ -24,12 +51,39 @@
 
     {{-- Main Vessel --}}
     <div :class="[
-            open ? 'rounded-[2.5rem] p-6 w-full max-w-[350px]' : 'rounded-full px-2 py-2 w-auto min-w-[200px] sm:min-w-[400px]',
+            open ? 'rounded-[2.5rem] p-6 w-full max-w-[350px]' : 'rounded-full px-4 py-2 w-full max-w-[350px] sm:max-w-[600px] md:max-w-5xl lg:max-w-6xl',
             scrolled
                 ? 'bg-surface/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/10'
                 : 'bg-surface/60 backdrop-blur-xl shadow-lg border border-white/20'
          ]"
-         class="transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col relative group">
+         class="transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col relative group overflow-hidden">
+
+        {{-- Beautiful Ocean Wave Layers --}}
+        <div class="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-0">
+            <svg class="absolute bottom-0 left-0 w-[150%] h-[180%] opacity-40 mix-blend-screen" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wave 1 (Deep Blue / Cyan Gradient) -->
+                <path class="animate-wave1" d="M0,80 C240,110 480,50 720,80 C960,110 1200,50 1440,80 L1440,120 L0,120 Z" fill="url(#wave-grad-1)"></path>
+                <!-- Wave 2 (Neon Cyan / Translucent) -->
+                <path class="animate-wave2" d="M0,50 C320,10 640,90 960,50 C1280,10 1440,70 1440,70 L1440,120 L0,120 Z" fill="url(#wave-grad-2)"></path>
+                <!-- Wave 3 (Accent Cyan / Light Periwinkle) -->
+                <path class="animate-wave3" d="M0,90 C180,60 360,110 540,90 C720,70 900,110 1080,90 C1260,70 1440,100 1440,100 L1440,120 L0,120 Z" fill="url(#wave-grad-3)"></path>
+                
+                <defs>
+                    <linearGradient id="wave-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="var(--color-primary-2)" stop-opacity="0.25" />
+                    </linearGradient>
+                    <linearGradient id="wave-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.08" />
+                        <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0.2" />
+                    </linearGradient>
+                    <linearGradient id="wave-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--color-primary-2)" stop-opacity="0.05" />
+                        <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0.15" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
 
         {{-- Interior Refraction Light (Moving with Mouse potentially) --}}
         <div class="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 blur-[40px] rounded-full pointer-events-none group-hover:translate-x-20 transition-transform duration-1000"></div>
@@ -39,7 +93,7 @@
             {{-- Logo/Branding --}}
             <a href="/" class="flex items-center gap-2 group/logo pl-3 shrink-0">
                 <div class="w-8 h-8 rounded-full overflow-hidden shadow-lg group-hover/logo:scale-110 transition-transform duration-500 ring-2 ring-primary/30">
-                    <img src="{{ asset('photo-profile.jpeg') }}" alt="Profile" class="w-full h-full object-cover">
+                    <img src="{{ asset('Foto_pribadi.jpg') }}" alt="Profile" class="w-full h-full object-cover">
                 </div>
                 <span class="hidden sm:block font-display text-sm font-bold text-text tracking-widest uppercase">
                     FNR<span class="text-primary group-hover:animate-pulse">.</span>

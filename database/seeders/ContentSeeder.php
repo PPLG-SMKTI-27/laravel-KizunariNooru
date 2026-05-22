@@ -14,9 +14,10 @@ class ContentSeeder extends Seeder
         // Default Settings
         $settings = [
             'hero_name'      => 'Fahri Noor Royyan',
-            'hero_tagline'   => 'Full-Stack Developer specializing in Laravel ecosystems',
-            'hero_bio'       => 'Crafting fluid digital solutions with a blend of architectural precision and aesthetic elegance. Based in the digital realm of Fontaine.',
+            // Hero tagline now handled in Blade with typewriter effect
+            'hero_bio'       => 'Crafting fluid digital solutions with a blend of technical precision and aesthetic elegance.',
             'hero_badge'     => 'Ready for Collaboration',
+            'cv_file'        => 'CV_Fahri_Noor_Royyan.png',
             'stat_1_value'   => '2+',
             'stat_1_label'   => 'Years Experience',
             'stat_2_value'   => '3+',

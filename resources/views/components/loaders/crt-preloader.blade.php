@@ -4,19 +4,28 @@
 </div>
 
 {{-- Interactive Splash Screen (Brutalist Retro CRT) --}}
-<div id="fnr-preloader" class="fixed inset-0 z-[9999] bg-[#E8E9F3] flex flex-col justify-center overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.87,0,0.13,1)]">
+<div id="fnr-preloader" class="fixed inset-0 z-[9999] bg-[#E8E9F3] flex flex-col justify-between py-6 px-4 md:py-10 md:px-12 min-h-screen overflow-y-auto transition-all duration-1000 ease-[cubic-bezier(0.87,0,0.13,1)]">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
         .font-vt323 { font-family: 'VT323', monospace; }
         .crt-container { perspective: 1200px; }
         .crt-monitor {
-            background: #c3c4ca; border-radius: 3rem;
+            background: #c3c4ca; border-radius: 1.5rem;
             box-shadow: inset -5px -5px 15px rgba(255,255,255,0.7), inset 10px 10px 20px rgba(0,0,0,0.1), 30px 40px 60px rgba(0,0,0,0.2), -10px -10px 30px rgba(255,255,255,1);
             border: 2px solid #ddd; transform-style: preserve-3d; transition: transform 0.5s;
         }
+        @media (min-width: 768px) {
+            .crt-monitor { border-radius: 3rem; }
+        }
         .crt-container:hover .crt-monitor { transform: rotateX(2deg) rotateY(-2deg); }
-        .crt-bezel { background: #111; border-radius: 2rem; box-shadow: inset 0 0 20px #000; }
-        .crt-screen { background: #0000b3; border-radius: 1.5rem; box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; }
+        .crt-bezel { background: #111; border-radius: 1rem; box-shadow: inset 0 0 20px #000; }
+        @media (min-width: 768px) {
+            .crt-bezel { border-radius: 2rem; }
+        }
+        .crt-screen { background: #0000b3; border-radius: 0.75rem; box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; }
+        @media (min-width: 768px) {
+            .crt-screen { border-radius: 1.5rem; }
+        }
         .crt-screen::before {
             content: " "; display: block; position: absolute; inset: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
@@ -28,12 +37,11 @@
             z-index: 0; border-radius: 1.5rem; pointer-events: none;
         }
         @keyframes crtFlicker { 0% { opacity: 0.95; } 5% { opacity: 0.85; } 10% { opacity: 0.95; } 15% { opacity: 1; } 100% { opacity: 1; } }
-        /* isolation:isolate removed — it caused a new stacking context that blocked pointer-events on buttons */
         .crt-content { 
             animation: crtFlicker 4s infinite alternate; 
             position: relative; 
             z-index: 10; 
-            transform: translateZ(50px); /* Bring content forward in 3D space */
+            transform: translateZ(50px);
             transform-style: preserve-3d;
         }
         .crt-btn { 
@@ -48,28 +56,31 @@
 
     {{-- Huge Background Marquee/Text --}}
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden mix-blend-multiply opacity-5">
-        <h1 class="text-[18vw] font-black text-[#0000ff] leading-none tracking-tighter whitespace-nowrap">
+        <h1 class="text-[18vw] font-black text-[#0000ff] leading-none tracking-tighter whitespace-nowrap select-none">
             PORTFOLIO PORTFOLIO
         </h1>
     </div>
 
-    {{-- Corner Labels --}}
-    <div class="absolute top-10 left-6 md:left-12 z-20 font-inter font-bold text-sm md:text-2xl text-[#0000ff] tracking-tighter uppercase">
-        {{ $settings['hero_name'] ?? 'Fahri Noor Royyan' }}
-    </div>
-    <div class="absolute top-10 right-6 md:right-12 z-20 font-inter font-bold text-sm md:text-2xl text-[#0000ff] tracking-tighter text-right uppercase">
-        {{ $settings['hero_tagline'] ?? 'Multidisciplinary Developer' }}
-    </div>
+    {{-- Responsive Header --}}
+    <header class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 z-20 select-none shrink-0 mb-6 md:mb-10">
+        <div class="font-inter font-bold text-xs sm:text-sm md:text-xl lg:text-2xl text-[#0000ff] tracking-tighter uppercase text-center sm:text-left">
+            {{ $settings['hero_name'] ?? 'Fahri Noor Royyan' }}
+        </div>
+        <div class="font-inter font-bold text-xs sm:text-sm md:text-xl lg:text-2xl text-[#0000ff] tracking-tighter uppercase text-center sm:text-right">
+            {{ $settings['hero_tagline'] ?? 'Multidisciplinary Developer' }}
+        </div>
+    </header>
 
-    <div class="relative z-10 w-full max-w-5xl mx-auto px-4 lg:px-8 mt-12 md:mt-0">
+    {{-- Center Content - CRT Monitor Container --}}
+    <div class="relative z-10 w-full max-w-5xl mx-auto flex-grow flex items-center justify-center my-auto px-2 sm:px-4 md:px-8">
         {{-- CRT Monitor --}}
         <div class="crt-container w-full" id="crt-enter-btn">
-            <div class="crt-monitor mx-auto w-full md:w-[85%] lg:w-[800px] aspect-[4/5] sm:aspect-square md:aspect-[16/11] p-4 sm:p-8 md:p-12 relative hover:scale-[1.02]">
+            <div class="crt-monitor mx-auto w-full max-w-[420px] sm:max-w-[480px] md:max-w-3xl aspect-[4/5] sm:aspect-square md:aspect-[16/11] p-3 sm:p-6 md:p-10 relative hover:scale-[1.02]">
                 <div class="absolute top-2 left-1/2 -translate-x-1/2 w-40 h-2 flex justify-between gap-1 opacity-20 hidden md:flex">
                     @for($i=0; $i<8; $i++) <div class="h-full w-2 bg-black rounded-sm"></div> @endfor
                 </div>
-                <div class="crt-bezel w-full h-full p-2 sm:p-4 md:p-6 relative">
-                    <div class="crt-screen w-full h-full flex flex-col items-center justify-center p-3 sm:p-6 md:p-10">
+                <div class="crt-bezel w-full h-full p-2 md:p-4 relative">
+                    <div class="crt-screen w-full h-full flex flex-col items-center justify-center p-2.5 sm:p-4 md:p-8">
                         <div class="crt-content relative z-10 flex flex-col items-center justify-center w-full h-full">
 
                             <!-- Boot Sequence -->
@@ -96,7 +107,7 @@
                                 <h1 class="block sm:hidden font-vt323 text-white text-3xl font-bold tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] text-center w-full mb-2">FAHRI OS</h1>
                                 <div class="font-vt323 text-white/90 text-[10px] sm:text-xs md:text-base lg:text-xl tracking-widest text-center space-y-2 md:space-y-4 w-full max-w-sm">
                                     <p class="mb-1 md:mb-2 font-bold border-b border-white/20 pb-1 md:pb-2 text-[10px] md:text-base">MULTIDISCIPLINARY DEVELOPER</p>
-                                    <div class="text-left space-y-1 sm:space-y-2 pl-4 sm:pl-16 md:pl-8">
+                                    <div class="text-left space-y-1 sm:space-y-2 pl-2 sm:pl-8 md:pl-16">
                                         <div class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-1"><span class="text-white/60">NAME:</span><span class="text-white bg-white/10 px-1 py-0.5 rounded leading-none">{{ strtoupper($settings['hero_name'] ?? 'FAHRI') }}</span></div>
                                         <div class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-1"><span class="text-white/60">DATE:</span><span class="text-white leading-none">{{ date('Y') }}</span></div>
                                         <div class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-1"><span class="text-white/60">OPERATOR:</span><span class="text-white leading-none truncate">FULL-STACK WEB</span></div>
@@ -116,12 +127,12 @@
                                 </div>
                             </div>
                             
-                                <!-- Retro Minigame Container -->
-                                <div id="crt-game-container" class="absolute inset-0 hidden flex-col items-center justify-center p-2 z-30 bg-[#0000b3] overflow-hidden rounded-xl">
-                                    <div class="absolute top-4 w-full max-w-[360px] flex justify-between text-white font-vt323 text-sm md:text-xl px-4 z-40 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                                        <span id="game-score">SCORE: 000</span>
-                                        <span id="game-hp" class="text-red-400">HP: 100%</span>
-                                    </div>
+                            <!-- Retro Minigame Container -->
+                            <div id="crt-game-container" class="absolute inset-0 hidden flex-col items-center justify-center p-2 z-30 bg-[#0000b3] overflow-hidden rounded-xl">
+                                <div class="absolute top-4 w-full max-w-[360px] flex justify-between text-white font-vt323 text-sm md:text-xl px-4 z-40 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+                                    <span id="game-score">SCORE: 000</span>
+                                    <span id="game-hp" class="text-red-400">HP: 100%</span>
+                                </div>
                                 <canvas id="retro-game-canvas" width="400" height="300" class="w-full max-w-[400px] bg-[#0a0f12] border-2 border-white/20 aspect-[4/3] block shadow-[inset_0_0_20px_rgba(34,211,238,0.1)]"></canvas>
                                 <p class="hidden md:block text-white/60 text-[8px] md:text-[10px] font-vt323 mt-1 text-center uppercase tracking-widest leading-tight">
                                     [WASD/Arrows] Move &nbsp;|&nbsp; [SPACE] Attack &nbsp;|&nbsp; [ESC] Quit
@@ -136,22 +147,17 @@
                                     <div class="flex justify-between items-center gap-2">
 
                                         {{-- D-Pad (Left) --}}
-                                        <div class="relative flex-shrink-0" style="width:108px;height:108px;">
+                                        <div class="relative flex-shrink-0 w-[90px] h-[90px] sm:w-[108px] sm:h-[108px]">
                                             {{-- Up --}}
-                                            <button id="gp-up" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
-                                                style="width:36px;height:36px;top:0;left:50%;transform:translateX(-50%);">▲</button>
+                                            <button id="gp-up" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-xs sm:text-lg transition-all w-[30px] h-[30px] sm:w-[36px] sm:h-[36px] top-0 left-1/2 -translate-x-1/2">▲</button>
                                             {{-- Left --}}
-                                            <button id="gp-left" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
-                                                style="width:36px;height:36px;left:0;top:50%;transform:translateY(-50%);">◀</button>
+                                            <button id="gp-left" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-xs sm:text-lg transition-all w-[30px] h-[30px] sm:w-[36px] sm:h-[36px] left-0 top-1/2 -translate-y-1/2">◀</button>
                                             {{-- Center (decorative) --}}
-                                            <div class="absolute bg-white/5 border border-white/15 rounded"
-                                                style="width:36px;height:36px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+                                            <div class="absolute bg-white/5 border border-white/15 rounded w-[30px] h-[30px] sm:w-[36px] sm:h-[36px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
                                             {{-- Right --}}
-                                            <button id="gp-right" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
-                                                style="width:36px;height:36px;right:0;top:50%;transform:translateY(-50%);">▶</button>
+                                            <button id="gp-right" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-xs sm:text-lg transition-all w-[30px] h-[30px] sm:w-[36px] sm:h-[36px] right-0 top-1/2 -translate-y-1/2">▶</button>
                                             {{-- Down --}}
-                                            <button id="gp-down" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-lg transition-all"
-                                                style="width:36px;height:36px;bottom:0;left:50%;transform:translateX(-50%);">▼</button>
+                                            <button id="gp-down" class="gp-btn absolute flex items-center justify-center bg-white/10 border border-white/30 rounded text-white font-bold text-xs sm:text-lg transition-all w-[30px] h-[30px] sm:w-[36px] sm:h-[36px] bottom-0 left-1/2 -translate-x-1/2">▼</button>
                                         </div>
 
                                         {{-- Center: Quit button --}}
@@ -164,8 +170,7 @@
 
                                         {{-- Attack Button (Right) --}}
                                         <div class="flex-shrink-0 flex flex-col items-center gap-1">
-                                            <button id="gp-attack" class="gp-btn flex items-center justify-center bg-cyan-400/20 border-2 border-cyan-400/60 rounded-full font-vt323 text-cyan-300 uppercase font-bold transition-all shadow-[0_0_20px_rgba(34,211,238,0.25)]"
-                                                style="width:68px;height:68px;font-size:13px;">
+                                            <button id="gp-attack" class="gp-btn flex items-center justify-center bg-cyan-400/20 border-2 border-cyan-400/60 rounded-full font-vt323 text-cyan-300 uppercase font-bold transition-all shadow-[0_0_20px_rgba(34,211,238,0.25)] w-[54px] h-[54px] sm:w-[68px] sm:h-[68px] text-[11px] sm:text-[13px]">
                                                 FIRE
                                             </button>
                                             <span class="font-vt323 text-cyan-400/40 text-[8px] uppercase tracking-widest">SPACE</span>
@@ -186,9 +191,14 @@
                     </div>
                 </div>
             </div>
-            <p class="text-center font-bold text-[#0000ff] opacity-50 text-[10px] sm:text-xs mt-4 sm:mt-6 tracking-widest uppercase md:hidden relative z-20">Tap to continue</p>
         </div>
     </div>
+
+    {{-- Footer/Action Hint --}}
+    <footer class="w-full text-center z-20 shrink-0 mt-6 select-none">
+        <p class="font-bold text-[#0000ff] opacity-50 text-[10px] sm:text-xs tracking-widest uppercase md:hidden">Tap to continue</p>
+        <p class="font-bold text-[#0000ff] opacity-40 text-[10px] tracking-widest uppercase hidden md:block">Press any key or click screen to boot</p>
+    </footer>
 </div>
 
 {{-- Inline script to instantly hide CRT loader before CSS paints it if already booted in session --}}

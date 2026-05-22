@@ -3,33 +3,38 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Setting extends Model
 {
+    use HasFactory;
+
+    protected $table = 'settings';
+    public $timestamps = false;
     protected $fillable = ['key', 'value'];
 
     /**
-     * Get a setting value by key, with optional default.
+     * Retrieve a setting by key.
      */
-    public static function get(string $key, $default = null): mixed
+    public static function get(string $key, $default = null)
     {
         $setting = static::where('key', $key)->first();
         return $setting ? $setting->value : $default;
     }
 
     /**
-     * Set a setting value by key.
+     * Set a setting value (create or update).
      */
-    public static function set(string $key, $value): void
+    public static function set(string $key, $value)
     {
-        static::updateOrCreate(['key' => $key], ['value' => $value]);
+        return static::updateOrCreate(['key' => $key], ['value' => $value]);
     }
 
     /**
-     * Get all settings as key=>value array
+     * Return all settings as associative array.
      */
     public static function allAsArray(): array
     {
-        return static::all()->pluck('value', 'key')->toArray();
+        return static::pluck('value', 'key')->toArray();
     }
 }

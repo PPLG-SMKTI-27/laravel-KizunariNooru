@@ -32,34 +32,14 @@
 
                 {{-- Skill Tags Liquid --}}
                 <div class="flex flex-wrap gap-2 pt-4">
-                    @foreach(['Laravel','PHP','MySQL','Tailwind','Alpine.js','Git'] as $t)
+                    @foreach(['Laravel','PHP','MySQL','HTML','CSS','JavaScript','React.js','Tailwind CSS','Git','GitHub'] as $t)
                         <span class="px-4 py-1.5 rounded-xl bg-surface/40 backdrop-blur-md border border-border text-[11px] font-bold text-muted hover:border-primary/50 hover:text-primary transition-all duration-300">
                             {{ $t }}
                         </span>
                     @endforeach
                 </div>
 
-                {{-- Skill Progress Bars --}}
-                <div class="p-6 rounded-[2rem] bg-surface/30 backdrop-blur-xl border border-white/10 shadow-xl space-y-4">
-                    <h3 class="text-sm font-bold uppercase tracking-widest text-text mb-4">{{ __('Core Expertise') }}</h3>
-                    @foreach([
-                        ['name' => 'Laravel Ecosystem', 'pct' => 90],
-                        ['name' => 'PHP', 'pct' => 85],
-                        ['name' => 'Tailwind CSS', 'pct' => 85],
-                        ['name' => 'MySQL', 'pct' => 80],
-                        ['name' => 'Alpine.js', 'pct' => 75]
-                    ] as $skill)
-                    <div>
-                        <div class="flex justify-between text-[11px] font-bold uppercase mb-2">
-                            <span class="text-text">{{ $skill['name'] }}</span>
-                            <span class="text-primary">{{ $skill['pct'] }}%</span>
-                        </div>
-                        <div class="h-1.5 w-full bg-border rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-primary to-primary-2 rounded-full skill-fill" data-pct="{{ $skill['pct'] }}" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
+
             </div>
 
             {{-- Info & Stats Column --}}

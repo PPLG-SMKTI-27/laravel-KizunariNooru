@@ -51,8 +51,7 @@
                          x-transition:leave="transition ease-in duration-300 transform absolute inset-0"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-90"
-                         class="bg-surface/30 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl overflow-hidden group transform-gpu"
-                         data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.5">
+                         class="bg-surface/30 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl overflow-hidden group">
 
                         {{-- Floating Glow --}}
                         <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-3xl rounded-full group-hover:bg-primary/40 transition-colors"></div>
@@ -112,9 +111,22 @@
                 </div>
             </div>
 
+<style>
+    .mockup-screen-scroll::-webkit-scrollbar {
+        width: 3px;
+    }
+    .mockup-screen-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .mockup-screen-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-primary);
+        border-radius: 10px;
+    }
+</style>
+
             {{-- Right Side: Mockup Display (Col 6-12) --}}
             <div class="lg:col-span-7">
-                <div data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-perspective="1000" class="p-4 rounded-[3rem] bg-surface/40 backdrop-blur-3xl border border-white/10 shadow-2xl relative transform-gpu">
+                <div class="p-4 rounded-[3rem] bg-surface/40 backdrop-blur-3xl border border-white/10 shadow-2xl relative">
                     {{-- Device Controls --}}
                     <div class="flex justify-center gap-4 mb-6">
                         @foreach(['desktop' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'tablet' => 'M4 2h16v20H4z', 'mobile' => 'M7 2h10v20H7z'] as $view => $path)
@@ -141,25 +153,28 @@
 
                         @foreach($projects as $index => $project)
                         <div x-show="activeProject === {{ $index }}" x-transition.opacity.duration.800ms class="absolute inset-0 w-full h-full">
-                            <div class="w-full h-full overflow-y-auto scrollbar-hide">
+                            <div class="w-full h-full overflow-y-auto mockup-screen-scroll">
                                 @php
                                     $imageKey = "image_" . '$deviceView'; // Not possible in PHP, but logic-wise:
                                 @endphp
                                 <template x-if="deviceView === 'desktop'">
                                     <img src="{{ asset('storage/' . $project->image_desktop) }}" 
-                                         class="w-full h-auto" 
+                                         class="w-full h-auto block object-top" 
+                                         style="width: 100% !important; height: auto !important; max-height: none !important;"
                                          alt="{{ $project->title }} — Desktop View"
                                          loading="lazy">
                                 </template>
                                 <template x-if="deviceView === 'tablet'">
                                     <img src="{{ asset('storage/' . $project->image_tablet) }}" 
-                                         class="w-full h-auto" 
+                                         class="w-full h-auto block object-top" 
+                                         style="width: 100% !important; height: auto !important; max-height: none !important;"
                                          alt="{{ $project->title }} — Tablet View"
                                          loading="lazy">
                                 </template>
                                 <template x-if="deviceView === 'mobile'">
                                     <img src="{{ asset('storage/' . $project->image_mobile) }}" 
-                                         class="w-full h-auto" 
+                                         class="w-full h-auto block object-top" 
+                                         style="width: 100% !important; height: auto !important; max-height: none !important;"
                                          alt="{{ $project->title }} — Mobile View"
                                          loading="lazy">
                                 </template>

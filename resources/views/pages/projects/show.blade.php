@@ -9,7 +9,7 @@
         @if($project->image)
             <img id="hero-parallax-img" src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-[120%] object-cover absolute -top-[10%] left-0 opacity-70 mix-blend-screen grayscale-[30%]">
         @else
-            <div class="w-full h-full bg-container flex items-center justify-center">
+            <div class="w-full h-full max-h-[500px] overflow-y-auto mockup-screen-scroll bg-container flex items-center justify-center">
                 <span class="font-display text-3xl text-muted opacity-30">No Hero Image</span>
             </div>
         @endif
@@ -76,7 +76,7 @@
                     ['title' => 'The Result', 'content' => $project->result, 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'color' => 'success']
                 ] as $section)
                     @if($section['content'])
-                    <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2rem] hover:border-{{$section['color']}}/50 hover:bg-surface/50 transition-all duration-500 shadow-2xl relative overflow-hidden group transform-gpu" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                    <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2rem] hover:border-{{$section['color']}}/50 hover:bg-surface/50 transition-all duration-500 shadow-2xl relative overflow-hidden group transform-gpu">
                         <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-{{$section['color']}}/10 blur-3xl rounded-full group-hover:bg-{{$section['color']}}/20 transition-all duration-500"></div>
                         <div class="relative z-10">
                             <div class="w-12 h-12 rounded-2xl bg-{{$section['color']}}/10 border border-{{$section['color']}}/20 flex items-center justify-center text-{{$section['color']}} mb-6 group-hover:scale-110 transition-transform duration-500">
@@ -98,10 +98,10 @@
                     <span class="w-8 h-[2px] bg-primary"></span>
                     Mockups
                 </h2>
-                <div class="relative flex justify-center items-end gap-0 md:gap-8 z-10">
+                <div class="relative flex justify-center items-end gap-0 md:gap-8 z-10 overflow-x-auto">
                     {{-- Desktop Mockup --}}
                     @if($project->image_desktop)
-                        <div data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-perspective="1000" class="relative w-[300px] md:w-[600px] bg-surface/40 backdrop-blur-xl p-2 md:p-3 rounded-t-2xl shadow-2xl z-10 border border-white/10 transform-gpu">
+                        <div class="relative w-[300px] md:w-[600px] bg-surface/40 backdrop-blur-xl p-2 md:p-3 rounded-t-2xl shadow-2xl z-10 border border-white/10 transform-gpu">
                             <div class="w-full bg-bg rounded-t-xl overflow-hidden border border-border shadow-inner">
                                 <div class="bg-surface/50 backdrop-blur-md h-4 md:h-6 w-full flex items-center px-2 gap-1.5 border-b border-border">
                                     <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-danger/80"></span>
@@ -115,7 +115,7 @@
                     
                     {{-- Mobile Mockup --}}
                     @if($project->image_mobile)
-                        <div data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" class="absolute right-0 -bottom-4 md:bottom-0 md:relative w-[120px] md:w-[200px] bg-surface/60 backdrop-blur-xl p-2 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 z-20 transform-gpu">
+                        <div class="absolute right-0 -bottom-4 md:bottom-0 md:relative w-[120px] md:w-[200px] bg-surface/60 backdrop-blur-xl p-2 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 z-20 transform-gpu">
                             <div class="w-full bg-bg rounded-[1.5rem] overflow-hidden shadow-inner border border-white/5">
                                 <img src="{{ Storage::url($project->image_mobile) }}" class="w-full object-cover">
                             </div>
