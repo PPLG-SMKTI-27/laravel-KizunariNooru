@@ -100,7 +100,7 @@
                                             Project <span class="text-white font-bold">"{{ $p->title }}"</span> akan dihapus selamanya dari arsip Court of Fontaine. Tindakan ini tidak dapat dibatalkan.
                                         </p>
                                         
-                                        <form method="POST" action="{{ route('projects.destroy', $p) }}" data-no-swup class="flex justify-center gap-4">
+                                        <form method="POST" action="{{ route('projects.destroy', $p) }}" data-swup-ignore class="flex justify-center gap-4">
                                             @csrf @method('DELETE')
                                             <button type="button" @click="$dispatch('close')" class="px-6 py-2.5 rounded-xl border border-cyan-400/10 text-cyan-400 hover:bg-cyan-400/5 transition text-sm font-bold uppercase tracking-widest">Cancel</button>
                                             <button type="submit" class="px-8 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white font-bold text-sm uppercase tracking-widest hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all">Destroy</button>
@@ -110,50 +110,61 @@
                             </div>
                             {{-- Edit Project Modal --}}
                             <x-modal name="edit-project-{{ $p->id }}" focusable>
-                                <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left whitespace-normal">
+                                <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left whitespace-normal" x-data="{ lang: 'id' }">
                                     <h2 class="font-display text-xl font-bold text-white mb-6">Refine Project</h2>
-                                    <form method="POST" action="{{ route('projects.update', $p) }}" class="space-y-4" enctype="multipart/form-data" data-no-swup>
+                                    
+                                    <!-- Language Tabs -->
+                                    <div class="flex gap-2 mb-6 border-b border-cyan-400/20 pb-2">
+                                        <button type="button" @click="lang = 'id'" :class="lang === 'id' ? 'text-cyan-400 border-cyan-400' : 'text-cyan-400/50 border-transparent'" class="px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors">ID</button>
+                                        <button type="button" @click="lang = 'en'" :class="lang === 'en' ? 'text-cyan-400 border-cyan-400' : 'text-cyan-400/50 border-transparent'" class="px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors">EN</button>
+                                        <button type="button" @click="lang = 'ja'" :class="lang === 'ja' ? 'text-cyan-400 border-cyan-400' : 'text-cyan-400/50 border-transparent'" class="px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors">JA</button>
+                                    </div>
+
+                                    <form method="POST" action="{{ route('projects.update', $p) }}" class="space-y-4" enctype="multipart/form-data" data-swup-ignore>
                                         @csrf @method('PATCH')
-                                        <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>
-                                            <input type="text" name="title" value="{{ $p->title }}" required class="input-furina">
+                                        
+                                        @foreach(['id', 'en', 'ja'] as $l)
+                                        <div x-show="lang === '{{ $l }}'" class="space-y-4">
+                                            <div>
+                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title ({{ strtoupper($l) }})</label>
+                                                <input type="text" name="title[{{ $l }}]" value="{{ $p->getTranslation('title', $l, false) }}" {{ $l === 'id' ? 'required' : '' }} class="input-furina">
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description ({{ strtoupper($l) }})</label>
+                                                <textarea name="description[{{ $l }}]" rows="3" {{ $l === 'id' ? 'required' : '' }} class="input-furina">{{ $p->getTranslation('description', $l, false) }}</textarea>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category ({{ strtoupper($l) }})</label>
+                                                    <input type="text" name="category[{{ $l }}]" value="{{ $p->getTranslation('category', $l, false) }}" class="input-furina" {{ $l === 'id' ? 'required' : '' }}>
+                                                </div>
+                                                <div>
+                                                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Features - Markdown ({{ strtoupper($l) }})</label>
+                                                    <textarea name="features[{{ $l }}]" rows="2" class="input-furina">{{ $p->getTranslation('features', $l, false) }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Challenge ({{ strtoupper($l) }})</label>
+                                                <textarea name="challenge[{{ $l }}]" rows="2" class="input-furina">{{ $p->getTranslation('challenge', $l, false) }}</textarea>
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Solution ({{ strtoupper($l) }})</label>
+                                                <textarea name="solution[{{ $l }}]" rows="2" class="input-furina">{{ $p->getTranslation('solution', $l, false) }}</textarea>
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Result ({{ strtoupper($l) }})</label>
+                                                <textarea name="result[{{ $l }}]" rows="2" class="input-furina">{{ $p->getTranslation('result', $l, false) }}</textarea>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description</label>
-                                            <textarea name="description" rows="3" required class="input-furina">{{ $p->description }}</textarea>
-                                        </div>
+                                        @endforeach
+
+                                        <hr class="border-cyan-400/10 my-6">
+
                                         <div>
                                             <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Tech Stack</label>
                                             <input type="text" name="tech" value="{{ $p->tech }}" placeholder="PHP, Laravel, Tailwind" class="input-furina">
                                         </div>
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category</label>
-                                                <select name="category" class="input-furina bg-[#050f2e]">
-                                                    <option value="Web Development" {{ $p->category === 'Web Development' ? 'selected' : '' }}>Web Development</option>
-                                                    <option value="UI/UX Design" {{ $p->category === 'UI/UX Design' ? 'selected' : '' }}>UI/UX Design</option>
-                                                    <option value="Mobile App" {{ $p->category === 'Mobile App' ? 'selected' : '' }}>Mobile App</option>
-                                                    <option value="Open Source" {{ $p->category === 'Open Source' ? 'selected' : '' }}>Open Source</option>
-                                                    <option value="Other" {{ $p->category === 'Other' ? 'selected' : '' }}>Other</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Features (Markdown)</label>
-                                                <textarea name="features" rows="2" placeholder="- Feature 1&#10;- Feature 2" class="input-furina">{{ $p->features }}</textarea>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Challenge</label>
-                                            <textarea name="challenge" rows="2" placeholder="What was the core problem?" class="input-furina">{{ $p->challenge }}</textarea>
-                                        </div>
-                                        <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Solution</label>
-                                            <textarea name="solution" rows="2" placeholder="How was it solved?" class="input-furina">{{ $p->solution }}</textarea>
-                                        </div>
-                                        <div>
-                                            <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Result</label>
-                                            <textarea name="result" rows="2" placeholder="What was the impact?" class="input-furina">{{ $p->result }}</textarea>
-                                        </div>
+
                                         <div class="grid grid-cols-2 gap-4">
                                             <div>
                                                 <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">GitHub Link</label>

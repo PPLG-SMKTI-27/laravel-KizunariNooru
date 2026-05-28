@@ -28,12 +28,12 @@
                             <span class="block font-display text-2xl font-black text-text tracking-tighter uppercase">
                                 {{ $settings['hero_name'] ?? 'FNR' }}<span class="text-primary italic">.</span>DEV
                             </span>
-                            <span class="text-[9px] font-mono text-primary/60 uppercase tracking-[0.4em]">{{ $settings['hero_tagline'] ?? __('Digital Craftsman') }}</span>
+                            <span class="text-[9px] font-mono text-primary/60 uppercase tracking-[0.4em]">{{ __('Digital Craftsman') }}</span>
                         </div>
                     </a>
 
                     <p class="text-muted text-sm leading-relaxed max-w-sm opacity-80 font-medium">
-                        {{ __($settings['footer_bio'] ?? 'Membangun jembatan antara imajinasi dan realitas digital. Fokus pada performa, estetika, dan pengalaman pengguna yang sehalus kaca.') }}
+                        {{ __('Building bridges between imagination and digital reality. Focused on performance, aesthetics, and user experience as smooth as glass.') }}
                     </p>
 
                     {{-- Social Liquid Icons --}}
@@ -80,9 +80,9 @@
                 <div class="relative bg-primary/5 rounded-3xl p-8 border border-white/5 md:col-span-1">
                     <div class="absolute -top-3 left-6 px-3 bg-primary text-surface text-[10px] font-bold tracking-widest uppercase rounded-full">{{ __('Developer') }}</div>
                     <p class="text-text/70 italic text-sm leading-relaxed pt-2 opacity-80">
-                        "{{ __('Setiap baris kode dirajut dengan ketelitian kristal untuk masa depan.') }}"
+                        "{{ __('Every line of code is woven with crystalline precision for the future.') }}"
                     </p>
-                    <p class="text-[9px] text-primary font-bold uppercase tracking-[0.2em] mt-6">— {{ __('Samarinda Kaltim') }}</p>
+                    <p class="text-[9px] text-primary font-bold uppercase tracking-[0.2em] mt-6">— {{ __('Samarinda, East Kalimantan') }}</p>
                 </div>
 
             </div>

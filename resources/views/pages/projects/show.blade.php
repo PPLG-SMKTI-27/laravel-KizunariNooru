@@ -10,7 +10,7 @@
             <img id="hero-parallax-img" src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-[120%] object-cover absolute -top-[10%] left-0 opacity-70 mix-blend-screen grayscale-[30%]">
         @else
             <div class="w-full h-full max-h-[500px] overflow-y-auto mockup-screen-scroll bg-container flex items-center justify-center">
-                <span class="font-display text-3xl text-muted opacity-30">No Hero Image</span>
+                <span class="font-display text-3xl text-muted opacity-30">Tidak Ada Gambar Utama</span>
             </div>
         @endif
         
@@ -35,14 +35,14 @@
                 {{-- Action Links --}}
                 <div class="flex flex-wrap gap-4 mt-8">
                     @if($project->demo)
-                        <a href="{{ $project->demo }}" target="_blank" aria-label="Lihat Live Demo" class="magnetic-btn px-8 py-4 bg-primary text-white rounded-2xl font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center gap-2">
-                            <span>Live Demo</span>
+                        <a href="{{ $project->demo }}" target="_blank" aria-label="Lihat Demo Langsung" class="magnetic-btn px-8 py-4 bg-primary text-white rounded-2xl font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center gap-2">
+                            <span>Demo Langsung</span>
                             <x-icons.link class="w-4 h-4" stroke-width="2.5" />
                         </a>
                     @endif
                     @if($project->github)
                         <a href="{{ $project->github }}" target="_blank" class="magnetic-btn px-8 py-4 bg-surface/40 backdrop-blur-md border border-border text-text rounded-2xl font-bold text-sm tracking-widest uppercase hover:bg-surface/80 transition-all flex items-center gap-2">
-                            <span>Source Code</span>
+                            <span>Kode Sumber</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                         </a>
                     @endif
@@ -61,7 +61,7 @@
             <section class="gsap-reveal">
                 <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-6 flex items-center gap-4">
                     <span class="w-8 h-[2px] bg-primary"></span>
-                    Overview
+                    Ringkasan
                 </h2>
                 <p id="overview-text" class="text-muted text-lg leading-relaxed font-light">
                     {{ $project->description }}
@@ -71,9 +71,9 @@
             {{-- Challenge, Solution, Result --}}
             <div class="grid md:grid-cols-3 gap-6 gsap-stagger">
                 @foreach([
-                    ['title' => 'The Challenge', 'content' => $project->challenge, 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z', 'color' => 'warning'],
-                    ['title' => 'The Solution', 'content' => $project->solution, 'icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'color' => 'primary'],
-                    ['title' => 'The Result', 'content' => $project->result, 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'color' => 'success']
+                    ['title' => 'Tantangan', 'content' => $project->challenge, 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z', 'color' => 'warning'],
+                    ['title' => 'Solusi', 'content' => $project->solution, 'icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'color' => 'primary'],
+                    ['title' => 'Hasil', 'content' => $project->result, 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'color' => 'success']
                 ] as $section)
                     @if($section['content'])
                     <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2rem] hover:border-{{$section['color']}}/50 hover:bg-surface/50 transition-all duration-500 shadow-2xl relative overflow-hidden group transform-gpu">
@@ -91,33 +91,42 @@
             </div>
 
             {{-- Image Gallery --}}
-            @if($project->image_desktop || $project->image_mobile)
-            <section class="gsap-reveal bg-surface/20 rounded-[3rem] p-8 border border-border mt-16 shadow-2xl overflow-hidden relative">
+            @if($project->image_desktop || $project->image_tablet || $project->image_mobile)
+            <section class="gsap-reveal bg-surface/20 rounded-[2.5rem] p-6 md:p-8 border border-border mt-16 shadow-2xl overflow-hidden relative">
                 <div class="absolute inset-0 bg-primary/5 blur-3xl rounded-full"></div>
                 <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-8 flex items-center gap-4 relative z-10">
                     <span class="w-8 h-[2px] bg-primary"></span>
                     Mockups
                 </h2>
-                <div class="relative flex justify-center items-end gap-0 md:gap-8 z-10 overflow-x-auto">
+                <div class="relative flex flex-row justify-center items-end gap-2 md:gap-4 z-10 pt-4 pb-4">
                     {{-- Desktop Mockup --}}
                     @if($project->image_desktop)
-                        <div class="relative w-[300px] md:w-[600px] bg-surface/40 backdrop-blur-xl p-2 md:p-3 rounded-t-2xl shadow-2xl z-10 border border-white/10 transform-gpu">
-                            <div class="w-full bg-bg rounded-t-xl overflow-hidden border border-border shadow-inner">
-                                <div class="bg-surface/50 backdrop-blur-md h-4 md:h-6 w-full flex items-center px-2 gap-1.5 border-b border-border">
-                                    <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-danger/80"></span>
-                                    <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-warning/80"></span>
-                                    <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-success/80"></span>
+                        <div class="relative w-[200px] md:w-[380px] bg-surface/40 backdrop-blur-xl p-1.5 md:p-2 rounded-xl shadow-2xl z-10 border border-white/10 transform-gpu hover:-translate-y-2 transition-transform duration-500">
+                            <div class="w-full bg-bg rounded-lg overflow-hidden border border-border shadow-inner">
+                                <div class="bg-surface/50 backdrop-blur-md h-3 md:h-5 w-full flex items-center px-1.5 md:px-2 gap-1 border-b border-border">
+                                    <span class="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-danger/80"></span>
+                                    <span class="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-warning/80"></span>
+                                    <span class="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-success/80"></span>
                                 </div>
-                                <img src="{{ Storage::url($project->image_desktop) }}" class="w-full object-cover">
+                                <img src="{{ Storage::url($project->image_desktop) }}" class="w-full h-auto object-cover object-top max-h-[150px] md:max-h-[240px]">
                             </div>
                         </div>
                     @endif
                     
+                    {{-- Tablet Mockup --}}
+                    @if($project->image_tablet)
+                        <div class="relative w-[120px] md:w-[220px] bg-surface/50 backdrop-blur-xl p-1.5 md:p-2 rounded-[1rem] md:rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 z-20 transform-gpu -ml-8 md:-ml-12 mb-2 md:mb-4 hover:-translate-y-2 transition-transform duration-500">
+                            <div class="w-full bg-bg rounded-lg md:rounded-[1rem] overflow-hidden shadow-inner border border-white/5">
+                                <img src="{{ Storage::url($project->image_tablet) }}" class="w-full h-auto object-cover object-top max-h-[140px] md:max-h-[280px]">
+                            </div>
+                        </div>
+                    @endif
+
                     {{-- Mobile Mockup --}}
                     @if($project->image_mobile)
-                        <div class="absolute right-0 -bottom-4 md:bottom-0 md:relative w-[120px] md:w-[200px] bg-surface/60 backdrop-blur-xl p-2 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 z-20 transform-gpu">
-                            <div class="w-full bg-bg rounded-[1.5rem] overflow-hidden shadow-inner border border-white/5">
-                                <img src="{{ Storage::url($project->image_mobile) }}" class="w-full object-cover">
+                        <div class="relative w-[60px] md:w-[100px] bg-surface/60 backdrop-blur-xl p-1 md:p-1.5 rounded-xl md:rounded-[1.2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 z-30 transform-gpu -ml-6 md:-ml-8 mb-0 md:mb-0 hover:-translate-y-2 transition-transform duration-500">
+                            <div class="w-full bg-bg rounded-md md:rounded-[0.9rem] overflow-hidden shadow-inner border border-white/5">
+                                <img src="{{ Storage::url($project->image_mobile) }}" class="w-full h-auto object-cover object-top max-h-[100px] md:max-h-[180px]">
                             </div>
                         </div>
                     @endif
@@ -132,7 +141,7 @@
             {{-- Tech Stack --}}
             @if($project->tech)
             <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] shadow-2xl gsap-reveal hover:bg-surface/50 transition-colors duration-500">
-                <h3 class="font-display text-xl font-bold text-text mb-6">Technologies</h3>
+                <h3 class="font-display text-xl font-bold text-text mb-6">Teknologi</h3>
                 <div class="flex flex-wrap gap-3">
                     @foreach($project->tech_array as $t)
                         <div class="px-4 py-2 bg-bg border border-border rounded-xl flex items-center gap-2 group hover:border-primary/50 transition-colors">
@@ -147,7 +156,7 @@
             {{-- Key Features --}}
             @if($project->features)
             <div class="p-8 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] shadow-2xl gsap-reveal hover:bg-surface/50 transition-colors duration-500">
-                <h3 class="font-display text-xl font-bold text-text mb-6">Key Features</h3>
+                <h3 class="font-display text-xl font-bold text-text mb-6">Fitur Utama</h3>
                 <ul class="space-y-4">
                     @php 
                         $featuresDe = is_string($project->features) ? json_decode($project->features, true) : $project->features;

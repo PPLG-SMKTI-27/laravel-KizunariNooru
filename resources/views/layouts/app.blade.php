@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth theme-dark dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="theme-dark dark">
 <head>
     <meta charset="utf-8">
     {{-- Dark Mode FOUC Fix: runs before CSS renders to prevent white-flash --}}
     <script>
         (function(){
             var t = localStorage.getItem('theme') || 'dark';
-            document.documentElement.className = 'scroll-smooth theme-' + t + (t === 'dark' ? ' dark' : '');
+            document.documentElement.className = 'theme-' + t + (t === 'dark' ? ' dark' : '');
         })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">

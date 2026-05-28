@@ -1,5 +1,5 @@
 {
-    "Ready for Collaboration": "Ready for Collaboration",
+    "Ready for Collaboration": "Freelance / Remote (Student)",
     "View Portfolio": "View Portfolio",
     "Get in Touch": "Get in Touch",
     "Explore": "Explore",
@@ -60,7 +60,7 @@
     "Let's Talk": "Let's Talk",
     "Business": "Business",
     "contact_description": "Whether you have a project in mind or just want to say hi, feel free to reach out. I'm currently available for freelance work and exciting opportunities.",
-    "Available for Work": "Available for Work",
+    "Available for Work": "Freelance / Remote (Student)",
     "Email": "Email",
     "Your Name": "Your Name",
     "Email Address": "Email Address",
@@ -127,5 +127,11 @@
     "Under the gaze of Justice, every line of code shall be judged by its elegance.": "Under the gaze of Justice, every line of code shall be judged by its elegance.",
     "Court of Fontaine": "Court of Fontaine",
     "SYSTEM_STABLE": "SYSTEM_STABLE",
-    "Handcrafted with": "Handcrafted with"
+    "Handcrafted with": "Handcrafted with",
+    "Featured Section Subtitle": "Selected Works",
+    "Featured Section Title 1": "Featured",
+    "Featured Section Title 2": "Projects",
+    "Developer": "Developer",
+    "Every line of code is woven with crystalline precision for the future.": "Every line of code is woven with crystalline precision for the future.",
+    "Samarinda, East Kalimantan": "Samarinda, East Kalimantan"
 }

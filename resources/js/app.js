@@ -39,15 +39,14 @@ import { initThemeSwitcher } from './modules/theme';
 // ── MAIN APPLICATION LOGIC ──────────────────────────────────────────────────
 
 function initApp() {
-    // 1. Initialize Lenis Smooth Scroll
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smooth: true,
-    });
-    
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    // 1. Initialize Lenis Smooth Scroll (Temporarily disabled for debugging)
+    // const lenis = new Lenis({
+    //     autoRaf: true,
+    //     duration: 1.2,
+    //     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    // });
+    // 
+    // lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.lagSmoothing(0);
 
     // 2. Initialize Particles

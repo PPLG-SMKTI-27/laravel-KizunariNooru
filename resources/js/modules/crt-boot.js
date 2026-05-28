@@ -13,6 +13,7 @@ export function initCrtBoot() {
         if (sessionStorage.getItem('fnr_booted') === 'true') {
             preloader.style.display = 'none';
             if (tvPowerOn) tvPowerOn.style.display = 'none';
+            document.body.style.overflow = '';
             gsap.set('#swup', { opacity: 1 });
             initGlobalAnimations();
         } else {

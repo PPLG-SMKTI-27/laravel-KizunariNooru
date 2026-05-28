@@ -43,13 +43,15 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'challenge' => 'nullable|string',
-            'solution' => 'nullable|string',
-            'result' => 'nullable|string',
-            'features' => 'nullable|string',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'category' => 'nullable|array',
+            'description' => 'required|array',
+            'description.id' => 'required|string',
+            'challenge' => 'nullable|array',
+            'solution' => 'nullable|array',
+            'result' => 'nullable|array',
+            'features' => 'nullable|array',
             'tech' => 'nullable|string',
             'github' => 'nullable|url',
             'demo' => 'nullable|url',
@@ -63,15 +65,21 @@ class ProjectController extends Controller
             return $file ? $file->store('projects', 'public') : null;
         };
 
+        $translatableData = $this->autoTranslateFields($request->only([
+            'title', 'category', 'description', 'challenge', 'solution', 'result', 'features'
+        ]));
+
+        $slugBase = $translatableData['title']['en'] ?? $translatableData['title']['id'] ?? 'project';
+
         Project::create([
-            'title' => $request->title,
-            'slug' => $this->generateUniqueSlug($request->title),
-            'category' => $request->category,
-            'description' => $request->description,
-            'challenge' => $request->challenge,
-            'solution' => $request->solution,
-            'result' => $request->result,
-            'features' => $request->features,
+            'title' => $translatableData['title'],
+            'slug' => $this->generateUniqueSlug($slugBase),
+            'category' => $translatableData['category'] ?? null,
+            'description' => $translatableData['description'],
+            'challenge' => $translatableData['challenge'] ?? null,
+            'solution' => $translatableData['solution'] ?? null,
+            'result' => $translatableData['result'] ?? null,
+            'features' => $translatableData['features'] ?? null,
             'tech' => $request->tech,
             'github' => $request->github,
             'demo' => $request->demo,
@@ -87,13 +95,15 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'challenge' => 'nullable|string',
-            'solution' => 'nullable|string',
-            'result' => 'nullable|string',
-            'features' => 'nullable|string',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'category' => 'nullable|array',
+            'description' => 'required|array',
+            'description.id' => 'required|string',
+            'challenge' => 'nullable|array',
+            'solution' => 'nullable|array',
+            'result' => 'nullable|array',
+            'features' => 'nullable|array',
             'tech' => 'nullable|string',
             'github' => 'nullable|url',
             'demo' => 'nullable|url',
@@ -113,15 +123,21 @@ class ProjectController extends Controller
             return $oldPath;
         };
 
+        $translatableData = $this->autoTranslateFields($request->only([
+            'title', 'category', 'description', 'challenge', 'solution', 'result', 'features'
+        ]));
+
+        $slugBase = $translatableData['title']['en'] ?? $translatableData['title']['id'] ?? 'project';
+
         $project->update([
-            'title' => $request->title,
-            'slug' => $this->generateUniqueSlug($request->title, $project->id),
-            'category' => $request->category,
-            'description' => $request->description,
-            'challenge' => $request->challenge,
-            'solution' => $request->solution,
-            'result' => $request->result,
-            'features' => $request->features,
+            'title' => $translatableData['title'],
+            'slug' => $this->generateUniqueSlug($slugBase, $project->id),
+            'category' => $translatableData['category'] ?? null,
+            'description' => $translatableData['description'],
+            'challenge' => $translatableData['challenge'] ?? null,
+            'solution' => $translatableData['solution'] ?? null,
+            'result' => $translatableData['result'] ?? null,
+            'features' => $translatableData['features'] ?? null,
             'tech' => $request->tech,
             'github' => $request->github,
             'demo' => $request->demo,
@@ -154,5 +170,41 @@ class ProjectController extends Controller
         }
 
         return $slug;
+    }
+
+    /**
+     * Automatically translate missing fields using Google Translate API.
+     */
+    private function autoTranslateFields(array $data)
+    {
+        $fields = ['title', 'category', 'description', 'challenge', 'solution', 'result', 'features'];
+        
+        foreach ($fields as $field) {
+            if (isset($data[$field]) && is_array($data[$field])) {
+                $idText = $data[$field]['id'] ?? null;
+                
+                if (!empty($idText)) {
+                    // English
+                    if (empty($data[$field]['en'])) {
+                        try {
+                            $data[$field]['en'] = \Stichoza\GoogleTranslate\GoogleTranslate::trans($idText, 'en', 'id');
+                        } catch (\Exception $e) {
+                            $data[$field]['en'] = $idText;
+                        }
+                    }
+                    
+                    // Japanese
+                    if (empty($data[$field]['ja'])) {
+                        try {
+                            $data[$field]['ja'] = \Stichoza\GoogleTranslate\GoogleTranslate::trans($idText, 'ja', 'id');
+                        } catch (\Exception $e) {
+                            $data[$field]['ja'] = $idText;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $data;
     }
 }

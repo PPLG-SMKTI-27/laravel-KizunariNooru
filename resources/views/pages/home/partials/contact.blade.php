@@ -83,6 +83,11 @@
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.551 4.195 1.597 6.01L.004 24l6.104-1.6c1.761.96 3.737 1.464 5.923 1.464 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm3.899 17.553c-.161.458-.949.883-1.312.923-.342.039-1.099.166-3.483-.822-2.883-1.192-4.735-4.14-4.881-4.336-.145-.195-1.166-1.554-1.166-2.964s.738-2.105.996-2.378c.258-.273.563-.342.75-.342.188 0 .375.008.539.016.172.008.406-.062.641.5.242.578.828 2.016.898 2.156.07.141.117.305.023.492-.094.188-.141.305-.281.472-.141.164-.297.359-.422.492-.141.141-.289.297-.125.578.164.281.727 1.203 1.563 1.953.922.825 1.832 1.139 2.113 1.28.281.141.445.117.613-.07.168-.188.727-.844.922-1.133.195-.289.391-.242.648-.148.258.094 1.633.766 1.914.906.281.141.469.211.539.328.07.117.07.676-.091 1.134z"/></svg>
                         </a>
                         @endif
+                        @if(!empty($settings['contact_email']))
+                        <a href="mailto:{{ $settings['contact_email'] }}" aria-label="Email" class="w-12 h-12 rounded-xl bg-surface/50 border border-border flex items-center justify-center text-muted hover:text-primary hover:border-primary/50 transition-all hover:-translate-y-1 shadow-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </a>
+                        @endif
                     </div>
                 </div>
 
@@ -122,7 +127,7 @@
                             </div>
                         </div>
 
-                        <div class="grid md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 gap-6">
                             {{-- Subject --}}
                             <div class="space-y-2">
                                 <label for="contact-subject" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Subject') }}</label>
@@ -136,26 +141,6 @@
                                         <option value="UI/UX Design">{{ __('UI/UX Design') }}</option>
                                         <option value="Consulting">{{ __('Technical Consulting') }}</option>
                                         <option value="Other">{{ __('Other Inquiry') }}</option>
-                                    </select>
-                                    <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-muted">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Budget --}}
-                            <div class="space-y-2">
-                                <label for="contact-budget" class="text-[10px] font-bold text-muted uppercase tracking-widest pl-2 block">{{ __('Project Budget') }}</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted z-10">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    </div>
-                                    <select id="contact-budget" name="budget" required class="w-full pl-12 pr-4 py-4 bg-bg/50 border border-border text-text text-sm rounded-2xl focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder-muted/50 transition-all outline-none appearance-none cursor-pointer">
-                                        <option value="" disabled selected>{{ __('Select range') }}</option>
-                                        <option value="< $1k">{{ __('Less than $1,000') }}</option>
-                                        <option value="$1k - $5k">{{ __('$1,000 - $5,000') }}</option>
-                                        <option value="$5k - $10k">{{ __('$5,000 - $10,000') }}</option>
-                                        <option value="> $10k">{{ __('More than $10,000') }}</option>
                                     </select>
                                     <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-muted">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>

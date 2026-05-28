@@ -2,50 +2,61 @@
 
 {{-- Create Project --}}
 <x-modal name="create-project" focusable>
-    <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left">
+    <div class="p-8 bg-[#050f2e] border border-cyan-400/20 text-left" x-data="{ lang: 'id' }">
         <h2 class="font-display text-xl font-bold text-white mb-6">Forge New Project</h2>
-        <form method="POST" action="{{ route('projects.store') }}" class="space-y-4" enctype="multipart/form-data" data-no-swup>
+        
+        <!-- Language Tabs -->
+        <div class="flex gap-2 mb-6 border-b border-cyan-400/20 pb-2">
+            <button type="button" @click="lang = 'id'" :class="lang === 'id' ? 'text-cyan-400 border-cyan-400' : 'text-cyan-400/50 border-transparent'" class="px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors">ID</button>
+            <button type="button" @click="lang = 'en'" :class="lang === 'en' ? 'text-cyan-400 border-cyan-400' : 'text-cyan-400/50 border-transparent'" class="px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors">EN</button>
+            <button type="button" @click="lang = 'ja'" :class="lang === 'ja' ? 'text-cyan-400 border-cyan-400' : 'text-cyan-400/50 border-transparent'" class="px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors">JA</button>
+        </div>
+
+        <form method="POST" action="{{ route('projects.store') }}" class="space-y-4" enctype="multipart/form-data" data-swup-ignore>
             @csrf
-            <div>
-                <label for="project-title" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title</label>
-                <input type="text" id="project-title" name="title" required placeholder="Project Title" class="input-furina">
+
+            @foreach(['id', 'en', 'ja'] as $l)
+            <div x-show="lang === '{{ $l }}'" class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Title ({{ strtoupper($l) }})</label>
+                    <input type="text" name="title[{{ $l }}]" {{ $l === 'id' ? 'required' : '' }} placeholder="Project Title" class="input-furina">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description ({{ strtoupper($l) }})</label>
+                    <textarea name="description[{{ $l }}]" rows="3" {{ $l === 'id' ? 'required' : '' }} placeholder="Describe the masterpiece..." class="input-furina"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category ({{ strtoupper($l) }})</label>
+                        <input type="text" name="category[{{ $l }}]" placeholder="E.g., Web Development" class="input-furina" {{ $l === 'id' ? 'required' : '' }}>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Features - Markdown ({{ strtoupper($l) }})</label>
+                        <textarea name="features[{{ $l }}]" rows="2" placeholder="- Feature 1" class="input-furina"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Challenge ({{ strtoupper($l) }})</label>
+                    <textarea name="challenge[{{ $l }}]" rows="2" placeholder="What was the core problem?" class="input-furina"></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Solution ({{ strtoupper($l) }})</label>
+                    <textarea name="solution[{{ $l }}]" rows="2" placeholder="How was it solved?" class="input-furina"></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Result ({{ strtoupper($l) }})</label>
+                    <textarea name="result[{{ $l }}]" rows="2" placeholder="What was the impact?" class="input-furina"></textarea>
+                </div>
             </div>
-            <div>
-                <label for="project-description" class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Description</label>
-                <textarea id="project-description" name="description" rows="3" required placeholder="Describe the masterpiece..." class="input-furina"></textarea>
-            </div>
+            @endforeach
+
+            <hr class="border-cyan-400/10 my-6">
+
             <div>
                 <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Tech Stack</label>
                 <input type="text" name="tech" placeholder="PHP, Laravel, Tailwind" class="input-furina">
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Category</label>
-                    <select name="category" class="input-furina bg-[#050f2e]">
-                        <option value="Web Development">Web Development</option>
-                        <option value="UI/UX Design">UI/UX Design</option>
-                        <option value="Mobile App">Mobile App</option>
-                        <option value="Open Source">Open Source</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Features (Markdown)</label>
-                    <textarea name="features" rows="2" placeholder="- Feature 1&#10;- Feature 2" class="input-furina"></textarea>
-                </div>
-            </div>
-            <div>
-                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Challenge</label>
-                <textarea name="challenge" rows="2" placeholder="What was the core problem?" class="input-furina"></textarea>
-            </div>
-            <div>
-                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Solution</label>
-                <textarea name="solution" rows="2" placeholder="How was it solved?" class="input-furina"></textarea>
-            </div>
-            <div>
-                <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">Result</label>
-                <textarea name="result" rows="2" placeholder="What was the impact?" class="input-furina"></textarea>
-            </div>
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="text-[10px] font-bold text-cyan-400/50 uppercase tracking-widest block mb-1">GitHub Link</label>

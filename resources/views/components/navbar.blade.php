@@ -56,7 +56,7 @@
                 ? 'bg-surface/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/10'
                 : 'bg-surface/60 backdrop-blur-xl shadow-lg border border-white/20'
          ]"
-         class="transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col relative group overflow-hidden">
+         class="transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col relative group">
 
         {{-- Beautiful Ocean Wave Layers --}}
         <div class="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-0">
@@ -158,7 +158,7 @@
                             ['code' => 'ja', 'flag' => 'jp', 'label' => '日本語'],
                         ] as $lang)
                             <a href="{{ route('locale.switch', $lang['code']) }}"
-                               data-no-swup
+                               data-swup-ignore
                                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-300
                                       {{ app()->getLocale() === $lang['code'] ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:bg-white/5 hover:text-text border border-transparent' }}">
                                 <img src="https://flagcdn.com/w40/{{ $lang['flag'] }}.png" alt="{{ $lang['label'] }}" class="w-5 h-auto rounded-sm shadow-sm">

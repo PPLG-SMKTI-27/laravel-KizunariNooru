@@ -15,7 +15,9 @@ Route::get('/locale/{locale}', function (string $locale) {
     if (in_array($locale, ['en', 'id', 'ja'])) {
         session()->put('locale', $locale);
     }
-    return redirect()->back();
+    return redirect()->back()->setTargetUrl(
+        url()->previous() !== url()->current() ? url()->previous() : '/'
+    );
 })->name('locale.switch');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

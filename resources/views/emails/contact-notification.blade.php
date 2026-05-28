@@ -54,14 +54,9 @@
                     </div>
                 </div>
 
-                <div class="grid">
                     <div class="field">
                         <div class="field-label">Subject</div>
                         <div class="field-value">{{ $contactData['subject'] ?? '—' }}</div>
-                    </div>
-                    <div class="field">
-                        <div class="field-label">Budget Range</div>
-                        <div class="field-value">{{ $contactData['budget'] ?? '—' }}</div>
                     </div>
                 </div>
 

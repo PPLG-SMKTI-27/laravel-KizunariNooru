@@ -31,10 +31,10 @@
         <div class="mb-16 gsap-reveal">
             <div class="flex items-center gap-4 mb-4">
                 <span class="h-px w-12 bg-primary/50"></span>
-                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-primary">{{ __('Selected Works') }}</span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-primary">{{ __('Featured Section Subtitle') }}</span>
             </div>
             <h2 class="text-4xl md:text-6xl font-black text-text font-display tracking-tight">
-                {{ __('Featured') }} <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic px-2">{{ __('Projects') }}</span>
+                {{ __('Featured Section Title 1') }} <span class="bg-gradient-to-r from-primary to-primary-2 bg-clip-text text-transparent italic px-2">{{ __('Featured Section Title 2') }}</span>
             </h2>
         </div>
 
@@ -125,25 +125,30 @@
 </style>
 
             {{-- Right Side: Mockup Display (Col 6-12) --}}
-            <div class="lg:col-span-7">
-                <div class="p-4 rounded-[3rem] bg-surface/40 backdrop-blur-3xl border border-white/10 shadow-2xl relative">
+            <div class="lg:col-span-7 flex justify-center items-center">
+                <div class="p-3 md:p-4 bg-surface/40 backdrop-blur-3xl border border-white/10 shadow-2xl relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col"
+                     :class="{
+                         'w-full rounded-[2.5rem] md:rounded-[3rem]': deviceView === 'desktop',
+                         'w-[85%] md:w-[70%] rounded-[2rem] md:rounded-[3rem]': deviceView === 'tablet',
+                         'w-[65%] md:w-[45%] rounded-[2rem] md:rounded-[3rem]': deviceView === 'mobile'
+                     }">
                     {{-- Device Controls --}}
-                    <div class="flex justify-center gap-4 mb-6">
+                    <div class="flex justify-center gap-3 md:gap-4 mb-4 md:mb-6">
                         @foreach(['desktop' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'tablet' => 'M4 2h16v20H4z', 'mobile' => 'M7 2h10v20H7z'] as $view => $path)
                         <button @click="deviceView = '{{ $view }}'; stopScroll();"
                             :class="deviceView === '{{ $view }}' ? 'bg-primary text-white scale-110 shadow-primary/30' : 'bg-bg/50 text-muted'"
-                            class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 shadow-md">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $path }}"/></svg>
+                            class="w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center transition-all duration-500 shadow-md">
+                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $path }}"/></svg>
                         </button>
                         @endforeach
                     </div>
 
                     {{-- Screen Container --}}
-                    <div class="relative bg-bg rounded-[2rem] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-inner mx-auto"
+                    <div class="relative bg-bg overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-inner w-full"
                          :class="{
-                             'w-full aspect-video': deviceView === 'desktop',
-                             'w-[70%] aspect-[3/4]': deviceView === 'tablet',
-                             'w-[45%] aspect-[9/19]': deviceView === 'mobile'
+                             'aspect-video rounded-[1.5rem] md:rounded-[2rem]': deviceView === 'desktop',
+                             'aspect-[3/4] rounded-[1.2rem] md:rounded-[2rem]': deviceView === 'tablet',
+                             'aspect-[9/19] rounded-[1.2rem] md:rounded-[2.2rem]': deviceView === 'mobile'
                          }">
 
                         {{-- Scanning Liquid Effect --}}

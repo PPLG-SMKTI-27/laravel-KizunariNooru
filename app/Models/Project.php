@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Spatie\Translatable\HasTranslations;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    public $translatable = ['title', 'description', 'category', 'challenge', 'solution', 'result', 'features'];
 
     protected $fillable = [
         'title',

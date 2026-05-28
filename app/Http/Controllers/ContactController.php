@@ -23,7 +23,6 @@ class ContactController extends Controller
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
             'subject' => 'nullable|string|max:255',
-            'budget'  => 'nullable|string|max:255',
             'message' => 'required|string',
         ]);
 
@@ -61,7 +60,7 @@ class ContactController extends Controller
             $adminEmail = config('mail.from.address', env('MAIL_FROM_ADDRESS'));
             if ($adminEmail && $adminEmail !== 'hello@example.com') {
                 Mail::to($adminEmail)->send(new NewContactMessage($request->only(
-                    ['name', 'email', 'subject', 'budget', 'message']
+                    ['name', 'email', 'subject', 'message']
                 )));
             }
         } catch (\Exception $e) {

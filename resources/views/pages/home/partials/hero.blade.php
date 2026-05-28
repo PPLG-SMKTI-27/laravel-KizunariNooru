@@ -65,7 +65,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-success shadow-[0_0_10px_var(--color-success)]"></span>
                     </span>
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">{{ __($settings['hero_badge'] ?? 'Ready for Collaboration') }}</span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">{{ __('Ready for Collaboration') }}</span>
                 </div>
 
                 <div class="space-y-4 mb-8">
@@ -86,10 +86,10 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const textElement = document.getElementById('typewriter-text');
                     const phrases = [
-                        'Full-Stack Developer',
-                        'Laravel Specialist',
-                        'UI/UX Enthusiast',
-                        'Creative Web Architect'
+                        "{{ __('Full-Stack Developer') }}",
+                        "{{ __('Laravel Specialist') }}",
+                        "{{ __('UI/UX Enthusiast') }}",
+                        "{{ __('Creative Web Architect') }}"
                     ];
                     let phraseIndex = 0;
                     let characterIndex = 0;
@@ -126,7 +126,7 @@
                 </script>
 
                 <p class="gsap-reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10 mx-auto lg:mx-0 font-light">
-                    {{ __($settings['hero_bio'] ?? 'Crafting fluid digital solutions.') }}
+                    {{ __('Crafting fluid digital solutions with a blend of technical precision and aesthetic elegance.') }}
                 </p>
 
                 {{-- Action Buttons --}}
@@ -148,12 +148,22 @@
                 </div>
 
                 {{-- Micro Stats --}}
-                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-border/30 pt-8">
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-border/30 pt-8">
+                    @php
+                        $startYear = 2024; // Asumsi tahun mulai belajar IT
+                        $yearsExperience = max(1, date('Y') - $startYear);
+                        $dynamicExperienceStat = $yearsExperience . '+';
+
+                        $projectCount = \App\Models\Project::count();
+                        $dynamicProjectStat = $projectCount > 0 ? $projectCount . '+' : '1+';
+
+                        $skillCount = \App\Models\Skill::count();
+                        $dynamicSkillStat = $skillCount > 0 ? $skillCount . '+' : '5+';
+                    @endphp
                     @foreach([
-                        ['v'=> $settings['stat_1_value'] ?? '2+', 'l'=> $settings['stat_1_label'] ?? 'Years Experience'],
-                        ['v'=> $settings['stat_2_value'] ?? '3+', 'l'=> $settings['stat_2_label'] ?? 'Delivered Projects'],
-                        ['v'=> $settings['stat_3_value'] ?? '100%', 'l'=> $settings['stat_3_label'] ?? 'Client Satisfaction'],
-                        ['v'=> $settings['stat_4_value'] ?? '5+', 'l'=> $settings['stat_4_label'] ?? 'Technologies'],
+                        ['v'=> $dynamicExperienceStat, 'l'=> 'Years Experience'],
+                        ['v'=> $dynamicProjectStat, 'l'=> 'Delivered Projects'],
+                        ['v'=> $dynamicSkillStat, 'l'=> 'Technologies'],
                     ] as $s)
                     <div class="flex flex-col text-center lg:text-left group">
                         <span class="text-2xl font-bold font-display text-primary group-hover:scale-110 transition-transform duration-300 inline-block">{{ $s['v'] }}</span>
